@@ -9,20 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: oklch(0.975 0.008 80);
-      --bg-panel: oklch(0.955 0.012 75);
-      --bg-panel-2: oklch(0.935 0.014 72);
-      --ink: oklch(0.24 0.02 50);
-      --ink-soft: oklch(0.48 0.02 55);
-      --ink-faint: oklch(0.64 0.015 60);
-      --line: oklch(0.85 0.014 70);
-      --line-soft: oklch(0.90 0.010 72);
-      --accent: oklch(0.60 0.15 45);
-      --accent-deep: oklch(0.42 0.13 42);
-      --paper: oklch(0.99 0.004 80);
-      --tag-ops: oklch(0.52 0.09 220);
-      --tag-mkt: oklch(0.53 0.09 140);
-      --tag-copy: oklch(0.55 0.10 350);
+      --bg: oklch(0.975 0.006 240);
+      --bg-panel: oklch(0.955 0.008 240);
+      --bg-panel-2: oklch(0.935 0.010 240);
+      --ink: oklch(0.20 0.05 258);
+      --ink-soft: oklch(0.46 0.02 258);
+      --ink-faint: oklch(0.62 0.015 258);
+      --line: oklch(0.85 0.012 250);
+      --line-soft: oklch(0.90 0.008 250);
+      --accent: oklch(0.70 0.11 78);
+      --accent-deep: oklch(0.56 0.11 70);
+      --paper: oklch(0.99 0.004 240);
+      --tag-ops: oklch(0.58 0.09 200);
+      --tag-mkt: oklch(0.58 0.12 42);
+      --tag-copy: oklch(0.54 0.10 322);
+      --on-dark-soft: oklch(0.80 0.02 100);
+      --on-dark-faint: oklch(0.66 0.02 100);
       font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
     }
     *{ box-sizing: border-box; }
@@ -40,8 +42,8 @@
     .btn-outline{ background:transparent; color:var(--ink); border:1px solid var(--line); }
     .btn-outline:hover{ border-color:var(--ink); color:var(--ink); }
     .card{ background:var(--paper); border:1px solid var(--line); }
-    .navlink{ font-size:0.86rem; font-weight:500; color:var(--ink-soft); }
-    .navlink:hover{ color:var(--ink); }
+    .navlink{ font-size:0.86rem; font-weight:500; color:var(--on-dark-soft); }
+    .navlink:hover{ color:var(--paper); }
     ::selection{ background:var(--accent); color:var(--paper); }
     @media (max-width: 680px){
       [data-grid]{ grid-template-columns: 1fr !important; }
@@ -56,16 +58,16 @@
 <div style="background:var(--bg); min-height:100vh; overflow-x:hidden;">
 
   <!-- NAV -->
-  <nav style="position:sticky; top:0; z-index:50; background:oklch(0.975 0.008 80 / 0.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--line-soft);">
+  <nav style="position:sticky; top:0; z-index:50; background:oklch(0.20 0.05 258 / 0.92); backdrop-filter:blur(8px); border-bottom:1px solid oklch(1 0 0 / 0.12);">
     <div style="max-width:1160px; margin:0 auto; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;" data-section-pad>
-      <a href="#hero" style="font-family:'Newsreader',serif; font-size:1.15rem; font-weight:600; color:var(--ink);">Nathan Woo</a>
+      <a href="#hero" style="font-family:'Newsreader',serif; font-size:1.15rem; font-weight:600; color:var(--paper);">Nathan Woo</a>
       <div style="display:flex; align-items:center; gap:28px; flex-wrap:wrap;">
         <a class="navlink" href="#about">About</a>
         <a class="navlink" href="#experience">Experience</a>
         <a class="navlink" href="#work">Work</a>
         <a class="navlink" href="#skills">Skills</a>
         <a class="navlink" href="#contact">Contact</a>
-        <a href="Nathan_Woo_Resume.pdf" download class="btn btn-fill" style="padding:9px 18px; display:inline-flex; align-items:center; gap:6px;">
+        <a href="Nathan_Woo_Resume.pdf" download class="btn btn-fill" style="padding:9px 18px; display:inline-flex; align-items:center; gap:6px; background:var(--accent); border-color:var(--accent); color:var(--ink);">
           Résumé
         </a>
       </div>
@@ -73,33 +75,33 @@
   </nav>
 
   <!-- HERO -->
-  <section id="hero" style="position:relative; padding:88px 40px 64px;" data-section-pad>
-    <div style="position:absolute; inset:0; background-image:linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px); background-size:64px 64px; opacity:0.35; mask-image:linear-gradient(to bottom, black, transparent 85%); pointer-events:none;"></div>
+  <section id="hero" style="position:relative; padding:88px 40px 64px; background:var(--ink); color:var(--paper);" data-section-pad>
+    <div style="position:absolute; inset:0; background-image:linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px); background-size:64px 64px; opacity:0.16; mask-image:linear-gradient(to bottom, black, transparent 85%); pointer-events:none;"></div>
     <div style="max-width:1160px; margin:0 auto; position:relative;">
       <div style="display:flex; gap:56px; align-items:flex-start; flex-wrap:wrap;">
         <div style="flex:1 1 480px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
-          <p class="eyebrow">Kuala Lumpur, Malaysia — Open to Remote</p>
-          <h1 style="font-size:clamp(2.6rem, 5.4vw, 4.2rem); line-height:1.02;">Nathan Woo</h1>
-          <p style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(1.15rem, 2vw, 1.4rem); line-height:1.5; color:var(--ink-soft); max-width:640px;">
+          <p class="eyebrow" style="color:var(--on-dark-faint);">Kuala Lumpur, Malaysia — Open to Remote</p>
+          <h1 style="font-size:clamp(2.6rem, 5.4vw, 4.2rem); line-height:1.02; color:var(--paper);">Nathan Woo</h1>
+          <p style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(1.15rem, 2vw, 1.4rem); line-height:1.5; color:var(--on-dark-soft); max-width:640px;">
             I turn scattered data, messy workflows, and blank pages into clear systems and persuasive words — across operations, marketing, and copywriting.
           </p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); display:inline-flex; align-items:center; gap:7px;">
+            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
               <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-ops); display:inline-block;"></span>Operations
             </span>
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); display:inline-flex; align-items:center; gap:7px;">
+            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
               <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-mkt); display:inline-block;"></span>Marketing
             </span>
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); display:inline-flex; align-items:center; gap:7px;">
+            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
               <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-copy); display:inline-block;"></span>Copywriting
             </span>
           </div>
           <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:14px;">
-            <a href="#work" class="btn btn-fill" style="padding:13px 24px; display:inline-flex; align-items:center; gap:8px;">
+            <a href="#work" class="btn btn-fill" style="padding:13px 24px; display:inline-flex; align-items:center; gap:8px; background:var(--accent); border-color:var(--accent); color:var(--ink);">
               View my work
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
-            <a href="#contact" class="btn btn-outline" style="padding:13px 24px;">Get in touch</a>
+            <a href="#contact" class="btn btn-outline" style="padding:13px 24px; color:var(--paper); border-color:oklch(1 0 0 / 0.28);">Get in touch</a>
           </div>
         </div>
 
@@ -107,22 +109,22 @@
           <div style="width:260px; height:290px; border:1px solid var(--line); background:var(--paper); padding:10px;">
             <img src="headshot.jpg" alt="Nathan Woo" style="width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(12%);">
           </div>
-          <p class="mono" style="font-size:0.68rem; letter-spacing:0.06em; color:var(--ink-faint); text-transform:uppercase;">nathan.woork@gmail.com</p>
+          <p class="mono" style="font-size:0.68rem; letter-spacing:0.06em; color:var(--on-dark-faint); text-transform:uppercase;">nathan.woork@gmail.com</p>
         </div>
       </div>
 
-      <div data-hero-stats style="margin-top:72px; display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-        <div style="padding:24px 20px 24px 0; border-right:1px solid var(--line);">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--ink);">4+ yrs</p>
-          <p class="eyebrow" style="margin-top:4px;">Cross-functional experience</p>
+      <div data-hero-stats style="margin-top:72px; display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); border-top:1px solid oklch(1 0 0 / 0.14); border-bottom:1px solid oklch(1 0 0 / 0.14);">
+        <div style="padding:24px 20px 24px 0; border-right:1px solid oklch(1 0 0 / 0.14);">
+          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">4+ yrs</p>
+          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Cross-functional experience</p>
         </div>
-        <div style="padding:24px 20px; border-right:1px solid var(--line);">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--ink);">3 disciplines</p>
-          <p class="eyebrow" style="margin-top:4px;">Ops · Marketing · Copy</p>
+        <div style="padding:24px 20px; border-right:1px solid oklch(1 0 0 / 0.14);">
+          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">3 disciplines</p>
+          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Ops · Marketing · Copy</p>
         </div>
         <div style="padding:24px 0 24px 20px;">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--ink);">EN · 中文</p>
-          <p class="eyebrow" style="margin-top:4px;">Fluent English, proficient Mandarin</p>
+          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">EN · 中文</p>
+          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Fluent English, proficient Mandarin</p>
         </div>
       </div>
     </div>
@@ -164,7 +166,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Personal Assistant, Operations &amp; Executive Support</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.52 0.09 220 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">NW Group Corporate Advisory · On-site</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Automated recurring financial reporting with Google Sheets scripting and custom Python tools, replacing manual data handling with structured, repeatable workflows — and turned scattered updates into summaries a senior executive consultant could scan for status and priorities in seconds.</p>
@@ -176,7 +178,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Operations Analyst (Contract)</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.52 0.09 220 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Distinct Media · Remote</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Built standardized weekly and monthly reporting formats and validated data across multiple source systems — replacing manual processing with scripted, repeatable workflows and catching inconsistencies before they reached a decision.</p>
@@ -188,7 +190,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Account Strategist</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.53 0.09 140 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Next Level Media</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Owned day-to-day operations for client accounts, serving as the central point of contact between clients, KOLs, and internal teams — surfacing issues early enough for everyone to act on them.</p>
@@ -200,7 +202,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Marketing Strategist</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.53 0.09 140 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">BeStemReady</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Developed and presented sponsorship proposals on-site for a national robotics and AI-education event, contributing directly to partner funding, and ran social content promoting the competitions.</p>
@@ -212,7 +214,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Marketing Intern</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.53 0.09 140 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">ITG Malaysia · On-site</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Mined Apollo-based lead-generation and market research data to surface trends, then delivered campaign performance reports tailored in depth and language to each stakeholder — from analysts to executives.</p>
@@ -224,8 +226,8 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Freelance Marketing Officer</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.53 0.09 140 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.55 0.10 350 / 0.14); color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.54 0.10 322 / 0.14); color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Seeds Marketing</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Wrote ongoing social and digital marketing copy for e-commerce clients across Shopify, Lazada, and Shopee, adapting voice across brands — including bylined blog content published by Ajinomoto Malaysia and Vono Malaysia.</p>
@@ -237,7 +239,7 @@
           <div style="flex:1 1 500px; min-width:280px;">
             <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
               <h3 style="font-size:1.2rem; font-weight:600;">Administration Staff</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.52 0.09 220 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
+              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Midor Interior · On-site</p>
             <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Prepared tender documentation and maintained accounts and filing systems, keeping records accurate and audit-ready for commercial use.</p>
@@ -363,7 +365,7 @@
   <section id="contact" style="padding:110px 40px; background:var(--ink); color:var(--paper);" data-section-pad>
     <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
       <div style="flex:1 1 420px; min-width:280px;">
-        <p class="eyebrow" style="color:oklch(0.7 0.02 60);">06 / Contact</p>
+        <p class="eyebrow" style="color:var(--on-dark-faint);">06 / Contact</p>
         <h2 style="font-size:clamp(2rem, 4vw, 3rem); color:var(--paper); margin-top:14px; line-height:1.15;">Let's talk about what you need built or written.</h2>
       </div>
       <div style="flex:0 1 360px; display:flex; flex-direction:column; gap:18px;">
@@ -379,15 +381,15 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 10v6.5M7.5 7.5v.01M12 16.5V13c0-1.4 1-2.5 2.3-2.5S16.5 11.6 16.5 13v3.5M12 10v6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           linkedin.com/in/nathanwoork
         </a>
-        <a href="Nathan_Woo_Resume.pdf" download class="btn" style="margin-top:14px; padding:14px 24px; background:var(--paper); color:var(--ink); border:1px solid var(--paper); text-align:center;">Download Résumé (PDF)</a>
+        <a href="Nathan_Woo_Resume.pdf" download class="btn" style="margin-top:14px; padding:14px 24px; background:var(--accent); color:var(--ink); border:1px solid var(--accent); text-align:center;">Download Résumé (PDF)</a>
       </div>
     </div>
   </section>
 
   <footer style="padding:24px 40px; background:var(--ink);" data-section-pad>
     <div style="max-width:1160px; margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-      <p class="mono" style="font-size:0.7rem; color:oklch(0.55 0.02 60);">© 2026 Nathan Woo</p>
-      <p class="mono" style="font-size:0.7rem; color:oklch(0.55 0.02 60);">Built with care in Kuala Lumpur</p>
+      <p class="mono" style="font-size:0.7rem; color:oklch(0.50 0.02 258);">© 2026 Nathan Woo</p>
+      <p class="mono" style="font-size:0.7rem; color:oklch(0.50 0.02 258);">Built with care in Kuala Lumpur</p>
     </div>
   </footer>
 

@@ -42,6 +42,8 @@
     .btn-outline{ background:transparent; color:var(--ink); border:1px solid var(--line); }
     .btn-outline:hover{ border-color:var(--ink); color:var(--ink); }
     .card{ background:var(--paper); border:1px solid var(--line); }
+    .xbullet{ font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px; padding-left:15px; position:relative; margin:0; }
+    .xbullet::before{ content:"–"; position:absolute; left:0; color:var(--ink-faint); }
     .navlink{ font-size:0.86rem; font-weight:500; color:var(--on-dark-soft); }
     .navlink:hover{ color:var(--paper); }
     ::selection{ background:var(--accent); color:var(--paper); }
@@ -83,8 +85,9 @@
           <p class="eyebrow" style="color:var(--on-dark-faint);">Kuala Lumpur, Malaysia — Open to Remote</p>
           <h1 style="font-size:clamp(2.6rem, 5.4vw, 4.2rem); line-height:1.02; color:var(--paper);">Nathan Woo</h1>
           <p style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(1.15rem, 2vw, 1.4rem); line-height:1.5; color:var(--on-dark-soft); max-width:640px;">
-            I turn scattered data, messy workflows, and blank pages into clear systems and persuasive words — across operations, marketing, and copywriting.
+            I am a value creator; I dedicate my life towards building a co-existing community towards a brighter future, whether through words or through actions.
           </p>
+          <p class="mono" style="font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--on-dark-faint);">— Heriot-Watt Empowerment Program Life Motto</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
             <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
               <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-ops); display:inline-block;"></span>Operations
@@ -137,15 +140,16 @@
         <p class="eyebrow">01 / About</p>
       </div>
       <div style="flex:1 1 560px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
-        <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); max-width:640px; line-height:1.25;">Structure first. Then the story that makes people act on it.</h2>
+        <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); max-width:640px; line-height:1.25; margin-bottom:6px;">My own Cover Letter</h2>
+        <p style="font-family:'Newsreader',serif; font-style:italic; font-size:1.1rem; color:var(--ink-faint); max-width:640px;">An autobiography of my job experience and education</p>
         <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          I started in operations — automating financial reports, reconciling data across systems, and keeping executives ahead of deadlines instead of chasing them. Somewhere along the way I picked up a second habit: writing the words that make people act. Blog posts for Ajinomoto's Food Biz Partner. Social campaigns for Vono Malaysia, Truedan, and aminoVITAL. Branded video scripts for Great Eastern's insurance agents, written across English, Mandarin, and Malay.
+          I started by working on my own writing passions as a copy writer, having written blog posts, social media campaigns and branded video scripts for big names, such as Ajinomoto Malaysia, Vono, Truedan, Great Eastern Insurance as well as Freelance articles in diverse industries from B2B, F&amp;B, SEO, Government Grants as well as in Entertainment.
         </p>
         <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          The two turned out to be the same skill, pointed in different directions: take something messy — a spreadsheet, a scattered thread of updates, a blank page — and turn it into something clear enough that someone else can use it immediately.
+          After graduating with a Master's in International Business Management, I continued being in touch by working in operations, automating financial reports, reconciling data systems, report writing to executives as well as keeping them ahead of deadlines instead of chasing them from my experience as an Operations Analyst, an Account Strategist and as a Personal Assistant.
         </p>
         <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          I hold a Master's in International Business Management from Heriot-Watt University Malaysia, and I'm based in Kuala Lumpur — open to remote and hybrid roles.
+          Both turned out to be the same skill, just pointed in different directions: Taking Mess, such as a spreadsheet, scattered updates or a blank page and turning them into something clear enough that someone else can use to affect their decision making.
         </p>
       </div>
     </div>
@@ -169,7 +173,12 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">NW Group Corporate Advisory · On-site</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Automated recurring financial reporting with Google Sheets scripting and custom Python tools, replacing manual data handling with structured, repeatable workflows — and turned scattered updates into summaries a senior executive consultant could scan for status and priorities in seconds.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Kept a senior executive consultant ahead of every deadline, tracking concurrent project timelines, outstanding tasks, and stakeholder follow-ups across active workstreams.</p>
+              <p class="xbullet">Turned scattered updates into structured summaries the executive could scan for status and priorities in seconds, not meetings.</p>
+              <p class="xbullet">Built and maintained Google Workspace documentation — project records, research, meeting notes, presentation materials — keeping client-facing and internal work consistent.</p>
+              <p class="xbullet">Converted market and business research into concise, presentation-ready materials for senior management review, and managed calendars, meetings, and minutes to keep follow-through on track.</p>
+            </div>
           </div>
         </div>
 
@@ -181,7 +190,12 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Distinct Media · Remote</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Built standardized weekly and monthly reporting formats and validated data across multiple source systems — replacing manual processing with scripted, repeatable workflows and catching inconsistencies before they reached a decision.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Automated recurring financial reporting with Google Sheets scripting and custom Python tools, replacing manual data handling with structured, repeatable workflows.</p>
+              <p class="xbullet">Built standardized weekly and monthly reporting formats that gave stakeholders one consistent view of financial and operational performance.</p>
+              <p class="xbullet">Audited existing reporting processes to flag manual bottlenecks, then streamlined them through scripting and structured data-processing methods.</p>
+              <p class="xbullet">Validated and reconciled operational and financial datasets across multiple source systems, catching inconsistencies before they could affect a report or a decision.</p>
+            </div>
           </div>
         </div>
 
@@ -193,7 +207,12 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Next Level Media</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Owned day-to-day operations for client accounts, serving as the central point of contact between clients, KOLs, and internal teams — surfacing issues early enough for everyone to act on them.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Owned day-to-day operations for assigned client accounts, tracking campaign activity, deliverables, and deadlines to keep every project moving.</p>
+              <p class="xbullet">Served as the central point of contact between clients, KOLs, and internal teams, keeping deliverables and expectations aligned across every party.</p>
+              <p class="xbullet">Tracked account status in real time, surfacing issues early enough for clients and internal teams to act on them.</p>
+              <p class="xbullet">Summarized campaign progress and next actions for stakeholders, keeping execution aligned from kickoff to delivery.</p>
+            </div>
           </div>
         </div>
 
@@ -205,7 +224,11 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">BeStemReady</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Developed and presented sponsorship proposals on-site for a national robotics and AI-education event, contributing directly to partner funding, and ran social content promoting the competitions.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Developed and promoted social media content for robotics competitions, translating event details and milestones into clear audience-facing messages.</p>
+              <p class="xbullet">Created and presented sponsorship proposals on-site, contributing to partner engagement and company event-funding efforts.</p>
+              <p class="xbullet">Coordinated stakeholder follow-up and marketing deliverables, helping event communications stay aligned with delivery timelines.</p>
+            </div>
           </div>
         </div>
 
@@ -217,7 +240,12 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">ITG Malaysia · On-site</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Mined Apollo-based lead-generation and market research data to surface trends, then delivered campaign performance reports tailored in depth and language to each stakeholder — from analysts to executives.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Mined market research and Apollo-based lead-generation data to surface trends and unlock process improvements.</p>
+              <p class="xbullet">Delivered campaign performance reports tailored in depth and language to each stakeholder audience, from analysts to executives.</p>
+              <p class="xbullet">Maintained campaign databases and converted activity information into clear management reports, improving visibility into prospect and campaign progress.</p>
+              <p class="xbullet">Produced content and communication materials for exhibitions, events, and marketing initiatives supporting planned campaign activity.</p>
+            </div>
           </div>
         </div>
 
@@ -230,7 +258,12 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.54 0.10 322 / 0.14); color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Seeds Marketing</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Wrote ongoing social and digital marketing copy for e-commerce clients across Shopify, Lazada, and Shopee, adapting voice across brands — including bylined blog content published by Ajinomoto Malaysia and Vono Malaysia.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Wrote social media captions, blogs, and articles for client campaigns, with work published by Ajinomoto Malaysia and Vono Malaysia.</p>
+              <p class="xbullet">Adapted content structure, tone, and messaging so each asset matched the client brief, target audience, and publishing format.</p>
+              <p class="xbullet">Ran recurring e-commerce operations across Shopify, Lazada, and Shopee, keeping product and platform information accurate and consistent across every channel.</p>
+              <p class="xbullet">Kept client storefronts running smoothly — handling routine platform maintenance, data entry, and administrative upkeep — and resolved customer-support issues as they came up.</p>
+            </div>
           </div>
         </div>
 
@@ -242,7 +275,11 @@
               <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
             </div>
             <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Midor Interior · On-site</p>
-            <p style="font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px;">Prepared tender documentation and maintained accounts and filing systems, keeping records accurate and audit-ready for commercial use.</p>
+            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
+              <p class="xbullet">Prepared tender documentation and data entry, keeping records accurate and audit-ready for commercial use.</p>
+              <p class="xbullet">Maintained company accounts, filing systems, and sales documentation, supporting fast, reliable retrieval across teams.</p>
+              <p class="xbullet">Delivered flexible day-to-day administrative support, from document delivery to ad hoc operational requests, and shadowed the sales team to assist with documentation.</p>
+            </div>
           </div>
         </div>
 
@@ -366,7 +403,8 @@
     <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
       <div style="flex:1 1 420px; min-width:280px;">
         <p class="eyebrow" style="color:var(--on-dark-faint);">06 / Contact</p>
-        <h2 style="font-size:clamp(2rem, 4vw, 3rem); color:var(--paper); margin-top:14px; line-height:1.15;">Let's talk about what you need built or written.</h2>
+        <h2 style="font-size:clamp(2rem, 4vw, 3rem); color:var(--paper); margin-top:14px; line-height:1.15;">Reach out for any inquiry or career opportunity. I'm available 24/7/365.</h2>
+        <p class="mono" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-top:14px;">Amaze Amaze Amaze</p>
       </div>
       <div style="flex:0 1 360px; display:flex; flex-direction:column; gap:18px;">
         <a href="mailto:nathan.woork@gmail.com" style="display:flex; align-items:center; gap:12px; color:var(--paper); font-size:1.05rem; border-bottom:1px solid oklch(1 0 0 / 0.18); padding-bottom:14px;">

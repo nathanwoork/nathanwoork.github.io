@@ -59,6 +59,23 @@
     .pipe b{ font-family:'Newsreader',serif; font-weight:500; font-size:1.1rem; color:var(--paper); line-height:28px; }
     .pipe span{ font-size:0.86rem; color:var(--on-dark-soft); line-height:1.45; }
     @media (max-width: 680px){ .proj > a{ border-right:0 !important; border-bottom:1px solid var(--line); } }
+    .subhead{ display:flex; gap:24px; flex-wrap:wrap; align-items:baseline; margin-top:28px; padding-top:28px; border-top:1px solid var(--line); }
+    .subhead p:last-child{ font-size:0.95rem; color:var(--ink-soft); max-width:620px; line-height:1.6; }
+    .mini{ display:flex; flex-direction:column; }
+    .mini-img{ display:block; height:220px; overflow:hidden; border-bottom:1px solid var(--line); background:var(--bg-panel-2); }
+    .mini-img img{ width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
+    .mini-body{ padding:24px; display:flex; flex-direction:column; gap:12px; flex:1; }
+    .mini-body h3{ font-size:1.35rem; }
+    .mini-body p{ font-size:0.93rem; line-height:1.6; color:var(--ink-soft); }
+    .mini-links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:6px; }
+    .wip{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); background:var(--ink); color:var(--paper); border:1px solid var(--ink); margin-top:28px; }
+    .wip-main{ padding:32px; display:flex; flex-direction:column; gap:14px; }
+    .wip-main h3{ font-size:1.6rem; color:var(--paper); }
+    .wip-main p{ font-size:0.95rem; line-height:1.65; color:var(--on-dark-soft); }
+    .wip-main strong{ color:var(--paper); }
+    .wip-img{ display:block; overflow:hidden; border-left:1px solid oklch(1 0 0 / 0.12); }
+    .wip-img img{ width:100%; height:100%; min-height:260px; object-fit:cover; object-position:left top; display:block; }
+    @media (max-width: 680px){ .wip{ grid-template-columns:1fr; } .wip-img{ border-left:0; border-top:1px solid oklch(1 0 0 / 0.12); } .wip-img img{ min-height:0; max-height:240px; } }
     ::selection{ background:var(--accent); color:var(--paper); }
     @media (max-width: 680px){
       [data-grid]{ grid-template-columns: 1fr !important; }
@@ -380,7 +397,7 @@
         <div style="flex:0 0 200px;"><p class="eyebrow">04 / Sample Portfolio</p></div>
         <div style="flex:1 1 400px;">
           <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); margin-bottom:14px;">Things I've built</h2>
-          <p style="font-size:1rem; color:var(--ink-soft); max-width:600px; line-height:1.6;">Self-initiated projects where I set the scope, defined the metrics, and directed an AI-assisted build from idea to tested, working tool. Each one has a full case study.</p>
+          <p style="font-size:1rem; color:var(--ink-soft); max-width:600px; line-height:1.6;">Self-initiated projects where I set the scope, defined the metrics, and directed an AI-assisted build from idea to tested, working tool — from client-style prototypes to the dashboards I run my own week on. Each one has a full case study.</p>
         </div>
       </div>
 
@@ -441,6 +458,80 @@
             </div>
             <p class="mono" style="font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.04em;">nathanwoork.github.io/projects/solar-leads</p>
           </div>
+        </article>
+
+        <!-- Dashboards -->
+        <div class="subhead">
+          <p class="eyebrow">Two dashboards, two jobs</p>
+          <p>I run my own work on two dashboards built from a similar brief by two different AI tools — one keeps the status, the other keeps the record.</p>
+        </div>
+        <div data-grid style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:28px;">
+          <article class="card proj mini">
+            <a href="projects/command-centre/" class="mini-img" aria-label="Command Centre case study"><img src="projects/command-centre/overview.jpg" alt="Command Centre overview with reminders, daily brief and key numbers" loading="lazy"></a>
+            <div class="mini-body">
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Built with Claude</span>
+                <span class="mono pill">In daily use</span>
+              </div>
+              <h3>Command Centre</h3>
+              <p>The control room: every project's status, what's stuck, who I'm waiting on, and a written brief each morning on what to do next.</p>
+              <div class="mini-links">
+                <a href="projects/command-centre/" class="btn btn-fill" style="padding:10px 18px;">Case study</a>
+                <a href="projects/command-centre/demo/" class="btn btn-outline" style="padding:10px 18px;">Live demo ↗</a>
+              </div>
+            </div>
+          </article>
+          <article class="card proj mini">
+            <a href="projects/daybook/" class="mini-img" aria-label="Daybook case study"><img src="projects/daybook/daily-log.jpg" alt="Daybook daily log with today's note, a local brief and a copy-handover button" loading="lazy"></a>
+            <div class="mini-body">
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+                <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Built with ChatGPT</span>
+                <span class="mono pill">In daily use</span>
+              </div>
+              <h3>Daybook</h3>
+              <p>The documentation specialist: a daily log, a searchable file index and ready-to-share project handovers — with zero routine AI cost.</p>
+              <div class="mini-links">
+                <a href="projects/daybook/" class="btn btn-fill" style="padding:10px 18px;">Case study</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- NeatRelay: work in progress + open for work -->
+        <article class="wip">
+          <div class="wip-main">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <span class="mono" style="font-size:0.68rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.06em;">Operations · Dashboards for businesses</span>
+              <span class="mono pill pill-wip">Work in progress</span>
+            </div>
+            <h3>NeatRelay</h3>
+            <p>A studio I'm building to set up dashboards and link up the day-to-day operations of small businesses — enquiries, approvals, task boards and reporting — so the owner stops chasing every next step.</p>
+            <p>It's early: the offer, templates and websites are done, and I'm now looking for first projects. <strong>I'm very happy to take on work</strong> — building a new dashboard, improving one someone else made, or connecting the tools a team already uses.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+              <a href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project" class="btn btn-fill" style="padding:11px 20px; background:var(--accent); border-color:var(--accent); color:var(--ink);">Work with me</a>
+              <a href="projects/neatrelay/" class="btn btn-outline" style="padding:11px 20px; color:var(--paper); border-color:oklch(1 0 0 / 0.3);">See where it's at →</a>
+            </div>
+          </div>
+          <a href="projects/neatrelay/" class="wip-img" aria-label="NeatRelay case study"><img src="projects/neatrelay/service.jpg" alt="NeatRelay service website: 'Good work deserves a clear next step'" loading="lazy"></a>
+        </article>
+
+        <!-- Daymark -->
+        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);" data-grid>
+          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <span class="mono" style="font-size:0.68rem; color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Product · Mobile app</span>
+              <span class="mono pill">Finished · try it</span>
+            </div>
+            <h3 style="font-size:1.5rem;">Daymark — Habit Heatmap</h3>
+            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">An offline habit tracker that turns small daily effort into a heatmap. Archived after the basics were done — and still free to use in your browser, on phone or desktop.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
+              <a href="projects/daymark/app/" class="btn btn-fill" style="padding:11px 20px;">Open the app ↗</a>
+              <a href="projects/daymark/" class="btn btn-outline" style="padding:11px 20px;">Case study</a>
+            </div>
+          </div>
+          <a href="projects/daymark/" style="display:block; background:oklch(0.20 0.02 280); border-left:1px solid var(--line); overflow:hidden;" aria-label="Daymark case study">
+            <img src="projects/daymark/screens.jpg" alt="Daymark Today and Progress screens with habit heatmaps" loading="lazy" style="width:100%; height:100%; max-height:360px; object-fit:cover; object-position:top; display:block;">
+          </a>
         </article>
 
       </div>

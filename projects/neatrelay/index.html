@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeatRelay — Nathan Woo</title>
+  <meta name="description" content="NeatRelay: a work-in-progress studio for dashboards and operations workflows for small businesses. Open to projects. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+  <style>
+    .hire{ background:var(--paper); border:1px solid var(--accent); padding:26px; margin-top:22px; }
+    .hire h3{ font-size:1.3rem; margin-bottom:10px; }
+    .stage{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:18px; }
+    .stage div{ background:var(--paper); padding:16px; display:flex; flex-direction:column; gap:6px; }
+    .stage .k{ font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; }
+    .stage .done{ color:oklch(0.42 0.09 160); } .stage .now{ color:var(--accent-deep); } .stage .later{ color:var(--ink-faint); }
+    .stage p{ font-size:0.88rem !important; line-height:1.5 !important; }
+    @media (max-width:720px){ .stage{ grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Work in progress</p>
+    <h1>NeatRelay</h1>
+    <p class="lede">A small studio I'm building to set up dashboards and connect the day-to-day operations of small businesses — so the owner stops being the team's reminder system.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Founder — offer, process design, delivery</dd></div>
+      <div><dt>Status</dt><dd><span class="pill pill-wip">Work in progress · open to projects</span></dd></div>
+      <div><dt>Tools</dt><dd>Google Sheets, Apps Script, Trello, low-code automation</dd></div>
+      <div><dt>Live pages</dt><dd><a href="https://nathanwoork.github.io/NeatRelay-Service/" style="color:var(--accent);">Service site ↗</a> · <a href="https://nathanwoork.github.io/NeatRelay/" style="color:var(--accent);">Workspace ↗</a></dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The idea</p>
+      <div>
+        <h2>Good work deserves a clear next step</h2>
+        <p>In many small teams, enquiries arrive on WhatsApp, approvals sit in email, numbers live in five spreadsheets, and nobody's sure who does what next. The owner ends up chasing everyone.</p>
+        <p>NeatRelay fixes <strong>one process at a time</strong>: map how work actually flows, then set up the smallest system the team can run themselves — a dashboard that shows the numbers that matter, a board that shows who owns what, and simple reminders so nothing slips.</p>
+        <figure class="shot">
+          <img src="service.jpg" alt="NeatRelay service website home page: 'Good work deserves a clear next step', with an illustrated handoff from approved proposal to assigned owner" loading="lazy">
+          <figcaption>The NeatRelay service site (preview).</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Where it is</p>
+      <div>
+        <h2>Honest status: early, and building in public</h2>
+        <p>NeatRelay has no paying clients yet. Here's exactly how far it has got:</p>
+        <div class="stage">
+          <div><span class="k done">Done</span><b>Offer &amp; brand</b><p>Positioning, three service shapes, proposal and onboarding templates.</p></div>
+          <div><span class="k done">Done</span><b>Websites</b><p>A service site with a sample client walkthrough, and a planning workspace.</p></div>
+          <div><span class="k now">Now</span><b>Practice builds</b><p>Building a demo studio workflow on fictional data, end to end.</p></div>
+          <div><span class="k later">Next</span><b>First pilot</b><p>One small, real project with a business willing to try it.</p></div>
+        </div>
+        <figure class="shot">
+          <img src="workspace.jpg" alt="NeatRelay operations workspace showing the 30-day plan, task counts and progress" loading="lazy">
+          <figcaption>The operations workspace I use to run the build-out: plan, board, services, learning.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="work-with-me">
+    <div class="wrap grid2">
+      <p class="eyebrow">Work with me</p>
+      <div>
+        <h2>I'm happy to take on work now</h2>
+        <p>Because NeatRelay is early, I'm actively looking for first projects — and I'm glad to start small. I can help if you need:</p>
+        <ul class="dash">
+          <li><strong>A dashboard built:</strong> sales, ad spend, campaign or operations numbers pulled into one Google Sheets or Looker Studio view, with a short guide on how to read it.</li>
+          <li><strong>An existing dashboard improved:</strong> I'll work on dashboards other people built — clean up the data, fix broken formulas, add the metrics that are missing, or make it readable for the people who use it.</li>
+          <li><strong>Operations linked up:</strong> enquiry forms, task boards, spreadsheets and reminders connected so work moves from one step to the next without someone chasing it.</li>
+          <li><strong>A process written down:</strong> a clear map and checklist of how a job gets done, so it can be handed to someone new.</li>
+        </ul>
+        <div class="hire">
+          <h3>Tell me what's messy.</h3>
+          <p>Send a short note about your team, the tools you use and what keeps slipping. I'll reply with how I'd approach it and what a small first step could look like.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
+            <a class="btn" href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project">Email me about a project</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/nathanwoork/">Message on LinkedIn</a>
+          </div>
+        </div>
+        <div class="tags" style="margin-top:22px;">
+          <span>Process mapping</span><span>Dashboard setup</span><span>Workflow automation</span><span>Client onboarding</span><span>Proposal writing</span><span>Service design</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">See the kind of dashboards I build</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Command Centre — live demo</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="../../#projects">All projects</a>
+      <a class="btn" href="../command-centre/">Read next →</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

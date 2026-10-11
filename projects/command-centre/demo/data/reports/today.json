@@ -1,0 +1,56 @@
+{
+ "date": "{{D+0}}",
+ "updatedAt": "{{NOW}}",
+ "headline": "Nothing is overdue. The caf\u00e9 dashboard is waiting on the client's POS export (follow up in 2 days), so spend today on the report validation step \u2014 it unblocks the scheduled run.",
+ "focus": [
+  {
+   "title": "Add validation to the weekly report script",
+   "project": "report-auto",
+   "why": "In progress since yesterday; it blocks the Monday scheduled run."
+  },
+  {
+   "title": "Reconcile last month's caf\u00e9 totals",
+   "project": "client-dash",
+   "why": "Can start with the partial export already received."
+  },
+  {
+   "title": "Decide who receives the weekly email",
+   "project": "report-auto",
+   "why": "A two-minute decision only you can make."
+  }
+ ],
+ "reminders": [
+  "In 2 days: follow up with Sample Client on the POS export.",
+  "In 5 days: draft the portfolio results strip."
+ ],
+ "waitingOnYou": [
+  "Choose recipients for the weekly report email.",
+  "Pick a public GA4 dataset for the SQL project."
+ ],
+ "watch": [
+  "Lead research tool has been on hold 10 days \u2014 still intentional?",
+  "Four current projects; keep the client dashboard as the main push."
+ ],
+ "changes": [
+  "Portfolio: Projects section published.",
+  "Report automation: script v1 marked done."
+ ],
+ "projects": [
+  {
+   "name": "Demo: caf\u00e9 sales dashboard",
+   "line": "Waiting on POS export; draft dashboard ready."
+  },
+  {
+   "name": "Weekly report automation",
+   "line": "Validation step in progress."
+  },
+  {
+   "name": "Portfolio website",
+   "line": "Results strip next."
+  },
+  {
+   "name": "Learn SQL & GA4",
+   "line": "Window functions."
+  }
+ ]
+}

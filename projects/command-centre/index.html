@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Command Centre — Nathan Woo</title>
+  <meta name="description" content="Case study: a day-to-day command centre that keeps every project's status, next step and blockers in one view. Built with Claude. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Dashboards · Built with Claude</p>
+    <h1>Command Centre</h1>
+    <p class="lede">A day-to-day dashboard that answers one question every morning: what's going on, what's stuck, and what should I do next? It isn't a filing cabinet — it's the control room.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Owner and daily user — brief, layout, rules, review</dd></div>
+      <div><dt>Status</dt><dd><span class="pill">In daily use</span></dd></div>
+      <div><dt>Built with</dt><dd>HTML/JS, Python, PowerShell; AI-assisted (Claude)</dd></div>
+      <div><dt>Try it</dt><dd><a href="demo/" style="color:var(--accent);">Live demo with sample data →</a></dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The problem</p>
+      <div>
+        <h2>Too many projects, no single view</h2>
+        <p>With several projects running at once — job search, side ventures, client-style work — the status of each one lived in a different chat, folder or note. Every morning started with re-reading everything to work out where things stood.</p>
+        <p>I wanted <strong>one screen that tells me the state of everything</strong>, and one clear next step, before I open anything else.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">How it works</p>
+      <div>
+        <h2>Status first, details on demand</h2>
+        <ul class="dash">
+          <li><strong>Today's brief:</strong> a short written summary at 9am — what to tackle next, reminders, what's waiting on me, what to keep an eye on.</li>
+          <li><strong>Key numbers:</strong> current projects, open tasks, high-priority items and anything that needs attention (idle for 14+ days, blocked, or unsaved).</li>
+          <li><strong>Up next:</strong> the top tasks across every project, sorted by priority, with "Needs you" flags for decisions only I can make.</li>
+          <li><strong>Project board:</strong> every project sorted into Current, Might pursue, On hold, Finished and an "Idea Graveyard", each with a progress bar from its milestones.</li>
+          <li><strong>Waiting on:</strong> who each project is waiting for, and the follow-up date — which becomes a reminder a week ahead.</li>
+        </ul>
+        <figure class="shot">
+          <img src="overview.jpg" alt="Command Centre overview: reminders strip, today's brief with next steps, and key-number tiles" loading="lazy">
+          <figcaption>Overview: reminders, the daily brief and key numbers. Fictional sample data.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="board.jpg" alt="Up-next task list, needs-attention panel and the project board grouped by lifecycle lane" loading="lazy">
+          <figcaption>Up next, needs attention and the project board.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Design choices</p>
+      <div>
+        <h2>Built to be trusted, not just looked at</h2>
+        <div class="cols">
+          <div>
+            <h3>Private by default</h3>
+            <p>Runs on my own PC. Real projects and tasks stay in a local folder that's never uploaded; only the empty scaffolding is on GitHub.</p>
+          </div>
+          <div>
+            <h3>Safe saving</h3>
+            <p>The local server can only write two files (tasks and profile), checks where each request comes from, and refuses everything else.</p>
+          </div>
+          <div>
+            <h3>Hands-off upkeep</h3>
+            <p>A background helper restarts the dashboard if it stops and refreshes the project handover every 10 minutes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Two takes</p>
+      <div>
+        <h2>Same brief, two AI build teams</h2>
+        <p>I gave a similar brief to two AI tools and kept both. The Claude build became this <strong>command centre</strong>: live status and next steps. The ChatGPT build became <a href="../daybook/">Daybook</a>, a <strong>record keeper</strong> for documentation, handovers and files. Comparing them taught me where each tool is strong — and how to write a brief that gets the result you actually need.</p>
+        <div class="tags">
+          <span>Dashboard design</span><span>KPI selection</span><span>Prioritisation logic</span><span>Information architecture</span><span>Data privacy</span><span>Directing AI tools</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">See it working</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Open the live demo — click around, tick tasks off.</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="../daybook/">Compare: Daybook</a>
+      <a class="btn" href="demo/">Open the demo →</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

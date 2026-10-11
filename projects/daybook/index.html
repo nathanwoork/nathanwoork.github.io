@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daybook — Nathan Woo</title>
+  <meta name="description" content="Case study: Daybook, a private workspace that keeps the written record — daily log, handovers, file index and change history. Built with ChatGPT. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+  <style>
+    pre.handover{ margin:18px 0 0; background:var(--ink); color:var(--on-dark-soft); padding:20px 22px; font-family:'IBM Plex Mono',monospace; font-size:0.8rem; line-height:1.65; overflow-x:auto; border:1px solid var(--line); white-space:pre; }
+    pre.handover b{ color:var(--paper); font-weight:500; }
+  </style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Dashboards · Built with ChatGPT</p>
+    <h1>Daybook</h1>
+    <p class="lede">The documentation specialist of my workspace: it keeps the written record — what happened today, where every file is, and a handover anyone can pick up — without spending a single AI call to do it.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Owner and daily user — brief, rules, testing</dd></div>
+      <div><dt>Status</dt><dd><span class="pill">In daily use</span></dd></div>
+      <div><dt>Built with</dt><dd>Node.js (no packages), HTML/JS; AI-assisted (ChatGPT)</dd></div>
+      <div><dt>Quality</dt><dd>19 automated tests passing</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The problem</p>
+      <div>
+        <h2>Work gets done; the record gets lost</h2>
+        <p>Decisions end up in chat threads, files pile up across folders, and every time I asked an AI assistant for help I had to re-explain the whole project. The context was the expensive part — and it disappeared at the end of each day.</p>
+        <p>I wanted a workspace whose main job is <strong>keeping the record straight</strong>: written down, findable and ready to hand over.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">What it keeps</p>
+      <div>
+        <h2>Four kinds of record</h2>
+        <ul class="dash">
+          <li><strong>Daily log:</strong> one note per day — small wins, context, where to pick up — plus an automatic list of every change made in the workspace.</li>
+          <li><strong>File index:</strong> a searchable list of every file in each project folder, labelled by type, with a copy-path button. It reads file names and dates, never file contents.</li>
+          <li><strong>Handover:</strong> a short, structured summary of each project — next step, milestones, who it's waiting on, open tasks — ready to paste into an AI assistant or give to a colleague.</li>
+          <li><strong>History:</strong> every save keeps a backup (the last 20 versions), and two open windows can't silently overwrite each other.</li>
+        </ul>
+        <figure class="shot">
+          <img src="daily-log.jpg" alt="Daybook daily log: today's note, a rule-based local brief with a copy-handover button, and workspace activity" loading="lazy">
+          <figcaption>Daily log: today's note, the local brief and a one-click handover. Fictional sample data.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="files.jpg" alt="Daybook file index listing project documents with type labels and search filters" loading="lazy">
+          <figcaption>File index: every project document, searchable and labelled.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">A real output</p>
+      <div>
+        <h2>The handover, as generated</h2>
+        <p>This is what Daybook produces for one project (sample data). Note the first line: a file changing on disk is never treated as proof that work is done.</p>
+<pre class="handover"><b># Daybook handover</b>
+
+Recorded plans and observed file activity are separate.
+Never infer completion from a file change.
+
+<b>## Weekly report automation (building)</b>
+Apps Script that compiles ad spend and sales into one weekly
+summary instead of copying by hand.
+Next: Add the data-validation step before the summary is emailed.
+Milestones: 2/4 recorded complete
+Open tasks:
+- [doing]   Add validation: flag rows where spend is blank or negative
+- [todo]    Decide who receives the weekly email
+- [blocked] Schedule the Monday 8am run</pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Today view</p>
+      <div>
+        <h2>Calm by design</h2>
+        <p>The front page shows only three focus steps, upcoming dates and each project's next step. Everything else sits one click away.</p>
+        <figure class="shot">
+          <img src="today.jpg" alt="Daybook today view with three focus steps, upcoming dates and projects in motion" loading="lazy">
+          <figcaption>Today: three focus steps, what's on the horizon, and projects in motion.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Two takes</p>
+      <div>
+        <h2>The record keeper next to the command centre</h2>
+        <p>Daybook was built with ChatGPT as an alternative to my Claude-built <a href="../command-centre/">Command Centre</a>, and I wrote up a side-by-side comparison of the two. The Command Centre is better at live status and a written morning brief; Daybook is better at documentation, file finding and running with <strong>zero routine AI cost</strong>. I use each for what it does best.</p>
+        <div class="tags">
+          <span>Documentation</span><span>Knowledge handover</span><span>Information management</span><span>Change history</span><span>Cost control</span><span>Tool evaluation</span>
+        </div>
+        <p style="margin-top:18px;">Daybook runs on my own computer, so there's no public demo; source is available on request.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Compare</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Command Centre — the Claude build</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="../../#projects">All projects</a>
+      <a class="btn" href="../command-centre/">Read next →</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

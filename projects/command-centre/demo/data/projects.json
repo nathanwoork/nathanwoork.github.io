@@ -1,0 +1,304 @@
+{
+ "_readme": "DEMO projects (fictional).",
+ "updated": "{{D+0}}",
+ "projects": [
+  {
+   "id": "client-dash",
+   "name": "Demo: café sales dashboard",
+   "summary": "Weekly sales, best sellers and promo performance for a sample café, built in Google Sheets + Looker Studio.",
+   "status": "building",
+   "priority": "high",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-1}}",
+   "tech": [
+    "Google Sheets",
+    "Looker Studio"
+   ],
+   "tags": [
+    "Client",
+    "Dashboard"
+   ],
+   "milestones": [
+    {
+     "title": "Brief agreed",
+     "done": true
+    },
+    {
+     "title": "Data sources mapped",
+     "done": true
+    },
+    {
+     "title": "First dashboard draft",
+     "done": true
+    },
+    {
+     "title": "Client review",
+     "done": false
+    },
+    {
+     "title": "Handover guide",
+     "done": false
+    }
+   ],
+   "connections": [
+    {
+     "name": "Google Sheets",
+     "state": "live",
+     "note": "Master sheet"
+    },
+    {
+     "name": "Looker Studio",
+     "state": "live",
+     "note": "Dashboard"
+    },
+    {
+     "name": "POS export",
+     "state": "planned",
+     "note": "CSV weekly"
+    }
+   ],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "nextAction": "Connect the POS export and check last month's totals reconcile.",
+   "waitingOn": {
+    "who": "Sample Client",
+    "about": "last month's POS export",
+    "followUp": "{{D+2}}",
+    "note": "Asked on Monday."
+   }
+  },
+  {
+   "id": "report-auto",
+   "name": "Weekly report automation",
+   "summary": "Apps Script that compiles ad spend and sales into one weekly summary instead of copying by hand.",
+   "status": "building",
+   "priority": "high",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D+0}}",
+   "tech": [
+    "Apps Script",
+    "Google Sheets"
+   ],
+   "tags": [
+    "Automation"
+   ],
+   "milestones": [
+    {
+     "title": "Manual process documented",
+     "done": true
+    },
+    {
+     "title": "Script v1",
+     "done": true
+    },
+    {
+     "title": "Validation checks",
+     "done": false
+    },
+    {
+     "title": "Scheduled run",
+     "done": false
+    }
+   ],
+   "connections": [
+    {
+     "name": "Gmail",
+     "state": "planned",
+     "note": "Send summary"
+    }
+   ],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "nextAction": "Add the data-validation step before the summary is emailed."
+  },
+  {
+   "id": "portfolio",
+   "name": "Portfolio website",
+   "summary": "Personal site with case studies; hosted on GitHub Pages.",
+   "status": "building",
+   "priority": "med",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-3}}",
+   "tech": [
+    "HTML",
+    "CSS"
+   ],
+   "tags": [
+    "Career"
+   ],
+   "milestones": [
+    {
+     "title": "Design",
+     "done": true
+    },
+    {
+     "title": "Case studies",
+     "done": true
+    },
+    {
+     "title": "Results strip",
+     "done": false
+    }
+   ],
+   "connections": [],
+   "links": [
+    {
+     "label": "Live site",
+     "url": "https://nathanwoork.github.io/"
+    }
+   ],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "nextAction": "Add the results strip to the homepage."
+  },
+  {
+   "id": "sql-study",
+   "name": "Learn SQL & GA4",
+   "summary": "Study plan towards marketing data analyst roles.",
+   "status": "planning",
+   "priority": "med",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-5}}",
+   "tech": [
+    "SQL",
+    "GA4"
+   ],
+   "tags": [
+    "Learning"
+   ],
+   "milestones": [
+    {
+     "title": "Basics",
+     "done": true
+    },
+    {
+     "title": "Joins",
+     "done": true
+    },
+    {
+     "title": "Window functions",
+     "done": false
+    },
+    {
+     "title": "GA4 sample dataset project",
+     "done": false
+    }
+   ],
+   "connections": [],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "nextAction": "Finish the window-functions exercise set."
+  },
+  {
+   "id": "lead-tool",
+   "name": "Lead research tool",
+   "summary": "Python pipeline that finds and verifies B2B prospects.",
+   "status": "on-hold",
+   "priority": "low",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-16}}",
+   "tech": [
+    "Python",
+    "SQLite"
+   ],
+   "tags": [
+    "Tool"
+   ],
+   "milestones": [],
+   "connections": [],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "holdReason": "Paused while the interface is redesigned.",
+   "heldSince": "{{D-10}}"
+  },
+  {
+   "id": "newsletter",
+   "name": "Monthly ops newsletter",
+   "summary": "Short email on small-business operations tips.",
+   "status": "might-pursue",
+   "priority": "low",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-30}}",
+   "tech": [],
+   "tags": [
+    "Idea"
+   ],
+   "milestones": [],
+   "connections": [],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "mightNote": "Worth testing once the portfolio is done."
+  },
+  {
+   "id": "habit-app",
+   "name": "Habit tracker app",
+   "summary": "Offline habit heatmap; usable on the web.",
+   "status": "finished",
+   "priority": "low",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-25}}",
+   "tech": [
+    "React Native",
+    "Expo"
+   ],
+   "tags": [
+    "App"
+   ],
+   "milestones": [
+    {
+     "title": "MVP",
+     "done": true
+    },
+    {
+     "title": "Web version",
+     "done": true
+    }
+   ],
+   "connections": [],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": []
+  },
+  {
+   "id": "old-idea",
+   "name": "Shop inventory bot",
+   "summary": "Chat bot for stock checks.",
+   "status": "graveyard",
+   "priority": "low",
+   "github": "",
+   "folder": "",
+   "lastTouched": "{{D-60}}",
+   "tech": [],
+   "tags": [],
+   "milestones": [],
+   "connections": [],
+   "links": [],
+   "handover": "",
+   "readFirst": [],
+   "skip": [],
+   "buried": {
+    "date": "{{D-40}}",
+    "reason": "Off-the-shelf tools already do this well."
+   }
+  }
+ ]
+}

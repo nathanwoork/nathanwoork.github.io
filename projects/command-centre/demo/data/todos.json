@@ -1,0 +1,111 @@
+{
+ "_readme": "DEMO tasks (fictional).",
+ "updated": "{{D+0}}",
+ "tasks": [
+  {
+   "id": "c1",
+   "project": "client-dash",
+   "title": "Follow up on the POS export",
+   "priority": "high",
+   "status": "todo",
+   "source": "demo",
+   "needsMe": true,
+   "due": "{{D+2}}",
+   "reminder": true
+  },
+  {
+   "id": "c2",
+   "project": "client-dash",
+   "title": "Reconcile last month's totals against the POS report",
+   "priority": "high",
+   "status": "todo",
+   "source": "demo"
+  },
+  {
+   "id": "c3",
+   "project": "client-dash",
+   "title": "Write a one-page 'how to read this dashboard' guide",
+   "priority": "med",
+   "status": "todo",
+   "source": "demo"
+  },
+  {
+   "id": "c4",
+   "project": "client-dash",
+   "title": "Map data sources and owners",
+   "priority": "high",
+   "status": "done",
+   "source": "demo",
+   "doneAt": "{{D-4}}"
+  },
+  {
+   "id": "r1",
+   "project": "report-auto",
+   "title": "Add validation: flag rows where spend is blank or negative",
+   "priority": "high",
+   "status": "doing",
+   "source": "demo"
+  },
+  {
+   "id": "r2",
+   "project": "report-auto",
+   "title": "Decide who receives the weekly email",
+   "priority": "med",
+   "status": "todo",
+   "source": "demo",
+   "needsMe": true
+  },
+  {
+   "id": "r3",
+   "project": "report-auto",
+   "title": "Schedule the Monday 8am run",
+   "priority": "med",
+   "status": "blocked",
+   "source": "demo"
+  },
+  {
+   "id": "p1",
+   "project": "portfolio",
+   "title": "Draft the results strip numbers",
+   "priority": "med",
+   "status": "todo",
+   "source": "demo",
+   "due": "{{D+5}}",
+   "reminder": true
+  },
+  {
+   "id": "p2",
+   "project": "portfolio",
+   "title": "Proofread the case studies",
+   "priority": "low",
+   "status": "todo",
+   "source": "demo"
+  },
+  {
+   "id": "s1",
+   "project": "sql-study",
+   "title": "Window functions: exercises 6–10",
+   "priority": "med",
+   "status": "todo",
+   "source": "demo"
+  },
+  {
+   "id": "s2",
+   "project": "sql-study",
+   "title": "Pick a public GA4 dataset for the project",
+   "priority": "low",
+   "status": "todo",
+   "source": "demo",
+   "needsMe": true
+  },
+  {
+   "id": "p3",
+   "project": "portfolio",
+   "title": "Publish the Projects section",
+   "priority": "high",
+   "status": "done",
+   "source": "demo",
+   "doneAt": "{{D-1}}"
+  }
+ ]
+}

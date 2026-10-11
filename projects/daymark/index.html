@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daymark Habit Heatmap — Nathan Woo</title>
+  <meta name="description" content="Daymark: an offline habit tracker with a heatmap of your progress. Finished, archived, and free to use in your browser. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+  <style>.phone{ max-width:820px; }</style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Finished</p>
+    <h1>Daymark — Habit Heatmap</h1>
+    <p class="lede">A quiet habit tracker: log a habit in seconds and watch your progress fill in, one square at a time. Finished and archived — and free to use right now in your browser.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Owner — product brief, design direction, testing</dd></div>
+      <div><dt>Status</dt><dd><span class="pill">Finished · archived · usable</span></dd></div>
+      <div><dt>Built with</dt><dd>React Native + Expo, TypeScript; AI-assisted</dd></div>
+      <div><dt>Try it</dt><dd><a href="app/" style="color:var(--accent);">Open the app →</a></dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">What it does</p>
+      <div>
+        <h2>Small effort, made visible</h2>
+        <ul class="dash">
+          <li>Track a habit as a simple check-in, or as time spent against a daily goal.</li>
+          <li>Pick the days it's scheduled; unscheduled days never break a streak.</li>
+          <li>A heatmap of the last 12 weeks, 6 months or a year — partial sessions show as lighter squares.</li>
+          <li>Light, dark and four colour themes, larger text and reduced-motion options.</li>
+          <li>No account, no ads, no tracking. Your data stays on your device.</li>
+        </ul>
+        <figure class="shot phone">
+          <img src="screens.jpg" alt="Daymark on a phone: the Today screen with a 12-week heatmap, and the Progress screen with a larger heatmap" loading="lazy">
+          <figcaption>Today and Progress screens. Sample habits, entered for this screenshot.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Why it's finished</p>
+      <div>
+        <h2>Done means the basics work</h2>
+        <p>The goal was a working habit tracker, and it got there: create a habit, log it, see the heatmap, close the app and find everything still there. 15 automated tests cover the tricky parts — calendar dates, leap years, streaks on selected weekdays and data that can't be silently lost.</p>
+        <p>I stopped before the Google Play release (store fees, plus testing the app and its Android home-screen widget on real phones) to focus on other work, so it's archived rather than abandoned. The web version below is the full app.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Use it</p>
+      <div>
+        <h2>Open it on your phone or computer</h2>
+        <ul class="dash">
+          <li>Open <a href="app/">nathanwoork.github.io/projects/daymark/app</a>.</li>
+          <li>On a phone, use your browser's "Add to Home screen" to keep it like an app.</li>
+          <li>Habits are saved in that browser only — clearing site data will remove them.</li>
+        </ul>
+        <div style="margin-top:22px;"><a class="btn" href="app/">Open Daymark →</a></div>
+        <div class="tags" style="margin-top:22px;">
+          <span>Product scoping</span><span>Mobile UX</span><span>Accessibility</span><span>Testing</span><span>Knowing when to ship</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Back to</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">All projects</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn" href="../../#projects">All projects</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

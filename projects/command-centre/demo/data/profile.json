@@ -1,0 +1,74 @@
+{
+ "_readme": "DEMO profile.",
+ "name": "Nathan",
+ "headline": "Operations and marketing analyst who builds the systems teams run on.",
+ "updated": "{{D-3}}",
+ "confidence": "Demo data.",
+ "summary": "Turning scattered updates into dashboards, reports and checklists people actually use.",
+ "interests": [
+  {
+   "name": "Dashboards & reporting",
+   "level": 5,
+   "trend": "rising",
+   "evidence": [
+    "client-dash",
+    "report-auto"
+   ],
+   "note": ""
+  },
+  {
+   "name": "Automation",
+   "level": 4,
+   "trend": "steady",
+   "evidence": [
+    "report-auto"
+   ],
+   "note": ""
+  },
+  {
+   "name": "Data analysis",
+   "level": 4,
+   "trend": "rising",
+   "evidence": [
+    "sql-study"
+   ],
+   "note": ""
+  }
+ ],
+ "directions": [
+  {
+   "title": "Marketing data analyst role",
+   "horizon": "now",
+   "status": "active",
+   "why": "Closest match to recent work."
+  },
+  {
+   "title": "Dashboards for small businesses",
+   "horizon": "next",
+   "status": "active",
+   "why": "Real demand, builds the portfolio."
+  }
+ ],
+ "style": [
+  "Writes things down",
+  "Prefers one clear next step"
+ ],
+ "values": [
+  "Honest numbers",
+  "Useful over impressive"
+ ],
+ "energizers": [
+  "Untangling a messy process"
+ ],
+ "drains": [
+  "Status meetings"
+ ],
+ "constraints": [],
+ "history": [
+  {
+   "date": "{{D-3}}",
+   "change": "Updated directions",
+   "reason": "Demo."
+  }
+ ]
+}

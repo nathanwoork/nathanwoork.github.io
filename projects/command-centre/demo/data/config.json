@@ -1,0 +1,13 @@
+{
+ "_readme": "DEMO data (fictional).",
+ "siteTitle": "Command Centre",
+ "owner": {
+  "name": "Nathan",
+  "github": "nathanwoork"
+ },
+ "repo": "",
+ "branch": "main",
+ "staleAfterDays": 14,
+ "githubLive": false,
+ "autoDiscoverRepos": false
+}

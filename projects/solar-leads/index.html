@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solar Leads Malaysia — Nathan Woo</title>
+  <meta name="description" content="Case study: a lead-research pipeline that finds, verifies and qualifies solar prospects in Malaysia. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+  <style>
+    .flow{ list-style:none; margin:22px 0 0; padding:0; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); counter-reset:s; }
+    .flow li{ background:var(--paper); padding:18px 16px; counter-increment:s; display:flex; flex-direction:column; gap:6px; }
+    .flow li::before{ content:counter(s, decimal-leading-zero); font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--accent-deep); }
+    .flow b{ font-family:'Newsreader',serif; font-weight:500; font-size:1.1rem; color:var(--ink); }
+    .flow span{ font-size:0.86rem; line-height:1.5; color:var(--ink-soft); }
+    @media (max-width: 820px){ .flow{ grid-template-columns:1fr; } }
+    table.sample td:first-child{ font-weight:500; }
+    .chip{ font-family:'IBM Plex Mono',monospace; font-size:0.66rem; padding:3px 7px; border:1px solid var(--line); white-space:nowrap; }
+    .ok{ color:oklch(0.42 0.09 160); background:oklch(0.95 0.03 160); border-color:oklch(0.58 0.09 160 / 0.4); }
+    .hold{ color:var(--accent-deep); background:oklch(0.96 0.03 85); border-color:oklch(0.70 0.11 78 / 0.5); }
+  </style>
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Case study 02</p>
+    <h1>Solar Leads Malaysia</h1>
+    <p class="lede">A lead-research tool for solar installers: it finds business prospects from public map data, checks every contact against an official source, and exports a clean list a sales team can trust.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Self-initiated — scope, data rules, review workflow</dd></div>
+      <div><dt>Status</dt><dd><span class="pill pill-wip">Working · UI redesign in progress</span></dd></div>
+      <div><dt>Built with</dt><dd>Python, SQLite, OpenStreetMap, Excel export, AI-assisted</dd></div>
+      <div><dt>Quality</dt><dd>29 automated tests passing</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The problem</p>
+      <div>
+        <h2>Lead lists are easy to make and hard to trust</h2>
+        <p>Solar installers need commercial and industrial prospects, but bought or scraped lead lists are full of duplicates, outdated numbers and guesses dressed up as facts ("high electricity bill", "interested in solar"). Sales teams waste calls, and some lists cross the line on privacy.</p>
+        <p>I wanted a list where <strong>every field says where it came from and how sure it is</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">How it works</p>
+      <div>
+        <h2>A five-step pipeline with a person in the loop</h2>
+        <p>Each scan picks a state and a prospect type. Leads then move through the same five steps, and nothing reaches the export until it has passed the checks.</p>
+        <ol class="flow">
+          <li><b>Discover</b><span>Pulls business and property records from OpenStreetMap.</span></li>
+          <li><b>De-duplicate</b><span>Matches stable record IDs, so repeat scans only bring new leads.</span></li>
+          <li><b>Verify</b><span>Confirms address and phone on the official business site. Checks expire after 90 days.</span></li>
+          <li><b>Qualify</b><span>A reviewer records the call outcome, real bill and usable roof area.</span></li>
+          <li><b>Export</b><span>Formatted Excel workbook with filters, or a CRM-ready CSV.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Data rules</p>
+      <div>
+        <h2>Estimates are labelled as estimates</h2>
+        <p>Every lead carries more than 30 fields. The rules I set for them keep the list honest:</p>
+        <ul class="dash">
+          <li><strong>Provenance:</strong> every phone number keeps the exact page it came from.</li>
+          <li><strong>Confidence:</strong> electricity use, bill and supply level are labelled low- or medium-confidence until the owner confirms the real numbers.</li>
+          <li><strong>No false negatives:</strong> "No solar found on the map" is recorded as <em>unknown</em>, never as "no solar".</li>
+          <li><strong>Interest needs evidence:</strong> a lead is only marked "Interested" with a note of what the contact actually said.</li>
+          <li><strong>Privacy:</strong> homes never have contact details pulled from maps; opt-outs are removed from every export.</li>
+        </ul>
+        <p style="margin-top:22px;">An illustrative export (fictional rows):</p>
+        <div style="overflow-x:auto;">
+        <table class="metrics sample">
+          <thead><tr><th>Prospect</th><th>Type</th><th>Est. monthly bill</th><th>Source check</th><th>Upload</th></tr></thead>
+          <tbody>
+            <tr><td>Example Packaging Sdn Bhd</td><td>Factory</td><td>RM 18k–42k <span class="chip">low conf.</span></td><td>Official site · 12 days ago</td><td><span class="chip ok">Ready</span></td></tr>
+            <tr><td>Sample Logistics Hub</td><td>Commercial</td><td>RM 6k–15k <span class="chip">low conf.</span></td><td>Map only</td><td><span class="chip hold">Review</span></td></tr>
+            <tr><td>Demo Metalworks</td><td>Factory</td><td>RM 31,200 <span class="chip ok">owner bill</span></td><td>Official site · 40 days ago</td><td><span class="chip ok">Ready</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Results</p>
+      <div>
+        <h2>Where it stands</h2>
+        <div class="cols">
+          <div>
+            <h3>Working today</h3>
+            <ul class="dash">
+              <li>Scans by state and prospect type</li>
+              <li>Saves leads locally and skips ones already saved</li>
+              <li>Qualification panel that survives rescans</li>
+              <li>Planning estimate of solar size and yearly bill savings</li>
+              <li>29 tests, including opt-outs and spreadsheet-injection safety</li>
+            </ul>
+          </div>
+          <div>
+            <h3>In progress</h3>
+            <ul class="dash">
+              <li>Redesigning the interface — the tool works, but it doesn't look the part yet</li>
+              <li>Screenshots and a demo with sample data will be added here once the redesign is done</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Skills shown</p>
+      <div>
+        <h2>What this says about how I work</h2>
+        <div class="tags">
+          <span>Lead generation</span><span>Data validation</span><span>De-duplication</span><span>Data provenance</span><span>Python</span><span>SQLite</span><span>Excel reporting</span><span>Privacy-aware outreach</span>
+        </div>
+        <p style="margin-top:18px;">Source code is available on request.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Previous case study</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">MedFlow Intelligence</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="../medflow/">← Read previous</a>
+      <a class="btn" href="../../#projects">All projects</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

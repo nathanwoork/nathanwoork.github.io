@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MedFlow Intelligence — Nathan Woo</title>
+  <meta name="description" content="Case study: an AI receptionist prototype for clinics, with an honest performance-reporting model. By Nathan Woo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../case.css">
+</head>
+<body>
+
+<nav class="bar">
+  <div class="wrap">
+    <a class="home" href="../../">Nathan Woo</a>
+    <a href="../../#projects">← All projects</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Case study 01</p>
+    <h1>MedFlow Intelligence</h1>
+    <p class="lede">An AI receptionist for clinics that answers the phone, books appointments against the clinic's real calendar, and hands off to a person whenever it should — plus the dashboard that tells the clinic owner what it actually achieved.</p>
+    <dl class="facts">
+      <div><dt>My role</dt><dd>Product owner — scope, rules, metrics, sign-off</dd></div>
+      <div><dt>Status</dt><dd><span class="pill">Working prototype</span></dd></div>
+      <div><dt>Built with</dt><dd>Node.js, HTML/CSS, AI-assisted (Claude + Codex)</dd></div>
+      <div><dt>Data</dt><dd>100% synthetic — no real patients</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The problem</p>
+      <div>
+        <h2>Missed calls are missed bookings</h2>
+        <p>Small clinics lose appointments when nobody can pick up — during lunch, after hours, or when the front desk is busy with a patient. AI phone agents promise to fix this, but two things worried me: an agent that "books" a slot that isn't really free, and vendor reports that claim a big "revenue recovered" number nobody can check.</p>
+        <p>So I set out to build a receptionist that is <strong>safe by design</strong> and a report that is <strong>honest by design</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">What I did</p>
+      <div>
+        <h2>Scoped it, set the rules, defined the numbers</h2>
+        <p>I worked as the product owner, with AI as my design and engineering team: Claude drafted the service design and dashboards, and Codex wrote and tested the code. I made the calls on scope, budget, safety rules and how results are measured, and kept a written decision register for every one.</p>
+        <ul class="dash">
+          <li>Wrote the MVP scope: admin tasks only — no diagnosis, no medical advice, no payment data.</li>
+          <li>Set the rule that the AI can only offer slots the calendar has confirmed, and only books after the caller says "yes" to the details read back.</li>
+          <li>Required a human handoff the moment a caller asks for one, or whenever the AI isn't confident.</li>
+          <li>Set a RM500 hard cap and a staged plan for any paid vendor testing.</li>
+          <li>Defined the reporting model below, so the dashboard can't overstate results.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The reporting model</p>
+      <div>
+        <h2>Four numbers, never one inflated headline</h2>
+        <p>Most tools collapse everything into "revenue recovered". MedFlow keeps four figures apart, because each one is known with a different level of certainty.</p>
+        <div style="overflow-x:auto;">
+        <table class="metrics">
+          <thead><tr><th>Metric</th><th>What it means</th><th>How sure we are</th></tr></thead>
+          <tbody>
+            <tr><td>Estimated opportunity</td><td>A modelled figure built from stated assumptions</td><td>Always shown with its assumptions beside it</td></tr>
+            <tr><td>Booked value</td><td>Confirmed AI bookings, priced with the clinic's own service list</td><td>Near real time; drops if a booking is cancelled</td></tr>
+            <tr><td>Attended value</td><td>Bookings where the patient actually showed up</td><td>Daily or weekly, depending on the clinic's system</td></tr>
+            <tr><td>Collected</td><td>Payment actually linked to a visit</td><td>Shown as <strong>"Not measured"</strong> if there's no payment data — never guessed</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <figure class="shot">
+          <img src="dashboard.jpg" alt="MedFlow clinic performance dashboard: calls answered, appointments booked, booked mapped value, transfers to human, a call-volume chart, upcoming appointments and recent calls" loading="lazy">
+          <figcaption>Clinic performance dashboard. Booked value is labelled "mapped estimate, not billing". Sample data.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">How it works</p>
+      <div>
+        <h2>Every step is checked and recorded</h2>
+        <p>The interactive prototype runs a simulated call from start to finish. On the right, a live trace shows each step as it happens, so anyone can see exactly what the system did and why.</p>
+        <figure class="shot">
+          <img src="call-simulation.jpg" alt="Interactive call simulation: a booking form on the left and a six-step system trace with a live event log on the right" loading="lazy">
+          <figcaption>Call simulation: details collected → availability returned → caller confirmed → calendar write → notification → outcome recorded.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="confirmation-guard.jpg" alt="The prototype rejecting a booking attempt that has no caller confirmation" loading="lazy">
+          <figcaption>The safety check in action: a booking attempted without the caller's confirmation is rejected.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Results</p>
+      <div>
+        <h2>What the prototype proves — and what it doesn't</h2>
+        <div class="cols">
+          <div>
+            <h3>Proven, with 29 automated tests</h3>
+            <ul class="dash">
+              <li>No slot is offered unless the calendar returned it</li>
+              <li>No booking without explicit confirmation</li>
+              <li>Repeated requests don't create duplicate bookings</li>
+              <li>Two callers can't take the same slot</li>
+              <li>Audit logs leave out patient names and numbers</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Not yet tested</h3>
+            <ul class="dash">
+              <li>A live voice provider (Vapi and Retell shortlisted)</li>
+              <li>A real clinic's calendar or real callers</li>
+              <li>Malaysian and Singaporean phone networks</li>
+              <li>Production security and compliance review</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">Skills shown</p>
+      <div>
+        <h2>What this says about how I work</h2>
+        <div class="tags">
+          <span>KPI &amp; metric definition</span><span>Dashboard design</span><span>Product scoping</span><span>Process mapping</span><span>Risk &amp; data governance</span><span>Vendor evaluation</span><span>Budget control</span><span>Directing AI tools</span>
+        </div>
+        <p style="margin-top:18px;">Source code and full project documents are available on request.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="next">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Next case study</p>
+      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Solar Leads Malaysia</p>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <a class="btn btn-ghost" href="../../#projects">All projects</a>
+      <a class="btn" href="../solar-leads/">Read next →</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><p>© 2026 Nathan Woo · nathanwoork.github.io</p></div></footer>
+</body>
+</html>

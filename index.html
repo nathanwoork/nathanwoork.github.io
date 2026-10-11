@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nathan Woo — Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,6 +47,18 @@
     .xbullet::before{ content:"–"; position:absolute; left:0; color:var(--ink-faint); }
     .navlink{ font-size:0.86rem; font-weight:500; color:var(--on-dark-soft); }
     .navlink:hover{ color:var(--paper); }
+    .pill{ font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; padding:4px 9px; border:1px solid oklch(0.58 0.09 160 / 0.45); color:oklch(0.42 0.09 160); background:oklch(0.95 0.03 160); }
+    .pill-wip{ border-color:oklch(0.70 0.11 78 / 0.55); color:var(--accent-deep); background:oklch(0.96 0.03 85); }
+    .proj{ transition:border-color .15s ease; }
+    .proj:hover{ border-color:var(--ink-faint); }
+    .pipe{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; counter-reset:step; }
+    .pipe li{ counter-increment:step; position:relative; padding:0 0 16px 44px; display:flex; flex-direction:column; gap:2px; }
+    .pipe li::before{ content:counter(step,decimal-leading-zero); position:absolute; left:0; top:0; width:28px; height:28px; border:1px solid oklch(1 0 0 / 0.3); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.66rem; color:var(--accent); background:var(--ink); z-index:1; }
+    .pipe li:not(:last-child)::after{ content:""; position:absolute; left:14px; top:28px; bottom:0; width:1px; background:oklch(1 0 0 / 0.2); }
+    .pipe li:last-child{ padding-bottom:0; }
+    .pipe b{ font-family:'Newsreader',serif; font-weight:500; font-size:1.1rem; color:var(--paper); line-height:28px; }
+    .pipe span{ font-size:0.86rem; color:var(--on-dark-soft); line-height:1.45; }
+    @media (max-width: 680px){ .proj > a{ border-right:0 !important; border-bottom:1px solid var(--line); } }
     ::selection{ background:var(--accent); color:var(--paper); }
     @media (max-width: 680px){
       [data-grid]{ grid-template-columns: 1fr !important; }
@@ -67,6 +80,7 @@
         <a class="navlink" href="#about">About</a>
         <a class="navlink" href="#experience">Experience</a>
         <a class="navlink" href="#work">Work</a>
+        <a class="navlink" href="#projects">Projects</a>
         <a class="navlink" href="#skills">Skills</a>
         <a class="navlink" href="#contact">Contact</a>
         <a href="Nathan_Woo_Resume.pdf" download class="btn btn-fill" style="padding:9px 18px; display:inline-flex; align-items:center; gap:6px; background:var(--accent); border-color:var(--accent); color:var(--ink);">
@@ -359,11 +373,85 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills" style="padding:96px 40px; background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);" data-section-pad>
+  <!-- SAMPLE PORTFOLIO -->
+  <section id="projects" style="padding:96px 40px; background:var(--bg-panel); border-top:1px solid var(--line);" data-section-pad>
     <div style="max-width:1160px; margin:0 auto;">
       <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
-        <div style="flex:0 0 200px;"><p class="eyebrow">04 / Skills &amp; Tools</p></div>
+        <div style="flex:0 0 200px;"><p class="eyebrow">04 / Sample Portfolio</p></div>
+        <div style="flex:1 1 400px;">
+          <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); margin-bottom:14px;">Things I've built</h2>
+          <p style="font-size:1rem; color:var(--ink-soft); max-width:600px; line-height:1.6;">Self-initiated projects where I set the scope, defined the metrics, and directed an AI-assisted build from idea to tested, working tool. Each one has a full case study.</p>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:28px;">
+
+        <!-- MedFlow -->
+        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);" data-grid>
+          <a href="projects/medflow/" style="display:block; background:var(--bg-panel-2); border-right:1px solid var(--line); overflow:hidden;" aria-label="MedFlow Intelligence case study">
+            <img src="projects/medflow/dashboard.jpg" alt="MedFlow clinic performance dashboard with KPI cards, call-volume chart and appointment list" style="width:100%; height:100%; min-height:260px; object-fit:cover; object-position:top left; display:block;">
+          </a>
+          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations · Data &amp; Reporting</span>
+              <span class="mono pill">Working prototype</span>
+            </div>
+            <h3 style="font-size:1.5rem;">MedFlow Intelligence</h3>
+            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">An AI receptionist for clinics that answers calls, books appointments against a real calendar, and hands off to staff — plus the performance dashboard a clinic owner would read.</p>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
+              <li class="xbullet" style="font-size:0.9rem;">Designed a reporting model that keeps estimated, booked, attended and collected revenue separate — and shows "Not measured" instead of guessing.</li>
+              <li class="xbullet" style="font-size:0.9rem;">Booking can't happen without the caller's explicit confirmation; duplicates and double-bookings are blocked.</li>
+              <li class="xbullet" style="font-size:0.9rem;">29 automated tests passing; runs entirely on synthetic data.</li>
+            </ul>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
+              <a href="projects/medflow/" class="btn btn-fill" style="padding:11px 20px; display:inline-flex; align-items:center; gap:8px;">Read the case study
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+            <p class="mono" style="font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.04em;">nathanwoork.github.io/projects/medflow</p>
+          </div>
+        </article>
+
+        <!-- Solar Leads -->
+        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);" data-grid>
+          <a href="projects/solar-leads/" style="display:flex; flex-direction:column; justify-content:center; gap:16px; padding:30px; background:var(--ink); color:var(--paper); border-right:1px solid var(--line);" aria-label="Solar Leads Malaysia case study">
+            <p class="eyebrow" style="color:var(--on-dark-faint);">How a lead moves through the pipeline</p>
+            <ol class="pipe">
+              <li><b>Discover</b><span>OpenStreetMap business &amp; property records</span></li>
+              <li><b>De-duplicate</b><span>Stable record IDs; repeat scans skip saved leads</span></li>
+              <li><b>Verify</b><span>Official-source check, expires after 90 days</span></li>
+              <li><b>Qualify</b><span>Human review: call outcome, bill, roof area</span></li>
+              <li><b>Export</b><span>Formatted Excel workbook or CRM-ready CSV</span></li>
+            </ol>
+          </a>
+          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <span class="mono" style="font-size:0.68rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing · Lead Data</span>
+              <span class="mono pill pill-wip">Working · UI redesign in progress</span>
+            </div>
+            <h3 style="font-size:1.5rem;">Solar Leads Malaysia</h3>
+            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">A lead-research tool that finds and qualifies business prospects for solar installers, then exports a clean, review-ready list.</p>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
+              <li class="xbullet" style="font-size:0.9rem;">Python and SQLite pipeline that keeps the source of every phone number and expires stale checks.</li>
+              <li class="xbullet" style="font-size:0.9rem;">Every estimate (bill, usage, supply) is labelled as an estimate; nothing is presented as fact until a person confirms it.</li>
+              <li class="xbullet" style="font-size:0.9rem;">29 automated tests, including opt-out lists and spreadsheet-injection safety.</li>
+            </ul>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
+              <a href="projects/solar-leads/" class="btn btn-fill" style="padding:11px 20px; display:inline-flex; align-items:center; gap:8px;">Read the case study
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            </div>
+            <p class="mono" style="font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.04em;">nathanwoork.github.io/projects/solar-leads</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="padding:96px 40px; border-top:1px solid var(--line);" data-section-pad>
+    <div style="max-width:1160px; margin:0 auto;">
+      <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
+        <div style="flex:0 0 200px;"><p class="eyebrow">05 / Skills &amp; Tools</p></div>
         <div style="flex:1 1 400px;"><h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem);">What I work with</h2></div>
       </div>
 
@@ -392,7 +480,7 @@
   <section id="background" style="padding:96px 40px; border-top:1px solid var(--line);" data-section-pad>
     <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap;">
       <div style="flex:0 0 200px;">
-        <p class="eyebrow">05 / My Background</p>
+        <p class="eyebrow">06 / My Background</p>
       </div>
       <div style="flex:1 1 560px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
         <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); max-width:640px; line-height:1.25;">Who am I outside of working hours</h2>
@@ -423,7 +511,7 @@
   <section id="contact" style="padding:110px 40px; background:var(--ink); color:var(--paper);" data-section-pad>
     <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
       <div style="flex:1 1 420px; min-width:280px;">
-        <p class="eyebrow" style="color:var(--on-dark-faint);">06 / Contact</p>
+        <p class="eyebrow" style="color:var(--on-dark-faint);">07 / Contact</p>
         <h2 style="font-size:clamp(2rem, 4vw, 3rem); color:var(--paper); margin-top:14px; line-height:1.15;">Reach out for any inquiry or career opportunity. I'm available 24/7/365.</h2>
         <p class="mono" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-top:14px;">Amaze Amaze Amaze</p>
       </div>

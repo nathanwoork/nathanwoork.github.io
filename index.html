@@ -1,637 +1,666 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nathan Woo — Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathan Woo — Operations, Marketing &amp; Copy</title>
+<meta name="description" content="Nathan Woo, Kuala Lumpur. Operations, marketing and copywriting: I take mess and turn it into something clear enough to decide with.">
+<link rel="preload" href="fonts/FamiljenGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Woo Design Language — register: VOID, navy variant (cool paper + midnight navy, signal orange, sky blue on navy; giant tight grotesk) */
+@font-face{font-family:"Familjen Grotesk";src:url(fonts/FamiljenGrotesk-Variable.woff2) format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url(fonts/HankenGrotesk-Variable.woff2) format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Martian Mono";src:url(fonts/MartianMono-Variable.woff2) format("woff2");font-weight:100 800;font-display:swap}
+:root{
+  color-scheme:light;
+  --surface:#f3f5fa; --surface-alt:#e4e9f4; --surface-raised:#fff; --surface-deep:#091230;
+  --ink:#0e1838; --ink-muted:#4a5578; --ink-on-deep:#f3f5fa; --ink-on-deep-muted:#aab4d4;
+  --line:#c8d0e3; --line-strong:#0e1838; --line-on-deep:#22305e;
+  --navy:#091230; --navy-ink:#15306f; --sky:#8fb2ff; --ok:#2f9e6b;
+  --accent:#ff5a1f; --on-accent:#0e1838; --accent-ink:#b5360a; --focus:#b5360a;
+  --font-grotesk:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --font-sans:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"Martian Mono","SF Mono",Menlo,monospace;
+  --space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--space-8:32px;--space-12:48px;--space-16:64px;--space-24:96px;--space-40:160px;
+  --container:1240px; --gutter:20px; --tap:44px;
+}
+@media (min-width:1024px){:root{--gutter:48px}}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--surface);color:var(--ink);font:400 17px/28px var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.deep :focus-visible,.nav :focus-visible{outline-color:var(--sky)}
+::selection{background:var(--accent);color:var(--on-accent)}
+.wrap{max-width:calc(var(--container) + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--surface);padding:8px 16px;z-index:99}
+.skip:focus{left:8px}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg: oklch(0.975 0.006 240);
-      --bg-panel: oklch(0.955 0.008 240);
-      --bg-panel-2: oklch(0.935 0.010 240);
-      --ink: oklch(0.20 0.05 258);
-      --ink-soft: oklch(0.46 0.02 258);
-      --ink-faint: oklch(0.62 0.015 258);
-      --line: oklch(0.85 0.012 250);
-      --line-soft: oklch(0.90 0.008 250);
-      --accent: oklch(0.70 0.11 78);
-      --accent-deep: oklch(0.56 0.11 70);
-      --paper: oklch(0.99 0.004 240);
-      --tag-ops: oklch(0.58 0.09 200);
-      --tag-mkt: oklch(0.58 0.12 42);
-      --tag-copy: oklch(0.54 0.10 322);
-      --on-dark-soft: oklch(0.80 0.02 100);
-      --on-dark-faint: oklch(0.66 0.02 100);
-      font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif;
-    }
-    *{ box-sizing: border-box; }
-    html{ scroll-behavior: smooth; }
-    body{ margin:0; background:var(--bg); color:var(--ink); }
-    h1,h2,h3{ font-family:'Newsreader', Georgia, 'Times New Roman', serif; font-weight:500; margin:0; letter-spacing:-0.01em; }
-    p{ margin:0; }
-    a{ color:var(--accent-deep); text-decoration:none; }
-    a:hover{ color:var(--accent); }
-    .mono{ font-family:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace; }
-    .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-faint); }
-    .btn{ font-family:'Archivo', sans-serif; font-weight:600; font-size:0.92rem; letter-spacing:0.01em; border-radius:2px; cursor:pointer; transition:all .15s ease; }
-    .btn-fill{ background:var(--ink); color:var(--paper); border:1px solid var(--ink); }
-    .btn-fill:hover{ background:var(--accent-deep); border-color:var(--accent-deep); color:var(--paper); }
-    .btn-outline{ background:transparent; color:var(--ink); border:1px solid var(--line); }
-    .btn-outline:hover{ border-color:var(--ink); color:var(--ink); }
-    .card{ background:var(--paper); border:1px solid var(--line); }
-    .xbullet{ font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:620px; padding-left:15px; position:relative; margin:0; }
-    .xbullet::before{ content:"–"; position:absolute; left:0; color:var(--ink-faint); }
-    .navlink{ font-size:0.86rem; font-weight:500; color:var(--on-dark-soft); }
-    .navlink:hover{ color:var(--paper); }
-    .pill{ font-size:0.62rem; letter-spacing:0.06em; text-transform:uppercase; padding:4px 9px; border:1px solid oklch(0.58 0.09 160 / 0.45); color:oklch(0.42 0.09 160); background:oklch(0.95 0.03 160); }
-    .pill-wip{ border-color:oklch(0.70 0.11 78 / 0.55); color:var(--accent-deep); background:oklch(0.96 0.03 85); }
-    .proj{ transition:border-color .15s ease; }
-    .proj:hover{ border-color:var(--ink-faint); }
-    .pipe{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; counter-reset:step; }
-    .pipe li{ counter-increment:step; position:relative; padding:0 0 16px 44px; display:flex; flex-direction:column; gap:2px; }
-    .pipe li::before{ content:counter(step,decimal-leading-zero); position:absolute; left:0; top:0; width:28px; height:28px; border:1px solid oklch(1 0 0 / 0.3); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.66rem; color:var(--accent); background:var(--ink); z-index:1; }
-    .pipe li:not(:last-child)::after{ content:""; position:absolute; left:14px; top:28px; bottom:0; width:1px; background:oklch(1 0 0 / 0.2); }
-    .pipe li:last-child{ padding-bottom:0; }
-    .pipe b{ font-family:'Newsreader',serif; font-weight:500; font-size:1.1rem; color:var(--paper); line-height:28px; }
-    .pipe span{ font-size:0.86rem; color:var(--on-dark-soft); line-height:1.45; }
-    @media (max-width: 680px){ .proj > a{ border-right:0 !important; border-bottom:1px solid var(--line); } }
-    .subhead{ display:flex; gap:24px; flex-wrap:wrap; align-items:baseline; margin-top:28px; padding-top:28px; border-top:1px solid var(--line); }
-    .subhead p:last-child{ font-size:0.95rem; color:var(--ink-soft); max-width:620px; line-height:1.6; }
-    .mini{ display:flex; flex-direction:column; }
-    .mini-img{ display:block; height:220px; overflow:hidden; border-bottom:1px solid var(--line); background:var(--bg-panel-2); }
-    .mini-img img{ width:100%; height:100%; object-fit:cover; object-position:top left; display:block; }
-    .mini-body{ padding:24px; display:flex; flex-direction:column; gap:12px; flex:1; }
-    .mini-body h3{ font-size:1.35rem; }
-    .mini-body p{ font-size:0.93rem; line-height:1.6; color:var(--ink-soft); }
-    .mini-links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:6px; }
-    .wip{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); background:var(--ink); color:var(--paper); border:1px solid var(--ink); margin-top:28px; }
-    .wip-main{ padding:32px; display:flex; flex-direction:column; gap:14px; }
-    .wip-main h3{ font-size:1.6rem; color:var(--paper); }
-    .wip-main p{ font-size:0.95rem; line-height:1.65; color:var(--on-dark-soft); }
-    .wip-main strong{ color:var(--paper); }
-    .wip-img{ display:block; overflow:hidden; border-left:1px solid oklch(1 0 0 / 0.12); }
-    .wip-img img{ width:100%; height:100%; min-height:260px; object-fit:cover; object-position:left top; display:block; }
-    @media (max-width: 680px){ .wip{ grid-template-columns:1fr; } .wip-img{ border-left:0; border-top:1px solid oklch(1 0 0 / 0.12); } .wip-img img{ min-height:0; max-height:240px; } }
-    ::selection{ background:var(--accent); color:var(--paper); }
-    @media (max-width: 680px){
-      [data-grid]{ grid-template-columns: 1fr !important; }
-      [data-section-pad]{ padding-left:24px !important; padding-right:24px !important; }
-      [data-hide-mobile]{ display:none !important; }
-    }
-  </style>
+/* type */
+.mono{font-family:var(--font-mono)}
+.label{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase}
+.idx{font:500 14px/18px var(--font-grotesk);letter-spacing:-.01em}
+.h2{font-family:var(--font-grotesk);font-weight:500;letter-spacing:-.035em;font-size:clamp(32px,5vw,60px);line-height:1.02;text-wrap:balance}
+.slash{font-family:var(--font-grotesk);font-weight:500;letter-spacing:-.03em;text-transform:uppercase;font-size:clamp(34px,6vw,72px);line-height:.95}
+.slash::before{content:"/";color:var(--accent-ink);margin-right:.04em}
+.deep .slash::before{color:var(--accent)}
+.muted{color:var(--ink-muted)}
+
+/* buttons + pills */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:var(--tap);padding:0 22px;border-radius:999px;border:1px solid var(--line-strong);font:500 15px/1 var(--font-grotesk);letter-spacing:-.01em;text-decoration:none;background:transparent;color:var(--ink);transition:background-color .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--ink);color:var(--surface)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.deep .btn{color:var(--ink-on-deep);border-color:var(--ink-on-deep-muted)}
+.deep .btn:hover{background:var(--ink-on-deep);color:var(--ink)}
+.deep .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.arr{display:inline-block;transition:transform .2s}
+a:hover .arr{transform:translate(2px,-2px)}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 14px;border:1px solid var(--line);border-radius:999px;font:500 13px/1 var(--font-grotesk);background:var(--surface-raised);color:var(--ink);white-space:nowrap}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:var(--navy);color:var(--ink-on-deep);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-bottom-color:var(--line-on-deep)}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.mark{font:700 22px/1 var(--font-grotesk);letter-spacing:-.05em;text-decoration:none}
+.nav-links{display:none;list-style:none;margin:0;padding:0;gap:28px}
+.nav-links a{display:inline-flex;align-items:center;min-height:var(--tap);text-decoration:none;font:500 15px/1 var(--font-grotesk);letter-spacing:-.01em}
+.nav-links a sup{font:400 10px/1 var(--font-mono);color:var(--sky);margin-left:3px;top:-.6em}
+.nav-links a:hover{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.nav-cta{display:none}
+.menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;min-height:var(--tap);padding:0 18px;border:1px solid var(--ink-on-deep-muted);border-radius:999px;font:500 15px/1 var(--font-grotesk)}
+.menu>summary::-webkit-details-marker{display:none}
+.menu .bars{width:16px;height:8px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transition:transform .2s}
+.menu[open] .bars{height:0;border-bottom:0;transform:rotate(45deg)}
+.sheet{position:absolute;left:0;right:0;top:100%;background:var(--navy);border-top:1px solid var(--line-on-deep);padding:8px var(--gutter) 32px;height:calc(100svh - 68px);overflow:auto}
+.sheet ul{list-style:none;margin:0;padding:0}
+.sheet li+li{border-top:1px solid var(--line-on-deep)}
+.sheet a{display:flex;justify-content:space-between;align-items:center;min-height:64px;text-decoration:none;font:500 34px/1 var(--font-grotesk);letter-spacing:-.04em}
+.sheet a span{font:400 12px/1 var(--font-mono);color:var(--sky)}
+.sheet .btn{margin-top:24px;width:100%;justify-content:center;font-size:17px}
+@media (min-width:960px){.nav-links,.nav-cta{display:flex}.menu{display:none}}
+
+/* hero: navy band, giant name, a small colour headshot */
+.hero{background:var(--navy);color:var(--ink-on-deep);overflow:hidden;padding:var(--space-8) 0 var(--space-16)}
+.hero-name{font-family:var(--font-grotesk);font-weight:700;text-transform:uppercase;letter-spacing:-.045em;line-height:.8;font-size:clamp(64px,26vw,300px);margin-left:-.04em}
+.hero-name .line{display:block;white-space:nowrap}
+.hero-name .outline{color:transparent;-webkit-text-stroke:2px var(--sky)}
+.hero-name .solid{color:var(--ink-on-deep)}
+.hero-name .stop{color:var(--accent)}
+.hero-stage{display:grid;grid-template-columns:1fr;gap:var(--space-8);margin-top:var(--space-12);padding-top:var(--space-8);border-top:1px solid var(--line-on-deep)}
+.me{display:flex;align-items:center;gap:var(--space-4)}
+.me img{width:72px;height:72px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--navy),0 0 0 4px var(--sky);flex:none}
+.me p{font-size:14px;line-height:20px;color:var(--ink-on-deep-muted)}
+.me p b{display:block;color:var(--ink-on-deep);font:500 17px/1.2 var(--font-grotesk);letter-spacing:-.01em}
+.hero-copy{display:grid;gap:var(--space-6)}
+.role{font:500 clamp(26px,3.4vw,40px)/1.04 var(--font-grotesk);letter-spacing:-.035em;max-width:16ch}
+.role em{font-style:normal;color:var(--accent)}
+.hero-lead{color:var(--ink-on-deep-muted);max-width:42ch}
+.actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.hero .btn{color:var(--ink-on-deep);border-color:var(--ink-on-deep-muted)}
+.hero .btn:hover{background:var(--ink-on-deep);color:var(--navy)}
+.hero .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.hero .btn-primary:hover{background:var(--sky);border-color:var(--sky);color:var(--navy)}
+.hero-side{display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-8)}
+.stat b{display:block;font:400 clamp(40px,4.6vw,56px)/1 var(--font-grotesk);letter-spacing:-.05em}
+.stat b sup{font-size:.45em;vertical-align:top;position:relative;top:.15em;margin-right:2px;color:var(--accent)}
+.stat span{font-size:13px;line-height:18px;color:var(--ink-on-deep-muted)}
+@media (min-width:1024px){
+  .hero{padding:var(--space-12) 0 var(--space-24)}
+  .hero-name{font-size:clamp(110px,14.2vw,222px);display:flex;gap:.16em}
+  .hero-stage{grid-template-columns:3fr 5fr 3fr;align-items:start;gap:var(--space-12)}
+  .hero-side{flex-direction:column;align-items:flex-end;text-align:right}
+}
+
+/* sections */
+section{scroll-margin-top:68px}
+.sec{padding:var(--space-24) 0}
+@media (min-width:1024px){.sec{padding:var(--space-40) 0}}
+.deep{background:var(--surface-deep);color:var(--ink-on-deep)}
+.deep .muted{color:var(--ink-on-deep-muted)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);margin-bottom:var(--space-12);flex-wrap:wrap}
+
+/* about */
+.about{display:grid;gap:var(--space-12)}
+.about-lede{display:grid;gap:var(--space-8);align-content:start}
+.about-lede .h2{color:var(--navy)}
+.about-text{display:grid;gap:var(--space-6);align-content:start;font-size:19px;line-height:31px}
+.about-text .body{max-width:62ch;color:var(--ink-muted)}
+.about-text .body strong{color:var(--ink);font-weight:600}
+.motto{border-top:2px solid var(--accent);padding-top:var(--space-4);display:grid;gap:var(--space-2);max-width:62ch}
+.motto q{font:500 20px/1.35 var(--font-grotesk);letter-spacing:-.02em}
+@media (min-width:1024px){.about{grid-template-columns:5fr 7fr;gap:var(--space-16)}.about-text{padding-top:var(--space-3)}}
+
+/* services */
+.svc{border-top:1px solid var(--line-strong)}
+.svc details{border-bottom:1px solid var(--line-strong);transition:background-color .25s,color .25s}
+.svc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-6) var(--space-2);min-height:88px}
+.svc summary::-webkit-details-marker{display:none}
+.svc .t{font:500 clamp(26px,5.4vw,64px)/1 var(--font-grotesk);letter-spacing:-.04em;text-transform:uppercase}
+.svc .t small{font:400 12px/1 var(--font-mono);letter-spacing:0;vertical-align:top;color:var(--ink-muted);margin-left:6px}
+.svc .ic{flex:none;width:40px;height:40px;display:grid;place-items:center;font-size:24px;transition:transform .25s}
+.svc details[open]{background:var(--surface-deep);color:var(--ink-on-deep);border-radius:6px;border-bottom-color:transparent}
+.svc details[open] .t small{color:var(--ink-on-deep-muted)}
+.svc details[open] .ic{transform:rotate(45deg)}
+.svc .panel{display:grid;gap:var(--space-6);padding:0 var(--space-2) var(--space-8)}
+.svc .panel p{color:var(--ink-on-deep-muted);max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{border:1px solid var(--line-on-deep);border-radius:999px;padding:6px 12px;font-size:14px;line-height:20px;color:var(--ink-on-deep)}
+@media (min-width:1024px){.svc summary{padding:var(--space-8) var(--space-6)}.svc .panel{grid-template-columns:5fr 7fr;padding:0 var(--space-6) var(--space-8)}}
+
+/* work */
+.ghost-wrap{position:relative;text-align:center;margin-bottom:var(--space-12)}
+.ghost{font:700 clamp(64px,17vw,230px)/.8 var(--font-grotesk);letter-spacing:-.04em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1px #24346a;white-space:nowrap;user-select:none}
+.ghost-wrap .slash{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%)}
+.work-intro{display:flex;justify-content:space-between;align-items:end;gap:var(--space-6);flex-wrap:wrap;margin-bottom:var(--space-8)}
+.work-intro p{max-width:48ch}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{min-height:var(--tap);padding:0 16px;border-radius:999px;border:1px solid var(--line-on-deep);background:transparent;color:var(--ink-on-deep-muted);font:500 14px/1 var(--font-grotesk);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--sky);color:var(--navy);border-color:var(--sky)}
+.grid{display:grid;gap:var(--space-16) var(--space-8);grid-template-columns:1fr}
+.card{display:grid;gap:var(--space-4);align-content:start;min-width:0}
+.card[hidden]{display:none}
+/* media: every image keeps its own shape and fills its border edge to edge */
+.media{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line-on-deep);background:#060c22}
+.media img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.2,.7,.1,1)}
+.card:hover .media img{transform:scale(1.025)}
+.media.pair{display:grid;grid-template-columns:.8fr 1.778fr;gap:1px;background:var(--line-on-deep)}
+.media.pair img{height:100%;object-fit:cover}
+.media .tag{position:absolute;top:12px;left:12px;z-index:1;background:var(--ink-on-deep);color:var(--navy);font:500 11px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px}
+.card h3{font:500 clamp(22px,2.2vw,28px)/1.15 var(--font-grotesk);letter-spacing:-.025em}
+.card p{color:var(--ink-on-deep-muted);font-size:15px;line-height:24px;max-width:56ch}
+.card .pills{display:flex;flex-wrap:wrap;gap:6px}
+.card .pills span{border:1px solid var(--line-on-deep);border-radius:999px;padding:5px 12px;font-size:13px;line-height:18px;color:var(--ink-on-deep)}
+.card .meta{display:flex;justify-content:space-between;gap:var(--space-4);font:400 12px/18px var(--font-mono);color:var(--sky)}
+.card.feature h3{font-size:clamp(26px,3vw,36px)}
+.also{grid-column:1/-1;display:grid;grid-template-columns:1fr;gap:var(--space-2) var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--line-on-deep)}
+.also[hidden]{display:none}
+.also .label{color:var(--ink-on-deep-muted)}
+.also h3{font:500 19px/1.3 var(--font-grotesk);letter-spacing:-.01em}
+.also p{color:var(--ink-on-deep-muted);font-size:15px;line-height:24px;max-width:60ch}
+@media (min-width:860px){
+  .grid{grid-template-columns:1fr 1fr;align-items:start}
+  .card.feature{grid-column:1/-1;grid-template-columns:7fr 4fr;gap:var(--space-4) var(--space-12);align-items:end}
+  .card.feature .media{grid-row:1/span 4}
+  .also{grid-template-columns:180px 1fr 2fr;align-items:baseline}
+}
+
+/* projects */
+.pj-intro{display:grid;gap:var(--space-6);margin-bottom:var(--space-16)}
+.pj-intro .h2{color:var(--navy);max-width:14ch}
+.pj-intro p.muted{max-width:56ch}
+@media (min-width:1024px){.pj-intro{grid-template-columns:5fr 7fr;align-items:end}}
+.pj-grid{display:grid;grid-template-columns:1fr;gap:var(--space-16) var(--space-8)}
+.pj{display:grid;gap:var(--space-4);align-content:start;min-width:0}
+.pj-media{display:block;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface-raised);aspect-ratio:16/10}
+.pj-media img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .6s cubic-bezier(.2,.7,.1,1)}
+.pj:hover .pj-media img{transform:scale(1.02)}
+.pj-meta{display:flex;justify-content:space-between;align-items:center;gap:var(--space-3);flex-wrap:wrap;font:400 12px/18px var(--font-mono);color:var(--ink-muted)}
+@media (max-width:600px){.pj-meta{font-size:11px;flex-direction:column;align-items:flex-start;gap:4px}}
+.pj-meta .st{display:inline-flex;align-items:center;gap:8px}
+.pj-meta .st::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--st,var(--ink-muted))}
+.pj h3{font:500 clamp(24px,2.6vw,34px)/1.08 var(--font-grotesk);letter-spacing:-.03em}
+.pj h3 a{text-decoration:none}
+.pj p{color:var(--ink-muted);font-size:16px;line-height:26px;max-width:58ch}
+.pj-links{display:flex;flex-wrap:wrap;gap:6px var(--space-6);margin-top:var(--space-2)}
+.pj-links a{display:inline-flex;align-items:center;gap:6px;min-height:var(--tap);font:500 15px/1 var(--font-grotesk);letter-spacing:-.01em;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;text-decoration-color:var(--line-strong)}
+.pj-links a:hover{color:var(--navy-ink)}
+.pj-links .btn{text-decoration:none}
+.pj-feature{background:var(--navy);color:var(--ink-on-deep);border-radius:8px;padding:var(--space-6);gap:var(--space-6)}
+.pj-feature .pj-media{border-color:var(--line-on-deep)}
+.pj-feature .pj-meta{color:var(--ink-on-deep-muted)}
+.pj-feature p{color:var(--ink-on-deep-muted)}
+.pj-feature p strong{color:var(--ink-on-deep);font-weight:600}
+.pj-feature .pj-links a{text-decoration-color:var(--ink-on-deep-muted)}
+.pj-feature .pj-links a:hover{color:var(--sky)}
+.pj-feature .btn{color:var(--ink-on-deep);border-color:var(--ink-on-deep-muted)}
+.pj-feature .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.pj-feature .btn-primary:hover{background:var(--sky);border-color:var(--sky);color:var(--navy)}
+.pj-also{display:grid;grid-template-columns:1fr;gap:var(--space-4) var(--space-8);padding-top:var(--space-8);border-top:1px solid var(--line-strong);align-items:center}
+.pj-also .pj-media{aspect-ratio:auto;max-width:320px;justify-self:end;background:var(--navy)}
+.pj-also .pj-media img{height:auto}
+@media (min-width:860px){
+  .pj-grid{grid-template-columns:1fr 1fr}
+  .pj-feature{grid-column:1/-1;grid-template-columns:7fr 5fr;align-items:center;padding:var(--space-8);gap:var(--space-6) var(--space-12)}
+  .pj-feature .pj-media{grid-row:1/span 5}
+  .pj-grid > .pj:nth-child(2n+3){margin-top:var(--space-16)}
+  .pj-also{grid-column:1/-1;grid-template-columns:180px 1fr 320px}
+}
+@media (min-width:860px){.pj-grid > .pj-also{margin-top:0}}
+
+/* experience */
+.xp{border-top:1px solid var(--line-strong)}
+.xp details{border-bottom:1px solid var(--line)}
+.xp summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:4px var(--space-4);padding:var(--space-6) 0;align-items:baseline}
+.xp summary::-webkit-details-marker{display:none}
+.xp .when{font:400 12px/18px var(--font-mono);color:var(--ink-muted);grid-column:1/-1}
+.xp .what{font:500 clamp(20px,2.4vw,28px)/1.15 var(--font-grotesk);letter-spacing:-.025em}
+.xp .where{color:var(--ink-muted);font-size:15px;line-height:22px;grid-column:1}
+.xp .tags{display:flex;gap:6px;flex-wrap:wrap;grid-column:1}
+.xp .tags span{font:500 10px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;padding:6px 9px;border-radius:999px;border:1px solid var(--line-strong)}
+.xp .ic{grid-column:2;grid-row:2;font-size:22px;transition:transform .2s;align-self:center}
+.xp details[open] .ic{transform:rotate(45deg)}
+.xp details[open] summary .what{color:var(--navy-ink)}
+.xp ul{margin:0;padding:0 0 var(--space-8);list-style:none;display:grid;gap:10px;max-width:68ch}
+.xp li{position:relative;padding-left:22px;color:var(--ink-muted)}
+.xp li::before{content:"→";position:absolute;left:0;color:var(--ink)}
+.xp details:hover summary{background:linear-gradient(90deg,var(--surface-alt),transparent)}
+@media (min-width:1024px){
+  .xp summary{grid-template-columns:180px 1fr 280px 200px 40px;padding:var(--space-6) var(--space-3)}
+  .xp .when{grid-column:1}.xp .what{grid-column:2}.xp .where{grid-column:3}.xp .tags{grid-column:4}.xp .ic{grid-column:5;grid-row:1;justify-self:end}
+  .xp ul{margin-left:calc(180px + var(--space-4) + var(--space-3))}}
+.edu{display:grid;gap:var(--space-4);margin-top:var(--space-12)}
+.edu div{border-top:1px solid var(--line);padding-top:var(--space-4)}
+.edu b{display:block;font:500 20px/1.2 var(--font-grotesk);letter-spacing:-.02em;margin-bottom:4px}
+@media (min-width:1024px){.edu{grid-template-columns:180px 1fr 1fr;gap:var(--space-8)}}
+
+/* contact + footer: a compact closing band */
+.contact{padding:var(--space-16) 0 0;scroll-margin-top:68px}
+.contact-grid{display:grid;gap:var(--space-8)}
+.contact-note{display:grid;gap:var(--space-4);justify-items:start;align-content:start}
+.contact-note h2{font:500 clamp(22px,2.4vw,30px)/1.2 var(--font-grotesk);letter-spacing:-.02em;max-width:26ch;text-wrap:balance}
+.contact-note .btn{margin-top:var(--space-2)}
+.amaze{color:var(--sky)}
+.links{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-on-deep)}
+.links li{border-bottom:1px solid var(--line-on-deep)}
+.links a{display:grid;grid-template-columns:90px 1fr;align-items:center;gap:var(--space-4);min-height:52px;text-decoration:none;font:500 17px/1.3 var(--font-grotesk);letter-spacing:-.01em;overflow-wrap:anywhere}
+.links a small{font:400 11px/1 var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-on-deep-muted)}
+.links a:hover{color:var(--sky)}
+@media (min-width:1024px){.contact{padding-top:var(--space-24)}.contact-grid{grid-template-columns:6fr 5fr;gap:var(--space-16);align-items:start}}
+.foot{border-top:1px solid var(--line-on-deep);margin-top:var(--space-12);padding:var(--space-6) 0 var(--space-8);display:flex;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;font-size:13px;line-height:20px;color:var(--ink-on-deep-muted)}
+.foot a{color:var(--ink-on-deep)}
+
+/* reveal: one gentle entrance for the hero only */
+@media (prefers-reduced-motion:no-preference){
+  .hero-name .line{animation:rise .9s cubic-bezier(.2,.7,.1,1) both}
+  .hero-name .line:nth-child(2){animation-delay:.08s}
+  @keyframes rise{from{transform:translateY(30%);opacity:0}to{transform:none;opacity:1}}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
+<header class="nav" id="top">
+  <div class="wrap nav-bar">
+    <a class="mark" href="#top" aria-label="Nathan Woo, back to top">nathan woo.</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services<sup>[3]</sup></a></li>
+        <li><a href="#work">Work<sup>[5]</sup></a></li>
+        <li><a href="#projects">Projects<sup>[6]</sup></a></li>
+        <li><a href="#experience">Experience<sup>[4y+]</sup></a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-primary nav-cta" href="Nathan_Woo_Resume.pdf" download>Résumé <span class="arr" aria-hidden="true">↓</span></a>
+    <details class="menu">
+      <summary aria-label="Open menu"><span class="bars" aria-hidden="true"></span>Menu</summary>
+      <div class="sheet">
+        <ul>
+          <li><a href="#about">About <span>01</span></a></li>
+          <li><a href="#services">Services <span>02</span></a></li>
+          <li><a href="#work">Work <span>03</span></a></li>
+          <li><a href="#projects">Projects <span>04</span></a></li>
+          <li><a href="#experience">Experience <span>05</span></a></li>
+          <li><a href="#contact">Contact <span>06</span></a></li>
+        </ul>
+        <a class="btn btn-primary" href="Nathan_Woo_Resume.pdf" download>Download résumé <span aria-hidden="true">↓</span></a>
+      </div>
+    </details>
+  </div>
+</header>
 
-<div style="background:var(--bg); min-height:100vh; overflow-x:hidden;">
+<main id="main">
 
-  <!-- NAV -->
-  <nav style="position:sticky; top:0; z-index:50; background:oklch(0.20 0.05 258 / 0.92); backdrop-filter:blur(8px); border-bottom:1px solid oklch(1 0 0 / 0.12);">
-    <div style="max-width:1160px; margin:0 auto; padding:18px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;" data-section-pad>
-      <a href="#hero" style="font-family:'Newsreader',serif; font-size:1.15rem; font-weight:600; color:var(--paper);">Nathan Woo</a>
-      <div style="display:flex; align-items:center; gap:28px; flex-wrap:wrap;">
-        <a class="navlink" href="#about">About</a>
-        <a class="navlink" href="#experience">Experience</a>
-        <a class="navlink" href="#work">Work</a>
-        <a class="navlink" href="#projects">Projects</a>
-        <a class="navlink" href="#skills">Skills</a>
-        <a class="navlink" href="#contact">Contact</a>
-        <a href="Nathan_Woo_Resume.pdf" download class="btn btn-fill" style="padding:9px 18px; display:inline-flex; align-items:center; gap:6px; background:var(--accent); border-color:var(--accent); color:var(--ink);">
-          Résumé
-        </a>
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-name">
+  <div class="wrap">
+    <h1 class="hero-name" id="hero-name"><span class="line outline">Nathan</span><span class="line solid">Woo<span class="stop">.</span></span></h1>
+  </div>
+  <div class="wrap hero-stage">
+    <div class="me">
+      <img src="img/headshot.webp" width="240" height="240" alt="Nathan Woo">
+      <p><b>Nathan Woo</b>Kuala Lumpur, Malaysia<br>Open to roles · On-site or remote</p>
+    </div>
+    <div class="hero-copy">
+      <p class="role">Operations, marketing <em>&amp; copy</em> for teams that need it clear.</p>
+      <p class="hero-lead">I take mess — a spreadsheet, scattered updates, a blank page — and turn it into something clear enough to decide with.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#work">See selected work <span class="arr" aria-hidden="true">↘</span></a>
+        <a class="btn" href="#contact">Get in touch</a>
       </div>
     </div>
-  </nav>
+    <div class="hero-side">
+      <div class="stat"><b><sup>+</sup>4</b><span>Years across ops,<br>marketing &amp; copy</span></div>
+      <div class="stat"><b>3</b><span>Disciplines,<br>one skill</span></div>
+      <div class="stat"><b>EN·中</b><span>Fluent English,<br>proficient Mandarin</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <section id="hero" style="position:relative; padding:88px 40px 64px; background:var(--ink); color:var(--paper);" data-section-pad>
-    <div style="position:absolute; inset:0; background-image:linear-gradient(var(--line-soft) 1px, transparent 1px), linear-gradient(90deg, var(--line-soft) 1px, transparent 1px); background-size:64px 64px; opacity:0.16; mask-image:linear-gradient(to bottom, black, transparent 85%); pointer-events:none;"></div>
-    <div style="max-width:1160px; margin:0 auto; position:relative;">
-      <div style="display:flex; gap:56px; align-items:flex-start; flex-wrap:wrap;">
-        <div style="flex:1 1 480px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
-          <p class="eyebrow" style="color:var(--on-dark-faint);">Kuala Lumpur, Malaysia — Open to Remote</p>
-          <h1 style="font-size:clamp(2.6rem, 5.4vw, 4.2rem); line-height:1.02; color:var(--paper);">Nathan Woo</h1>
-          <p style="font-family:'Newsreader',serif; font-style:italic; font-size:clamp(1.15rem, 2vw, 1.4rem); line-height:1.5; color:var(--on-dark-soft); max-width:640px;">
-            I am a value creator; I dedicate my life towards building a co-existing community towards a brighter future, whether through words or through actions.
-          </p>
-          <p class="mono" style="font-size:0.7rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--on-dark-faint);">— Heriot-Watt Empowerment Program Life Motto</p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
-              <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-ops); display:inline-block;"></span>Operations
-            </span>
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
-              <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-mkt); display:inline-block;"></span>Marketing
-            </span>
-            <span class="mono" style="font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--paper); color:var(--ink); display:inline-flex; align-items:center; gap:7px;">
-              <span style="width:7px; height:7px; border-radius:50%; background:var(--tag-copy); display:inline-block;"></span>Copywriting
-            </span>
-          </div>
-          <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:14px;">
-            <a href="#work" class="btn btn-fill" style="padding:13px 24px; display:inline-flex; align-items:center; gap:8px; background:var(--accent); border-color:var(--accent); color:var(--ink);">
-              View my work
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a href="#contact" class="btn btn-outline" style="padding:13px 24px; color:var(--paper); border-color:oklch(1 0 0 / 0.28);">Get in touch</a>
-          </div>
-        </div>
-
-        <div style="flex:0 0 260px; display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
-          <div style="width:260px; height:290px; border:1px solid var(--line); background:var(--paper); padding:10px;">
-            <img src="headshot.jpg" alt="Nathan Woo" style="width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(12%);">
-          </div>
-          <p class="mono" style="font-size:0.68rem; letter-spacing:0.06em; color:var(--on-dark-faint); text-transform:uppercase;">nathan.woork@gmail.com</p>
+<!-- ABOUT -->
+<section class="sec" id="about" aria-labelledby="about-h" style="background:var(--surface-alt)">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="slash" id="about-h">About</h2><span class="idx muted">(01)</span></div>
+    <div class="about">
+      <div class="about-lede">
+        <p class="h2">Same skill, pointed in different directions.</p>
+        <div class="motto">
+          <q>I am a value creator; I dedicate my life towards building a co-existing community towards a brighter future, whether through words or through actions.</q>
+          <span class="label muted">Heriot-Watt Empowerment Program · Life motto</span>
         </div>
       </div>
-
-      <div data-hero-stats style="margin-top:72px; display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); border-top:1px solid oklch(1 0 0 / 0.14); border-bottom:1px solid oklch(1 0 0 / 0.14);">
-        <div style="padding:24px 20px 24px 0; border-right:1px solid oklch(1 0 0 / 0.14);">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">4+ yrs</p>
-          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Cross-functional experience</p>
-        </div>
-        <div style="padding:24px 20px; border-right:1px solid oklch(1 0 0 / 0.14);">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">3 disciplines</p>
-          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Ops · Marketing · Copy</p>
-        </div>
-        <div style="padding:24px 0 24px 20px;">
-          <p style="font-family:'Newsreader',serif; font-size:2rem; color:var(--paper);">EN · 中文</p>
-          <p class="eyebrow" style="margin-top:4px; color:var(--on-dark-faint);">Fluent English, proficient Mandarin</p>
-        </div>
+      <div class="about-text">
+        <p class="body">I started with writing — blog posts, social campaigns and branded video scripts for <strong>Ajinomoto Malaysia, Vono, Truedan and Great Eastern</strong>, plus freelance articles across B2B, F&amp;B, SEO, government grants and entertainment.</p>
+        <p class="body">After a Master's in International Business Management, I moved into operations: automating financial reports, reconciling data systems, writing reports for executives, and keeping them ahead of deadlines instead of chasing them — as an Operations Analyst, an Account Strategist and a Personal Assistant.</p>
+        <p class="body">Both turned out to be the same skill. Take the mess, make it clear enough that someone else can use it to make a decision.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ABOUT -->
-  <section id="about" style="padding:96px 40px;" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap;">
-      <div style="flex:0 0 200px;">
-        <p class="eyebrow">01 / About</p>
-      </div>
-      <div style="flex:1 1 560px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
-        <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); max-width:640px; line-height:1.25; margin-bottom:6px;">My Own Cover Letter</h2>
-        <p style="font-family:'Newsreader',serif; font-style:italic; font-size:1.1rem; color:var(--ink-faint); max-width:640px;">An autobiography of my job experience and education</p>
-        <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          I started by working on my own writing passions as a copy writer, having written blog posts, social media campaigns and branded video scripts for big names, such as Ajinomoto Malaysia, Vono, Truedan, Great Eastern Insurance as well as Freelance articles in diverse industries from B2B, F&amp;B, SEO, Government Grants as well as in Entertainment.
-        </p>
-        <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          After graduating with a Master's in International Business Management, I continued being in touch by working in operations, automating financial reports, reconciling data systems, report writing to executives as well as keeping them ahead of deadlines instead of chasing them from my experience as an Operations Analyst, an Account Strategist and as a Personal Assistant.
-        </p>
-        <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          Both turned out to be the same skill, just pointed in different directions: Taking Mess, such as a spreadsheet, scattered updates or a blank page and turning them into something clear enough that someone else can use to affect their decision making.
-        </p>
+<!-- SERVICES -->
+<section class="sec" id="services" aria-labelledby="svc-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="slash" id="svc-h">Services</h2><span class="idx muted">(02)</span></div>
+    <div class="svc">
+      <details open>
+        <summary><span class="t">Operations<small>[01]</small></span><span class="ic" aria-hidden="true">+</span></summary>
+        <div class="panel">
+          <p>Reporting that runs itself, data you can trust, and an executive who is never surprised by a deadline.</p>
+          <ul class="chips"><li>Process automation</li><li>Financial &amp; KPI reporting</li><li>Data validation &amp; reconciliation</li><li>Workflow documentation</li><li>Google Sheets · Apps Script</li><li>Python</li><li>Excel</li></ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="t">Marketing<small>[02]</small></span><span class="ic" aria-hidden="true">+</span></summary>
+        <div class="panel">
+          <p>Campaigns kept on schedule between clients, KOLs and internal teams — and sponsors who say yes.</p>
+          <ul class="chips"><li>Campaign coordination</li><li>B2B lead generation</li><li>Client &amp; KOL coordination</li><li>Sponsorship proposals</li><li>Event marketing</li><li>Meta Ads</li><li>TikTok for Business</li></ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="t">Copywriting<small>[03]</small></span><span class="ic" aria-hidden="true">+</span></summary>
+        <div class="panel">
+          <p>Words that sound like the brand and read like a person, in English and Mandarin.</p>
+          <ul class="chips"><li>Blog &amp; article writing</li><li>Video scriptwriting</li><li>Social &amp; digital copy</li><li>Brand-adaptive tone</li><li>Campaign performance reports</li></ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="t">Toolkit<small>[+]</small></span><span class="ic" aria-hidden="true">+</span></summary>
+        <div class="panel">
+          <p>The everyday stack behind the three disciplines.</p>
+          <ul class="chips"><li>Apollo.io</li><li>Mailchimp</li><li>SurveyMonkey</li><li>WhatsApp Business</li><li>Adobe Premiere Pro</li><li>CapCut</li><li>Canva</li><li>Shopify · Lazada · Shopee</li></ul>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="sec deep" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="ghost-wrap">
+      <p class="ghost" aria-hidden="true">Portfolio</p>
+      <h2 class="slash" id="work-h">Selected work</h2>
+    </div>
+    <div class="work-intro">
+      <p class="muted">Real briefs, real brands — the copy, campaigns and reporting systems behind the résumé.</p>
+      <div class="filters" role="group" aria-label="Filter work">
+        <button type="button" aria-pressed="true" data-f="all">All</button>
+        <button type="button" aria-pressed="false" data-f="copy">Copy</button>
+        <button type="button" aria-pressed="false" data-f="mkt">Marketing</button>
+        <button type="button" aria-pressed="false" data-f="ops">Operations</button>
       </div>
     </div>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" style="padding:96px 40px; background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto;">
-      <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
-        <div style="flex:0 0 200px;"><p class="eyebrow">02 / Experience</p></div>
-        <div style="flex:1 1 400px;"><h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem);">Where the work happened</h2></div>
-      </div>
-
-      <div style="display:flex; flex-direction:column;">
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">Feb — Jun 2026</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Personal Assistant, Operations &amp; Executive Support</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">NW Group Corporate Advisory · On-site</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Kept a senior executive consultant ahead of every deadline, tracking concurrent project timelines, outstanding tasks, and stakeholder follow-ups across active workstreams.</p>
-              <p class="xbullet">Turned scattered updates into structured summaries the executive could scan for status and priorities in seconds, not meetings.</p>
-              <p class="xbullet">Built and maintained Google Workspace documentation — project records, research, meeting notes, presentation materials — keeping client-facing and internal work consistent.</p>
-              <p class="xbullet">Converted market and business research into concise, presentation-ready materials for senior management review, and managed calendars, meetings, and minutes to keep follow-through on track.</p>
-            </div>
-          </div>
+    <div class="grid" id="grid">
+      <article class="card feature" data-k="copy">
+        <div class="media pair">
+          <img src="img/ge-determined-leader.webp" width="360" height="450" loading="lazy" alt="Title card: The Determined Leader, featuring Tan Lay Seong">
+          <img src="img/ge-passionate-hero.webp" width="482" height="271" loading="lazy" alt="Title card: The Passionate Hero, featuring Subbiah A/L Ramamoorthy, over a fighter jet at sunset">
         </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">Aug — Nov 2025</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Operations Analyst (Contract)</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Distinct Media · Remote</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Automated recurring financial reporting with Google Sheets scripting and custom Python tools, replacing manual data handling with structured, repeatable workflows.</p>
-              <p class="xbullet">Built standardized weekly and monthly reporting formats that gave stakeholders one consistent view of financial and operational performance.</p>
-              <p class="xbullet">Audited existing reporting processes to flag manual bottlenecks, then streamlined them through scripting and structured data-processing methods.</p>
-              <p class="xbullet">Validated and reconciled operational and financial datasets across multiple source systems, catching inconsistencies before they could affect a report or a decision.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">Jul — Aug 2025</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Account Strategist</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Next Level Media</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Owned day-to-day operations for assigned client accounts, tracking campaign activity, deliverables, and deadlines to keep every project moving.</p>
-              <p class="xbullet">Served as the central point of contact between clients, KOLs, and internal teams, keeping deliverables and expectations aligned across every party.</p>
-              <p class="xbullet">Tracked account status in real time, surfacing issues early enough for clients and internal teams to act on them.</p>
-              <p class="xbullet">Summarized campaign progress and next actions for stakeholders, keeping execution aligned from kickoff to delivery.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">Oct 2024 — Apr 2025</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Marketing Strategist</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">BeStemReady</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Developed and promoted social media content for robotics competitions, translating event details and milestones into clear audience-facing messages.</p>
-              <p class="xbullet">Created and presented sponsorship proposals on-site, contributing to partner engagement and company event-funding efforts.</p>
-              <p class="xbullet">Coordinated stakeholder follow-up and marketing deliverables, helping event communications stay aligned with delivery timelines.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">May — Aug 2024</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Marketing Intern</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">ITG Malaysia · On-site</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Mined market research and Apollo-based lead-generation data to surface trends and unlock process improvements.</p>
-              <p class="xbullet">Delivered campaign performance reports tailored in depth and language to each stakeholder audience, from analysts to executives.</p>
-              <p class="xbullet">Maintained campaign databases and converted activity information into clear management reports, improving visibility into prospect and campaign progress.</p>
-              <p class="xbullet">Produced content and communication materials for exhibitions, events, and marketing initiatives supporting planned campaign activity.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">Dec 2021 — Apr 2024</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Freelance Marketing Officer</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.12 42 / 0.14); color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing</span>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.54 0.10 322 / 0.14); color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Seeds Marketing</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Wrote social media captions, blogs, and articles for client campaigns, with work published by Ajinomoto Malaysia and Vono Malaysia.</p>
-              <p class="xbullet">Adapted content structure, tone, and messaging so each asset matched the client brief, target audience, and publishing format.</p>
-              <p class="xbullet">Ran recurring e-commerce operations across Shopify, Lazada, and Shopee, keeping product and platform information accurate and consistent across every channel.</p>
-              <p class="xbullet">Kept client storefronts running smoothly — handling routine platform maintenance, data entry, and administrative upkeep — and resolved customer-support issues as they came up.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:26px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.78rem; color:var(--ink-faint);">May — Aug 2023</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <div style="display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px;">
-              <h3 style="font-size:1.2rem; font-weight:600;">Administration Staff</h3>
-              <span class="mono" style="font-size:0.68rem; padding:3px 8px; background:oklch(0.58 0.09 200 / 0.14); color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations</span>
-            </div>
-            <p style="font-size:0.92rem; color:var(--ink-faint); margin-bottom:10px;">Midor Interior · On-site</p>
-            <div style="display:flex; flex-direction:column; gap:6px; margin-top:2px;">
-              <p class="xbullet">Prepared tender documentation and data entry, keeping records accurate and audit-ready for commercial use.</p>
-              <p class="xbullet">Maintained company accounts, filing systems, and sales documentation, supporting fast, reliable retrieval across teams.</p>
-              <p class="xbullet">Delivered flexible day-to-day administrative support, from document delivery to ad hoc operational requests, and shadowed the sales team to assist with documentation.</p>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:64px; flex-wrap:wrap; padding:22px 0 4px;">
-          <div style="flex:0 0 200px;"><p class="mono" style="font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint);">Education</p></div>
-          <div style="flex:1 1 500px; min-width:280px;">
-            <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.6;"><b style="color:var(--ink); font-weight:600;">MA, International Business Management</b> — Heriot-Watt University Malaysia · 2021 – 2025 · GPA 3.5 · Human Resources Officer, University Philanthropy Club</p>
-            <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.6; margin-top:6px;"><b style="color:var(--ink); font-weight:600;">Oxburgh International School</b> — IGCSE · 4 A*, 4 A, 1 B</p>
-          </div>
-        </div>
-
+        <p class="meta"><span>Great Eastern · 2025</span><span>EN · 中文 · BM</span></p>
+        <h3>Great Eastern — “Not Just An Agent”</h3>
+        <p>Documentary-style video scripts for individual insurance agents, written for English, Mandarin and Malay voiceover. Each film follows one agent’s story, from <a href="https://www.facebook.com/GreatEasternMY/videos/1468301504476101/" rel="noopener" style="color:var(--ink-on-deep)">The Determined Leader</a> to <a href="https://www.facebook.com/GreatEasternMY/videos/1696749230995919/" rel="noopener" style="color:var(--ink-on-deep)">The Passionate Hero</a>.</p>
+        <div class="pills"><span>Copywriting</span><span>Video script</span></div>
+      </article>
+      <article class="card" data-k="mkt">
+        <div class="media"><img src="img/ciptrix-cover.webp" width="1200" height="849" loading="lazy" alt="CIPTRIX 2025 exhibitor prospectus cover: Gateway to Global AI Innovation, 14–16 November, MIECC"></div>
+        <p class="meta"><span>CIPTRIX 2025 · KLESF</span><span>12-page prospectus</span></p>
+        <h3>CIPTRIX — Sponsorship Prospectus</h3>
+        <p>B2B prospectus for an AI-education carnival: exhibitor packages, floor-plan zoning, partner tax incentives under Section 44(6), and sponsor outreach.</p>
+        <div class="pills"><span>Marketing</span><span>Sponsorship</span></div>
+      </article>
+      <article class="card" data-k="mkt">
+        <div class="media"><img src="img/sample-vono.webp" width="675" height="392" loading="lazy" alt="Vono Malaysia Answer and Win contest post with caption plan"></div>
+        <p class="meta"><span>Vono Malaysia</span><span>Seeds Marketing</span></p>
+        <h3>Vono Malaysia — Social Content Planning</h3>
+        <p>Multi-month calendars spanning contests, Shopee sale pushes and always-on mattress and sleep-care content.</p>
+        <div class="pills"><span>Marketing</span><span>Content calendar</span></div>
+      </article>
+      <article class="card" data-k="copy">
+        <div class="media"><span class="tag">Bylined</span><img src="img/sample-foodbiz.webp" width="845" height="235" loading="lazy" alt="Ajinomoto Food Biz Partner article: 6 ways to respond to bad restaurant reviews"></div>
+        <p class="meta"><span>Ajinomoto Malaysia</span><span>B2B blog</span></p>
+        <h3>Ajinomoto Food Biz Partner — Blog Series</h3>
+        <p>B2B content for Malaysian F&amp;B owners: menu planning, licensing, Ramadan promotions and restaurant marketing.</p>
+        <div class="pills"><span>Copywriting</span><span>B2B</span></div>
+      </article>
+      <article class="card" data-k="mkt">
+        <div class="media"><img src="img/sample-aminovital.webp" width="820" height="175" loading="lazy" alt="aminoVITAL carousel: how many days should you run in a week"></div>
+        <p class="meta"><span>aminoVITAL · Ajinomoto</span><span>10 KOLs</span></p>
+        <h3>aminoVITAL — KOL Campaign</h3>
+        <p>A 10-influencer campaign with individually tracked promo codes, alongside the monthly static, story and video content calendar.</p>
+        <div class="pills"><span>Marketing</span><span>Influencer</span></div>
+      </article>
+      <div class="also" data-k="ops">
+        <span class="label">Also</span>
+        <h3>Distinct Media — Reporting Automation</h3>
+        <p>Replaced manual financial reporting with Python and Google Sheets scripting, standardising weekly and monthly formats across stakeholders.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WORK -->
-  <section id="work" style="padding:96px 40px;" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto;">
-      <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
-        <div style="flex:0 0 200px;"><p class="eyebrow">03 / Selected Work</p></div>
-        <div style="flex:1 1 400px;">
-          <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); margin-bottom:14px;">Real briefs, real brands</h2>
-          <p style="font-size:1rem; color:var(--ink-soft); max-width:560px; line-height:1.6;">A working sample of the copy, campaigns, and reporting systems behind the résumé — for Ajinomoto, Vono Malaysia, Great Eastern, and more.</p>
-        </div>
-      </div>
-
-      <div data-grid style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1px; background:var(--line); border:1px solid var(--line);">
-
-        <div class="card" style="padding:0; display:flex; flex-direction:column;">
-          <img src="sample-foodbiz.jpg" alt="Ajinomoto Food Biz Partner article screenshot" style="width:100%; height:150px; object-fit:cover; display:block; border-bottom:1px solid var(--line);">
-          <div style="padding:22px; display:flex; flex-direction:column; gap:10px; flex:1;">
-            <span class="mono" style="font-size:0.68rem; color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting · Bylined</span>
-            <h3 style="font-size:1.08rem; font-weight:600;">Ajinomoto Food Biz Partner — Blog Series</h3>
-            <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">B2B content for Malaysian F&amp;B business owners: menu planning, licensing, Ramadan promotions, and restaurant marketing.</p>
-            <p style="font-family:'Newsreader',serif; font-style:italic; font-size:0.95rem; color:var(--ink-soft); border-left:2px solid var(--line); padding-left:12px; margin-top:4px;">"Your menu affects customer satisfaction, your bottom line, and how smoothly your kitchen operates."</p>
-          </div>
-        </div>
-
-        <div class="card" style="padding:0; display:flex; flex-direction:column;">
-          <img src="sample-aminovital.jpg" alt="aminoVITAL social content carousel" style="width:100%; height:150px; object-fit:cover; display:block; border-bottom:1px solid var(--line);">
-          <div style="padding:22px; display:flex; flex-direction:column; gap:10px; flex:1;">
-            <span class="mono" style="font-size:0.68rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing · Influencer Campaign</span>
-            <h3 style="font-size:1.08rem; font-weight:600;">aminoVITAL (Ajinomoto) — KOL Campaign</h3>
-            <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">Coordinated a 10-influencer campaign with individual tracked promo codes, alongside the monthly static/story/video content calendar.</p>
-          </div>
-        </div>
-
-        <div class="card" style="padding:0; display:flex; flex-direction:column;">
-          <img src="sample-vono.jpg" alt="Vono Malaysia social media static post" style="width:100%; height:150px; object-fit:cover; display:block; border-bottom:1px solid var(--line);">
-          <div style="padding:22px; display:flex; flex-direction:column; gap:10px; flex:1;">
-            <span class="mono" style="font-size:0.68rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing · Content Calendar</span>
-            <h3 style="font-size:1.08rem; font-weight:600;">Vono Malaysia — Social Content Planning</h3>
-            <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">Multi-month calendars spanning contests, Shopee sale pushes, and always-on mattress and sleep-care content.</p>
-          </div>
-        </div>
-
-        <div class="card" style="padding:22px; display:flex; flex-direction:column; gap:10px;">
-          <span class="mono" style="font-size:0.68rem; color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Copywriting · Video Script</span>
-          <h3 style="font-size:1.08rem; font-weight:600;">Great Eastern — "Not Just An Agent"</h3>
-          <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">Branded documentary-style video scripts for individual insurance agents, written for English, Mandarin, and Malay voiceover.</p>
-          <p style="font-family:'Newsreader',serif; font-style:italic; font-size:0.95rem; color:var(--ink-soft); border-left:2px solid var(--line); padding-left:12px; margin-top:4px;">"I used to doubt myself too — because the public's view of this career wasn't kind."</p>
-        </div>
-
-        <div class="card" style="padding:22px; display:flex; flex-direction:column; gap:10px;">
-          <span class="mono" style="font-size:0.68rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing · Sponsorship</span>
-          <h3 style="font-size:1.08rem; font-weight:600;">CIPTRIX — Sponsorship Prospectus</h3>
-          <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">B2B prospectus for an AI-education conference: exhibitor packages, partner tax incentives, and sponsor outreach.</p>
-        </div>
-
-        <div class="card" style="padding:22px; display:flex; flex-direction:column; gap:10px;">
-          <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations · Automation</span>
-          <h3 style="font-size:1.08rem; font-weight:600;">Distinct Media — Reporting Automation</h3>
-          <p style="font-size:0.92rem; line-height:1.6; color:var(--ink-soft);">Replaced manual financial reporting with Python and Google Sheets scripting, standardizing weekly and monthly formats across stakeholders.</p>
-        </div>
-
-      </div>
+<!-- PROJECTS -->
+<section class="sec" id="projects" aria-labelledby="pj-h" style="background:var(--surface-alt)">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="slash" id="pj-h">Projects</h2><span class="idx muted">(04)</span></div>
+    <div class="pj-intro">
+      <p class="h2">Things I’ve built.</p>
+      <p class="muted">Six self-initiated tools, from a dashboard studio for small businesses to the command centre I run my own week on. I set the scope, the rules and the numbers, then direct an AI-assisted build through to something tested and in use. Every one has a case study.</p>
     </div>
-  </section>
+    <div class="pj-grid">
 
-  <!-- SAMPLE PORTFOLIO -->
-  <section id="projects" style="padding:96px 40px; background:var(--bg-panel); border-top:1px solid var(--line);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto;">
-      <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
-        <div style="flex:0 0 200px;"><p class="eyebrow">04 / Sample Portfolio</p></div>
-        <div style="flex:1 1 400px;">
-          <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); margin-bottom:14px;">Things I've built</h2>
-          <p style="font-size:1rem; color:var(--ink-soft); max-width:600px; line-height:1.6;">Self-initiated projects where I set the scope, defined the metrics, and directed an AI-assisted build from idea to tested, working tool — from client-style prototypes to the dashboards I run my own week on. Each one has a full case study.</p>
+      <article class="pj pj-feature">
+        <a class="pj-media" href="projects/neatrelay/" aria-label="NeatRelay case study"><img src="projects/neatrelay/service.jpg" width="1248" height="712" loading="lazy" alt="NeatRelay service site in the Relay Spectrum design: “Good work deserves a clear next step”, beside a lilac panel of colour-coded handoff steps"></a>
+        <p class="pj-meta"><span>01 · Operations studio</span><span class="st" style="--st:var(--accent)">Work in progress · open to projects</span></p>
+        <h3><a href="projects/neatrelay/">NeatRelay</a></h3>
+        <p>A studio I’m building to set up dashboards and connect the day-to-day operations of small teams — enquiries, approvals, task boards and reporting — so the owner stops being everyone’s reminder system.</p>
+        <p>It now has its own design language, <strong>Relay Spectrum</strong>: a warm canvas, colour that marks what each block of work is, and one clear next step on every screen. The service site and the operations workspace are live; a first client pilot is next. <strong>I’m taking on work now</strong> — a new dashboard, or improving one someone else built.</p>
+        <div class="pj-links">
+          <a class="btn btn-primary" href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project">Work with me <span class="arr" aria-hidden="true">↗</span></a>
+          <a href="projects/neatrelay/">Case study →</a>
+          <a href="https://nathanwoork.github.io/NeatRelay-Service/" rel="noopener">Service site ↗</a>
+          <a href="https://github.com/nathanwoork/NeatRelay-Service" rel="noopener">GitHub ↗</a>
         </div>
+      </article>
+
+      <article class="pj">
+        <a class="pj-media" href="projects/command-centre/" aria-label="Command Centre case study"><img src="projects/command-centre/overview.jpg" width="1280" height="1180" loading="lazy" alt="Command Centre Today view in deep navy: a hairline headline, the due strip, four big numbers, focus tasks and current projects"></a>
+        <p class="pj-meta"><span>02 · Built with Claude</span><span class="st" style="--st:var(--ok)">In daily use</span></p>
+        <h3><a href="projects/command-centre/">Command Centre</a></h3>
+        <p>My day-to-day control room. Each morning it answers three questions — what’s due, what’s stuck, what’s next — across every project I run. Rebuilt this week in the Midnight register of my design language: deep navy, hairline numerals and a single yellow moment for whatever is due.</p>
+        <div class="pj-links">
+          <a href="projects/command-centre/">Case study →</a>
+          <a href="projects/command-centre/demo/">Live demo ↗</a>
+        </div>
+      </article>
+
+      <article class="pj">
+        <a class="pj-media" href="projects/solar-leads/" aria-label="Solar Leads Malaysia case study"><img src="projects/solar-leads/hero.jpg" width="1280" height="600" loading="lazy" alt="Solar Leads field-atlas design: “A clearer view of every solar prospect” beside an isometric research-flow schematic and a navy count rail"></a>
+        <p class="pj-meta"><span>03 · Lead data</span><span class="st" style="--st:var(--ok)">Working · new interface</span></p>
+        <h3><a href="projects/solar-leads/">Solar Leads Malaysia</a></h3>
+        <p>A lead-research tool for solar installers, redesigned as a field atlas: mineral greys, a navy count rail, and solar amber saved for evidence and action. Underneath, a Python and SQLite pipeline finds B2B sites in public map data, checks every phone against an official source and exports a review-ready Excel file.</p>
+        <div class="pj-links">
+          <a href="projects/solar-leads/">Case study →</a>
+        </div>
+      </article>
+
+      <article class="pj">
+        <a class="pj-media" href="projects/daybook/" aria-label="Daybook case study"><img src="projects/daybook/today.jpg" width="1280" height="1260" loading="lazy" alt="Daybook Today view: three focus steps, upcoming dates and projects in motion on a navy workspace"></a>
+        <p class="pj-meta"><span>04 · Built with ChatGPT</span><span class="st" style="--st:var(--ok)">In daily use · open source</span></p>
+        <h3><a href="projects/daybook/">Daybook</a></h3>
+        <p>The documentation specialist next to the command centre: a daily log, a searchable file index and ready-to-paste project handovers, all on local rules with zero routine AI cost. The public repository runs on a fictional sample.</p>
+        <div class="pj-links">
+          <a href="projects/daybook/">Case study →</a>
+          <a href="https://github.com/nathanwoork/daybook" rel="noopener">GitHub ↗</a>
+        </div>
+      </article>
+
+      <article class="pj">
+        <a class="pj-media" href="projects/medflow/" aria-label="MedFlow Intelligence case study"><img src="projects/medflow/dashboard.jpg" width="1440" height="984" loading="lazy" alt="MedFlow clinic performance dashboard with calls answered, appointments booked, booked mapped value and a call-volume chart"></a>
+        <p class="pj-meta"><span>05 · Data &amp; reporting</span><span class="st" style="--st:var(--ok)">Working prototype</span></p>
+        <h3><a href="projects/medflow/">MedFlow Intelligence</a></h3>
+        <p>An AI receptionist for clinics, and the report a clinic owner would read. Revenue is split into estimated, booked, attended and collected — never one inflated headline — and shows “Not measured” rather than guessing. 29 tests, synthetic data only.</p>
+        <div class="pj-links">
+          <a href="projects/medflow/">Case study →</a>
+        </div>
+      </article>
+
+      <div class="pj-also">
+        <span class="label muted">06 · Finished</span>
+        <div class="pj" style="gap:var(--space-2)">
+          <h3><a href="projects/daymark/">Daymark — habit heatmap</a></h3>
+          <p>An offline habit tracker that turns small daily effort into a heatmap. Archived once the basics worked, and still free to use in any browser.</p>
+          <div class="pj-links"><a href="projects/daymark/app/">Open the app ↗</a><a href="projects/daymark/">Case study →</a></div>
+        </div>
+        <a class="pj-media" href="projects/daymark/app/" aria-label="Open Daymark"><img src="projects/daymark/screens.jpg" width="820" height="860" loading="lazy" alt="Daymark Today and Progress screens with purple habit heatmaps"></a>
       </div>
 
-      <div style="display:flex; flex-direction:column; gap:28px;">
-
-        <!-- MedFlow -->
-        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);" data-grid>
-          <a href="projects/medflow/" style="display:block; background:var(--bg-panel-2); border-right:1px solid var(--line); overflow:hidden;" aria-label="MedFlow Intelligence case study">
-            <img src="projects/medflow/dashboard.jpg" alt="MedFlow clinic performance dashboard with KPI cards, call-volume chart and appointment list" style="width:100%; height:100%; min-height:260px; object-fit:cover; object-position:top left; display:block;">
-          </a>
-          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
-            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Operations · Data &amp; Reporting</span>
-              <span class="mono pill">Working prototype</span>
-            </div>
-            <h3 style="font-size:1.5rem;">MedFlow Intelligence</h3>
-            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">An AI receptionist for clinics that answers calls, books appointments against a real calendar, and hands off to staff — plus the performance dashboard a clinic owner would read.</p>
-            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-              <li class="xbullet" style="font-size:0.9rem;">Designed a reporting model that keeps estimated, booked, attended and collected revenue separate — and shows "Not measured" instead of guessing.</li>
-              <li class="xbullet" style="font-size:0.9rem;">Booking can't happen without the caller's explicit confirmation; duplicates and double-bookings are blocked.</li>
-              <li class="xbullet" style="font-size:0.9rem;">29 automated tests passing; runs entirely on synthetic data.</li>
-            </ul>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
-              <a href="projects/medflow/" class="btn btn-fill" style="padding:11px 20px; display:inline-flex; align-items:center; gap:8px;">Read the case study
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-            <p class="mono" style="font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.04em;">nathanwoork.github.io/projects/medflow</p>
-          </div>
-        </article>
-
-        <!-- Solar Leads -->
-        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);" data-grid>
-          <a href="projects/solar-leads/" style="display:flex; flex-direction:column; justify-content:center; gap:16px; padding:30px; background:var(--ink); color:var(--paper); border-right:1px solid var(--line);" aria-label="Solar Leads Malaysia case study">
-            <p class="eyebrow" style="color:var(--on-dark-faint);">How a lead moves through the pipeline</p>
-            <ol class="pipe">
-              <li><b>Discover</b><span>OpenStreetMap business &amp; property records</span></li>
-              <li><b>De-duplicate</b><span>Stable record IDs; repeat scans skip saved leads</span></li>
-              <li><b>Verify</b><span>Official-source check, expires after 90 days</span></li>
-              <li><b>Qualify</b><span>Human review: call outcome, bill, roof area</span></li>
-              <li><b>Export</b><span>Formatted Excel workbook or CRM-ready CSV</span></li>
-            </ol>
-          </a>
-          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
-            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <span class="mono" style="font-size:0.68rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.06em;">Marketing · Lead Data</span>
-              <span class="mono pill pill-wip">Working · UI redesign in progress</span>
-            </div>
-            <h3 style="font-size:1.5rem;">Solar Leads Malaysia</h3>
-            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">A lead-research tool that finds and qualifies business prospects for solar installers, then exports a clean, review-ready list.</p>
-            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-              <li class="xbullet" style="font-size:0.9rem;">Python and SQLite pipeline that keeps the source of every phone number and expires stale checks.</li>
-              <li class="xbullet" style="font-size:0.9rem;">Every estimate (bill, usage, supply) is labelled as an estimate; nothing is presented as fact until a person confirms it.</li>
-              <li class="xbullet" style="font-size:0.9rem;">29 automated tests, including opt-out lists and spreadsheet-injection safety.</li>
-            </ul>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
-              <a href="projects/solar-leads/" class="btn btn-fill" style="padding:11px 20px; display:inline-flex; align-items:center; gap:8px;">Read the case study
-                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            </div>
-            <p class="mono" style="font-size:0.66rem; color:var(--ink-faint); letter-spacing:0.04em;">nathanwoork.github.io/projects/solar-leads</p>
-          </div>
-        </article>
-
-        <!-- Dashboards -->
-        <div class="subhead">
-          <p class="eyebrow">Two dashboards, two jobs</p>
-          <p>I run my own work on two dashboards built from a similar brief by two different AI tools — one keeps the status, the other keeps the record.</p>
-        </div>
-        <div data-grid style="display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:28px;">
-          <article class="card proj mini">
-            <a href="projects/command-centre/" class="mini-img" aria-label="Command Centre case study"><img src="projects/command-centre/overview.jpg" alt="Command Centre overview with reminders, daily brief and key numbers" loading="lazy"></a>
-            <div class="mini-body">
-              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-                <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Built with Claude</span>
-                <span class="mono pill">In daily use</span>
-              </div>
-              <h3>Command Centre</h3>
-              <p>The control room: every project's status, what's stuck, who I'm waiting on, and a written brief each morning on what to do next.</p>
-              <div class="mini-links">
-                <a href="projects/command-centre/" class="btn btn-fill" style="padding:10px 18px;">Case study</a>
-                <a href="projects/command-centre/demo/" class="btn btn-outline" style="padding:10px 18px;">Live demo ↗</a>
-              </div>
-            </div>
-          </article>
-          <article class="card proj mini">
-            <a href="projects/daybook/" class="mini-img" aria-label="Daybook case study"><img src="projects/daybook/daily-log.jpg" alt="Daybook daily log with today's note, a local brief and a copy-handover button" loading="lazy"></a>
-            <div class="mini-body">
-              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-                <span class="mono" style="font-size:0.68rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.06em;">Built with ChatGPT</span>
-                <span class="mono pill">In daily use</span>
-              </div>
-              <h3>Daybook</h3>
-              <p>The documentation specialist: a daily log, a searchable file index and ready-to-share project handovers — with zero routine AI cost.</p>
-              <div class="mini-links">
-                <a href="projects/daybook/" class="btn btn-fill" style="padding:10px 18px;">Case study</a>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- NeatRelay: work in progress + open for work -->
-        <article class="wip">
-          <div class="wip-main">
-            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <span class="mono" style="font-size:0.68rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.06em;">Operations · Dashboards for businesses</span>
-              <span class="mono pill pill-wip">Work in progress</span>
-            </div>
-            <h3>NeatRelay</h3>
-            <p>A studio I'm building to set up dashboards and link up the day-to-day operations of small businesses — enquiries, approvals, task boards and reporting — so the owner stops chasing every next step.</p>
-            <p>It's early: the offer, templates and websites are done, and I'm now looking for first projects. <strong>I'm very happy to take on work</strong> — building a new dashboard, improving one someone else made, or connecting the tools a team already uses.</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
-              <a href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project" class="btn btn-fill" style="padding:11px 20px; background:var(--accent); border-color:var(--accent); color:var(--ink);">Work with me</a>
-              <a href="projects/neatrelay/" class="btn btn-outline" style="padding:11px 20px; color:var(--paper); border-color:oklch(1 0 0 / 0.3);">See where it's at →</a>
-            </div>
-          </div>
-          <a href="projects/neatrelay/" class="wip-img" aria-label="NeatRelay case study"><img src="projects/neatrelay/service.jpg" alt="NeatRelay service website: 'Good work deserves a clear next step'" loading="lazy"></a>
-        </article>
-
-        <!-- Daymark -->
-        <article class="card proj" style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);" data-grid>
-          <div style="padding:30px; display:flex; flex-direction:column; gap:14px;">
-            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <span class="mono" style="font-size:0.68rem; color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.06em;">Product · Mobile app</span>
-              <span class="mono pill">Finished · try it</span>
-            </div>
-            <h3 style="font-size:1.5rem;">Daymark — Habit Heatmap</h3>
-            <p style="font-size:0.95rem; line-height:1.6; color:var(--ink-soft);">An offline habit tracker that turns small daily effort into a heatmap. Archived after the basics were done — and still free to use in your browser, on phone or desktop.</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:8px;">
-              <a href="projects/daymark/app/" class="btn btn-fill" style="padding:11px 20px;">Open the app ↗</a>
-              <a href="projects/daymark/" class="btn btn-outline" style="padding:11px 20px;">Case study</a>
-            </div>
-          </div>
-          <a href="projects/daymark/" style="display:block; background:oklch(0.20 0.02 280); border-left:1px solid var(--line); overflow:hidden;" aria-label="Daymark case study">
-            <img src="projects/daymark/screens.jpg" alt="Daymark Today and Progress screens with habit heatmaps" loading="lazy" style="width:100%; height:100%; max-height:360px; object-fit:cover; object-position:top; display:block;">
-          </a>
-        </article>
-
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SKILLS -->
-  <section id="skills" style="padding:96px 40px; border-top:1px solid var(--line);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto;">
-      <div style="display:flex; gap:64px; flex-wrap:wrap; margin-bottom:48px;">
-        <div style="flex:0 0 200px;"><p class="eyebrow">05 / Skills &amp; Tools</p></div>
-        <div style="flex:1 1 400px;"><h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem);">What I work with</h2></div>
-      </div>
-
-      <div data-grid style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:36px;">
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <p class="mono" style="font-size:0.72rem; color:var(--tag-ops); text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:10px;">Operations &amp; Reporting</p>
-          <p style="font-size:0.94rem; line-height:1.85; color:var(--ink-soft);">Process automation · Financial &amp; KPI reporting · Data validation &amp; reconciliation · Workflow documentation · Google Sheets (Apps Script) · Python · Excel</p>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <p class="mono" style="font-size:0.72rem; color:var(--tag-mkt); text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:10px;">Marketing &amp; Coordination</p>
-          <p style="font-size:0.94rem; line-height:1.85; color:var(--ink-soft);">Campaign coordination · B2B lead generation · Client &amp; KOL coordination · Sponsorship proposals · Event marketing · Meta Ads · TikTok for Business</p>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <p class="mono" style="font-size:0.72rem; color:var(--tag-copy); text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:10px;">Copywriting &amp; Content</p>
-          <p style="font-size:0.94rem; line-height:1.85; color:var(--ink-soft);">Blog &amp; article writing · Video scriptwriting · Social &amp; digital marketing copy · Brand-adaptive tone &amp; messaging · Campaign performance reporting</p>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <p class="mono" style="font-size:0.72rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:10px;">Tools &amp; Languages</p>
-          <p style="font-size:0.94rem; line-height:1.85; color:var(--ink-soft);">Apollo.io · Mailchimp · SurveyMonkey · WhatsApp Business · Adobe Premiere Pro · CapCut · Canva<br>English (Fluent) · Mandarin (Proficient)</p>
-        </div>
-      </div>
+<!-- EXPERIENCE -->
+<section class="sec" id="experience" aria-labelledby="xp-h">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="slash" id="xp-h">Experience</h2><span class="idx muted">(05)</span></div>
+    <div class="xp">
+      <details open>
+        <summary><span class="when">Feb — Jun 2026</span><span class="what">Personal Assistant, Operations &amp; Executive Support</span><span class="where">NW Group Corporate Advisory · On-site</span><span class="tags"><span>Ops</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Kept a senior executive consultant ahead of every deadline, tracking concurrent project timelines, outstanding tasks and stakeholder follow-ups across active workstreams.</li>
+          <li>Turned scattered updates into structured summaries the executive could scan for status and priorities in seconds, not meetings.</li>
+          <li>Built and maintained Google Workspace documentation — project records, research, meeting notes, presentation materials — keeping client-facing and internal work consistent.</li>
+          <li>Converted market and business research into concise, presentation-ready materials for senior management, and managed calendars, meetings and minutes to keep follow-through on track.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">Aug — Nov 2025</span><span class="what">Operations Analyst (Contract)</span><span class="where">Distinct Media · Remote</span><span class="tags"><span>Ops</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Automated recurring financial reporting with Google Sheets scripting and custom Python tools, replacing manual data handling with structured, repeatable workflows.</li>
+          <li>Built standardised weekly and monthly reporting formats that gave stakeholders one consistent view of financial and operational performance.</li>
+          <li>Audited existing reporting processes to flag manual bottlenecks, then streamlined them through scripting and structured data processing.</li>
+          <li>Validated and reconciled operational and financial datasets across multiple source systems, catching inconsistencies before they could affect a report or a decision.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">Jul — Aug 2025</span><span class="what">Account Strategist</span><span class="where">Next Level Media</span><span class="tags"><span>Mkt</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Owned day-to-day operations for assigned client accounts, tracking campaign activity, deliverables and deadlines to keep every project moving.</li>
+          <li>Served as the central point of contact between clients, KOLs and internal teams, keeping deliverables and expectations aligned across every party.</li>
+          <li>Tracked account status in real time, surfacing issues early enough for clients and internal teams to act on them.</li>
+          <li>Summarised campaign progress and next actions for stakeholders, keeping execution aligned from kickoff to delivery.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">Oct 2024 — Apr 2025</span><span class="what">Marketing Strategist</span><span class="where">BeStemReady</span><span class="tags"><span>Mkt</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Developed and promoted social media content for robotics competitions, translating event details and milestones into clear audience-facing messages.</li>
+          <li>Created and presented sponsorship proposals on-site, contributing to partner engagement and event funding.</li>
+          <li>Coordinated stakeholder follow-up and marketing deliverables, keeping event communications aligned with delivery timelines.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">May — Aug 2024</span><span class="what">Marketing Intern</span><span class="where">ITG Malaysia · On-site</span><span class="tags"><span>Mkt</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Mined market research and Apollo-based lead-generation data to surface trends and process improvements.</li>
+          <li>Delivered campaign performance reports tailored in depth and language to each audience, from analysts to executives.</li>
+          <li>Maintained campaign databases and converted activity into clear management reports, improving visibility into prospect and campaign progress.</li>
+          <li>Produced content and communication materials for exhibitions, events and planned campaign activity.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">Dec 2021 — Apr 2024</span><span class="what">Freelance Marketing Officer</span><span class="where">Seeds Marketing</span><span class="tags"><span>Mkt</span><span>Copy</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Wrote social captions, blogs and articles for client campaigns, with work published by Ajinomoto Malaysia and Vono Malaysia.</li>
+          <li>Adapted structure, tone and messaging so each asset matched the brief, the audience and the publishing format.</li>
+          <li>Ran recurring e-commerce operations across Shopify, Lazada and Shopee, keeping product and platform information accurate on every channel.</li>
+          <li>Kept client storefronts running — routine maintenance, data entry, admin upkeep — and resolved customer-support issues as they came up.</li>
+        </ul>
+      </details>
+      <details>
+        <summary><span class="when">May — Aug 2023</span><span class="what">Administration Staff</span><span class="where">Midor Interior · On-site</span><span class="tags"><span>Ops</span></span><span class="ic" aria-hidden="true">+</span></summary>
+        <ul>
+          <li>Prepared tender documentation and data entry, keeping records accurate and audit-ready.</li>
+          <li>Maintained company accounts, filing systems and sales documentation for fast, reliable retrieval across teams.</li>
+          <li>Delivered day-to-day administrative support, from document delivery to ad hoc operational requests, and shadowed the sales team on documentation.</li>
+        </ul>
+      </details>
     </div>
-  </section>
-
-  <!-- MY BACKGROUND -->
-  <section id="background" style="padding:96px 40px; border-top:1px solid var(--line);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap;">
-      <div style="flex:0 0 200px;">
-        <p class="eyebrow">06 / My Background</p>
-      </div>
-      <div style="flex:1 1 560px; min-width:280px; display:flex; flex-direction:column; gap:22px;">
-        <h2 style="font-size:clamp(1.7rem, 3vw, 2.3rem); max-width:640px; line-height:1.25;">Who am I outside of working hours</h2>
-
-        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;">
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--accent); background:var(--bg-panel); color:var(--accent-deep); font-weight:600;">INTJ-A</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Driving &amp; Travel</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Minecraft / Self-Hosted Servers</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Guitar</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Bouldering &amp; Golf</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Reading</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Coffee (Barista Trained)</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Gaming</span>
-          <span class="mono" style="font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase; padding:6px 12px; border:1px solid var(--line); background:var(--bg-panel); color:var(--ink-soft);">Home Menagerie</span>
-        </div>
-
-        <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px; margin-top:6px;">
-          Most of my travel starts with a road trip — a solo drive along Penang's coast, or flights out to Hong Kong, Hanoi, Japan, and Guangzhou when the itch to see something new gets strong enough. At home, I run my own modded Minecraft server on a Google Cloud VM — mods, resource packs, and troubleshooting, all self-taught, purely because I like building systems even when nobody's paying me to. And most of what I read lately sits in social science — Adam Grant and Malcolm Gladwell are the two authors I keep coming back to, probably because I like the same thing about people that I like about spreadsheets: there's usually a clearer pattern underneath the mess.
-        </p>
-        <p style="font-size:1.05rem; line-height:1.75; color:var(--ink-soft); max-width:640px;">
-          Outside of that, I boulder and golf and try to make it to the gym often, play guitar most evenings, and once earned a barista license from eciatto — mostly because I wanted to know what I was doing before making my own coffee at home. I've also somehow ended up looking after two sugar gliders, a sun conure, a kitten, and three dogs, which some weeks feels less like a hobby and more like a second job.
-        </p>
-      </div>
+    <div class="edu">
+      <span class="label muted">Education</span>
+      <div><b>MA, International Business Management</b><span class="muted">Heriot-Watt University Malaysia · 2021 – 2025 · GPA 3.5 · HR Officer, University Philanthropy Club</span></div>
+      <div><b>Oxburgh International School</b><span class="muted">IGCSE · 4 A*, 4 A, 1 B</span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact" style="padding:110px 40px; background:var(--ink); color:var(--paper);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto; display:flex; gap:64px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-      <div style="flex:1 1 420px; min-width:280px;">
-        <p class="eyebrow" style="color:var(--on-dark-faint);">07 / Contact</p>
-        <h2 style="font-size:clamp(2rem, 4vw, 3rem); color:var(--paper); margin-top:14px; line-height:1.15;">Reach out for any inquiry or career opportunity. I'm available 24/7/365.</h2>
-        <p class="mono" style="font-size:0.85rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-top:14px;">Amaze Amaze Amaze</p>
+<!-- CONTACT / FOOTER -->
+<footer class="deep contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-note">
+        <span class="label amaze">Amaze · Amaze · Amaze</span>
+        <h2 id="contact-h">Reach out for any inquiry or career opportunity. I’m available 24/7/365.</h2>
+        <a class="btn btn-primary" href="Nathan_Woo_Resume.pdf" download>Download résumé (PDF) <span aria-hidden="true">↓</span></a>
       </div>
-      <div style="flex:0 1 360px; display:flex; flex-direction:column; gap:18px;">
-        <a href="mailto:nathan.woork@gmail.com" style="display:flex; align-items:center; gap:12px; color:var(--paper); font-size:1.05rem; border-bottom:1px solid oklch(1 0 0 / 0.18); padding-bottom:14px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v12H3z" stroke="currentColor" stroke-width="1.5"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          nathan.woork@gmail.com
-        </a>
-        <a href="tel:+60194415430" style="display:flex; align-items:center; gap:12px; color:var(--paper); font-size:1.05rem; border-bottom:1px solid oklch(1 0 0 / 0.18); padding-bottom:14px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          +60 19-441 5430
-        </a>
-        <a href="https://www.linkedin.com/in/nathanwoork/" style="display:flex; align-items:center; gap:12px; color:var(--paper); font-size:1.05rem; padding-bottom:4px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 10v6.5M7.5 7.5v.01M12 16.5V13c0-1.4 1-2.5 2.3-2.5S16.5 11.6 16.5 13v3.5M12 10v6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          linkedin.com/in/nathanwoork
-        </a>
-        <a href="Nathan_Woo_Resume.pdf" download class="btn" style="margin-top:14px; padding:14px 24px; background:var(--accent); color:var(--ink); border:1px solid var(--accent); text-align:center;">Download Résumé (PDF)</a>
-      </div>
+      <ul class="links">
+        <li><a href="mailto:nathan.woork@gmail.com"><small>Email</small>nathan.woork@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/nathanwoork/" rel="noopener"><small>LinkedIn</small>linkedin.com/in/nathanwoork</a></li>
+        <li><a href="tel:+60194415430"><small>Phone</small>+60 19-441 5430</a></li>
+      </ul>
     </div>
-  </section>
-
-  <footer style="padding:24px 40px; background:var(--ink);" data-section-pad>
-    <div style="max-width:1160px; margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-      <p class="mono" style="font-size:0.7rem; color:oklch(0.50 0.02 258);">© 2026 Nathan Woo</p>
-      <p class="mono" style="font-size:0.7rem; color:oklch(0.50 0.02 258);">Built with care in Kuala Lumpur</p>
+    <div class="foot">
+      <span>© 2026 Nathan Woo · Built with care in Kuala Lumpur</span>
+      <a href="#top">Back to top ↑</a>
     </div>
-  </footer>
+  </div>
+</footer>
 
-</div>
+</main>
 
+<script>
+// sticky nav hairline
+const nav=document.querySelector('.nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
+// close mobile menu on link tap
+document.querySelectorAll('.sheet a').forEach(a=>a.addEventListener('click',()=>a.closest('details').open=false));
+// services: one open at a time
+const svc=[...document.querySelectorAll('.svc details')];
+svc.forEach(d=>d.addEventListener('toggle',()=>{if(d.open)svc.forEach(o=>{if(o!==d)o.open=false})}));
+// work filter
+const grid=document.getElementById('grid'),btns=[...document.querySelectorAll('.filters button')];
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const f=b.dataset.f;
+  grid.querySelectorAll('.card,.also').forEach(c=>c.hidden=!(f==='all'||c.dataset.k===f));
+}));
+</script>
 </body>
 </html>

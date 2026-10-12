@@ -6,6 +6,14 @@ const PRIORITY_ORDER = { high: 0, med: 1, low: 2 };
 const STATUS_ORDER = { doing: 0, blocked: 1, todo: 2, done: 3, dropped: 4 };
 export const isOpenTask = (t) => t.status !== 'done' && t.status !== 'dropped';
 
+/** "This week" = open work that is in motion, high priority, or due within 7 days. Everything else is backlog. */
+export function isThisWeek(t) {
+  if (!isOpenTask(t)) return false;
+  if (t.status === 'doing' || t.status === 'blocked' || t.priority === 'high') return true;
+  const horizon = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+  return !!t.due && t.due <= horizon;
+}
+
 /**
  * Fetch a data file. Real data lives in data/ (kept on this PC, never in git).
  * A fresh clone has no data/, so fall back to the sample files in data.template/.
@@ -31,8 +39,9 @@ export async function fetchGitHub(user) {
 
   try {
     const [reposRes, issuesRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${encodeURIComponent(user)}/repos?per_page=100&sort=pushed`),
-      fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(`user:${user} state:open`)}&per_page=100&sort=updated`),
+      // Never let a slow GitHub hold the page hostage: give up after 3s and use the cache (or nothing).
+      fetch(`https://api.github.com/users/${encodeURIComponent(user)}/repos?per_page=100&sort=pushed`, { signal: AbortSignal.timeout(3000) }),
+      fetch(`https://api.github.com/search/issues?q=${encodeURIComponent(`user:${user} state:open`)}&per_page=100&sort=updated`, { signal: AbortSignal.timeout(3000) }),
     ]);
     if (reposRes.status === 404) throw new Error(`GitHub user “${user}” was not found.`);
     if (reposRes.status === 403 || reposRes.status === 429) throw new Error('GitHub rate limit reached — showing cached data if available.');

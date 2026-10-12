@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Daybook — Nathan Woo</title>
   <meta name="description" content="Case study: Daybook, a private workspace that keeps the written record — daily log, handovers, file index and change history. Built with ChatGPT. By Nathan Woo.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../../fonts/FamiljenGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../case.css">
   <style>
-    pre.handover{ margin:18px 0 0; background:var(--ink); color:var(--on-dark-soft); padding:20px 22px; font-family:'IBM Plex Mono',monospace; font-size:0.8rem; line-height:1.65; overflow-x:auto; border:1px solid var(--line); white-space:pre; }
+    pre.handover{ margin:18px 0 0; background:var(--ink); color:var(--on-dark-soft); padding:20px 22px; font-family:var(--font-mono); font-size:0.8rem; line-height:1.65; overflow-x:auto; border:1px solid var(--line); white-space:pre; }
     pre.handover b{ color:var(--paper); font-weight:500; }
   </style>
 </head>
@@ -18,21 +16,22 @@
 
 <nav class="bar">
   <div class="wrap">
-    <a class="home" href="../../">Nathan Woo</a>
+    <a class="home" href="../../">nathan woo</a>
     <a href="../../#projects">← All projects</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Dashboards · Built with ChatGPT</p>
+    <p class="eyebrow">Projects · Case study 04 · Built with ChatGPT</p>
     <h1>Daybook</h1>
     <p class="lede">The documentation specialist of my workspace: it keeps the written record — what happened today, where every file is, and a handover anyone can pick up — without spending a single AI call to do it.</p>
     <dl class="facts">
       <div><dt>My role</dt><dd>Owner and daily user — brief, rules, testing</dd></div>
       <div><dt>Status</dt><dd><span class="pill">In daily use</span></dd></div>
       <div><dt>Built with</dt><dd>Node.js (no packages), HTML/JS; AI-assisted (ChatGPT)</dd></div>
-      <div><dt>Quality</dt><dd>19 automated tests passing</dd></div>
+      <div><dt>Quality</dt><dd>23 automated tests passing</dd></div>
+      <div><dt>Source</dt><dd><a href="https://github.com/nathanwoork/daybook">github.com/nathanwoork/daybook ↗</a></dd></div>
     </dl>
   </div>
 </header>
@@ -119,7 +118,7 @@ Open tasks:
         <div class="tags">
           <span>Documentation</span><span>Knowledge handover</span><span>Information management</span><span>Change history</span><span>Cost control</span><span>Tool evaluation</span>
         </div>
-        <p style="margin-top:18px;">Daybook runs on my own computer, so there's no public demo; source is available on request.</p>
+        <p style="margin-top:18px;">The code is open on <a href="https://github.com/nathanwoork/daybook">GitHub</a>. Clone it and run <code>node server.mjs</code> to try a fictional sample workspace — my real projects and data are not in the repository.</p>
       </div>
     </div>
   </section>
@@ -129,7 +128,7 @@ Open tasks:
   <div class="wrap">
     <div>
       <p class="eyebrow">Compare</p>
-      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Command Centre — the Claude build</p>
+      <p style="font-family:var(--font-grotesk); font-size:1.4rem; margin-top:6px;">Command Centre — the Claude build</p>
     </div>
     <div style="display:flex; gap:12px; flex-wrap:wrap;">
       <a class="btn btn-ghost" href="../../#projects">All projects</a>

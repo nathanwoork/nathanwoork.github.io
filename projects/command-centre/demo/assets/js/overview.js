@@ -1,30 +1,57 @@
-import { $, h, clear, mountChrome, createDrawer, errorCard, priorityPill, ago, fmtDate, daysSince, plural, LANES } from './app.js';
-import { loadModel, fetchData, todoState, sortTasks } from './model.js';
-import { buildGraph, renderGraph } from './graph.js';
+// Today: what to do now. One due strip (the screen's yellow moment), big numbers, Focus (max 3), your calls,
+// who you're waiting on, current projects, and the rest of the 9am brief folded away.
+import { $, h, clear, mountChrome, createDrawer, errorCard, fmtDate, daysSince, plural, LANES, toast, today } from './app.js';
+import { loadModel, fetchData, todoState, sortTasks, persistTodos, isThisWeek } from './model.js';
 import { projectDrawerContent } from './project-detail.js';
 
 const main = $('#main');
 const drawer = createDrawer();
 let model;
-let graphHandle;
 let reports = { latest: null, list: [] };
-
-try {
-  model = await loadModel();
-  reports = await loadReports();
-  mountChrome(model.config);
-  render();
-} catch (err) {
-  mountChrome({});
-  clear(main).append(errorCard('The dashboard couldn’t load its data.', err.message));
-}
-
-function greeting() {
-  const hr = new Date().getHours();
-  return hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening';
-}
-
 let openId = null;
+
+const PRIO = { high: 0, med: 1, low: 2 };
+
+/* ── data helpers ── */
+async function loadReports() {
+  try {
+    const idx = await fetchData('reports/index.json', { reports: [] });
+    const list = idx.reports || [];
+    const latest = list.length ? await fetchData(`reports/${list[0].date}.json`, null) : null;
+    return { latest, list };
+  } catch { return { latest: null, list: [] }; }
+}
+
+const daysUntil = (iso) => Math.round((new Date(iso + 'T12:00:00') - new Date(today() + 'T12:00:00')) / 86400000);
+
+/** The three things to do first: due/overdue, then in progress, then your high-priority calls, then high priority. */
+function pickFocus(live) {
+  const score = (t) => {
+    if (t.due && daysUntil(t.due) <= 0) return 0;
+    if (t.status === 'doing') return 1;
+    if (t.needsMe && t.priority === 'high') return 2;
+    if (t.priority === 'high') return 3;
+    if (t.due && daysUntil(t.due) <= 7) return 4;
+    return 9;
+  };
+  return live.filter((t) => t.status !== 'blocked' && !t.readonly)
+    .sort((a, b) => score(a) - score(b) || (PRIO[a.priority] ?? 1) - (PRIO[b.priority] ?? 1) || sortTasks(a, b))
+    .slice(0, 3);
+}
+
+function whyLine(t) {
+  if (t.due) {
+    const d = daysUntil(t.due);
+    if (d < 0) return `Overdue since ${fmtDate(t.due, { day: 'numeric', month: 'short' })}`;
+    if (d === 0) return 'Due today';
+    if (d <= 7) return `Due ${fmtDate(t.due, { weekday: 'short', day: 'numeric', month: 'short' })}`;
+  }
+  if (t.status === 'doing') return 'In progress';
+  if (t.notes) return t.notes.length > 90 ? t.notes.slice(0, 88) + '…' : t.notes;
+  return t.needsMe ? 'Only you can decide this' : 'High priority';
+}
+
+/* ── panel ── */
 function openProject(id, keepScroll) {
   const p = model.byId.get(id);
   if (!p) return;
@@ -35,227 +62,141 @@ function openProject(id, keepScroll) {
   if (el) el.scrollTop = top;
 }
 
-function render() {
-  graphHandle?.destroy();
-  const { projects, tasks, gh, config } = model;
-  const current = projects.filter((p) => p.lane === 'current');
-  const parked = projects.filter((p) => ['might', 'hold'].includes(p.lane)).length;
-  const open = model.liveTasks; // open work on current projects only
-  const needsMe = open.filter((t) => t.needsMe);
-  const attention = current.filter((p) => p.attention.length);
-  const high = open.filter((t) => t.priority === 'high');
-  const doneCount = tasks.filter((t) => t.status === 'done').length;
-
-  const name = config.owner?.name || '';
-  const head = h('div', { class: 'page-head' },
-    h('div', {},
-      h('h1', {}, `${greeting()}${name ? ', ' + name : ''}`),
-      h('p', { class: 'lede' },
-        `${plural(current.length, 'current project')}, ${plural(open.length, 'open task')}` +
-        (needsMe.length ? `, and ${needsMe.length} waiting on a decision from you.` : '.') + (parked ? ` ${parked} more are parked.` : ''))),
-    githubStatus());
-
-  const kpis = h('div', { class: 'grid cols-4' },
-    kpi('Current projects', current.length, `${projects.length - current.length} parked, finished or scrapped`),
-    kpi('Open tasks', open.length, `${doneCount} done`),
-    kpi('High priority', high.length, high.length ? 'start here' : 'all clear'),
-    kpi('Needs attention', attention.length, attention.length ? 'see below' : 'nothing flagged', attention.length > 0));
-
-  // Up next
-  const upNext = open.slice().sort(sortTasks).filter((t) => t.status !== 'blocked').slice(0, 6);
-  const upCard = h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Up next'), h('a', { class: 'small', href: 'projects.html' }, 'Open Command →')),
-    upNext.length
-      ? h('div', { class: 'stack', style: 'gap:0' }, upNext.map(taskRow))
-      : h('div', { class: 'empty' }, 'Nothing open. Enjoy it.'));
-
-  // Attention
-  const attCard = h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Needs attention'), h('span', { class: 'sub' }, `idle > ${model.staleAfterDays} days, blockers, unsaved work`)),
-    attention.length
-      ? h('ul', { class: 'list-plain' }, attention.map((p) => h('li', {},
-        h('button', { class: 'btn ghost sm', type: 'button', style: 'padding-left:0', onclick: () => openProject(p.id) }, h('b', {}, p.name)),
-        h('ul', { class: 'list-plain', style: 'margin-left:2px' }, p.attention.map((a) => h('li', { class: 'attention' }, '⚠ ', a))))))
-      : h('div', { class: 'empty' }, 'Every active project looks healthy.'));
-
-  // Board
-  const board = h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Project board'), h('a', { class: 'small', href: 'projects.html' }, 'Command →')),
-    h('div', { class: 'board' }, LANES.filter((l) => l.id !== 'dead').map((lane) => {
-      const items = projects.filter((p) => p.lane === lane.id);
-      return h('div', { class: 'board-col' },
-        h('h4', {}, h('span', {}, lane.label), h('span', {}, items.length)),
-        items.map((p) => h('button', { class: 'board-item', type: 'button', onclick: () => openProject(p.id) },
-          p.name, p.waiting.length ? h('span', { class: 'chip-wait', style: 'display:flex;margin-top:6px;width:fit-content' }, `Waiting on ${p.waiting[0].who}`) : null,
-          lane.id === 'current' || lane.id === 'might' ? h('div', { class: 'progress' + (p.progress === 100 ? ' ok' : '') }, h('i', { style: `width:${p.progress}%` })) : null)));
-    })),
-    (() => { const dead = projects.filter((p) => p.lane === 'dead'); return dead.length ? h('p', { class: 'small muted', style: 'margin-top:10px' }, `Idea Graveyard (${dead.length}): ${dead.map((d) => d.name).join(', ')} · `, h('a', { href: 'projects.html#lane-dead' }, 'see why')) : null; })());
-
-  // Graph + side
-  const graphHost = h('div', { class: 'graph-host' });
-  const graphCard = h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'How it connects'), h('a', { class: 'small', href: 'projects.html#graph' }, 'Open full graph →')),
-    graphHost);
-
-  const side = h('div', { class: 'stack' }, profileCard(), githubCard());
-
-  // Activity
-  const activity = h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Recent activity')),
-    activityList());
-
-  clear(main).append(head, h('div', { class: 'stack', style: 'gap:18px' },
-    remindersCard(),
-    reportCard(),
-    kpis,
-    h('div', { class: 'grid split' }, upCard, attCard),
-    board,
-    h('div', { class: 'grid split' }, graphCard, side),
-    activity));
-
-  graphHandle = renderGraph(graphHost, buildGraph(projects.filter((p) => p.lane !== 'dead')), { onSelect: openProject, height: 440, compact: true });
-}
-
-function kpi(label, value, hint, alert = false) {
-  return h('div', { class: 'card kpi' + (alert ? ' alert' : '') },
-    h('div', { class: 'label' }, label), h('div', { class: 'value' }, value), h('div', { class: 'hint' }, hint));
-}
-
-function taskRow(t) {
-  const box = h('input', {
-    type: 'checkbox', class: 'check', 'aria-label': `Mark “${t.title}” done`, disabled: t.readonly || null,
-    onchange: () => { todoState.setStatus(t.id, 'done'); refresh(); },
-  });
-  return h('div', { class: 'todo', style: 'padding-left:0;padding-right:0' },
-    box,
-    h('div', {},
-      h('div', { class: 'title' }, t.url ? h('a', { href: t.url, target: '_blank', rel: 'noopener' }, t.title) : t.title),
-      h('div', { class: 'meta' }, priorityPill(t.priority), t.project ? h('span', { class: 'small muted' }, t.project.name) : null,
-        t.needsMe ? h('span', { class: 'pill plain warn' }, 'Needs you') : null)),
-    h('span'));
-}
-
 async function refresh() {
-  // Re-merge tasks after a local change without re-fetching the network.
   model = await loadModel();
   render();
   if (openId) openProject(openId, true);
 }
 
-function remindersCard() {
-  const due = model.reminders;
-  const waitingNoDate = model.waitingOn.filter((w) => !w.followUp);
-  if (!due.length && !waitingNoDate.length) return null;
-  const label = (t) => (t.daysUntil < 0 ? ['Overdue', 'overdue'] : t.daysUntil === 0 ? ['Today', 'today'] : t.daysUntil === 1 ? ['Tomorrow', ''] : [fmtDate(t.due, { weekday: 'short', day: 'numeric', month: 'short' }), '']);
-  return h('section', { class: 'reminders' },
-    due.map((t) => { const [l, cls] = label(t);
-      return h('button', { class: `reminder ${cls}`, type: 'button', onclick: () => t.project && openProject(t.project.id) }, h('span', { class: 'when' }, l), h('b', {}, t.title), h('span', { class: 'sub' }, t.project?.name || '')); }),
-    waitingNoDate.length ? h('div', { class: 'chips-row' }, waitingNoDate.map((w) => h('button', { class: 'chip-wait', type: 'button', style: 'border:0;cursor:pointer', onclick: () => openProject(w.project.id) }, `Waiting on ${w.who}`, h('span', { style: 'font-weight:500' }, `· ${w.project.name}`)))) : null);
-}
-
-function githubStatus() {
-  const { gh, config } = model;
-  if (!config.owner?.github) return h('span', { class: 'pill plain warn' }, 'GitHub not connected');
-  if (gh.error && !gh.repos.length) return h('span', { class: 'pill plain bad' }, 'GitHub unavailable');
-  return h('span', { class: 'pill plain ok' }, `GitHub: ${config.owner.github}`);
-}
-
-function githubCard() {
-  const { gh, config } = model;
-  const card = h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'GitHub')));
-  if (!config.owner?.github) {
-    card.append(h('div', { class: 'callout warn' }, h('span', { class: 'icon' }, '🔌'),
-      h('div', {}, h('b', {}, 'Not connected yet'),
-        h('div', { class: 'small' }, 'Set ', h('code', {}, 'owner.github'), ' in ', h('code', {}, 'data/config.json'), ' and your public repos, issues and activity appear here automatically.'))));
-    return card;
-  }
-  if (gh.error) card.append(h('p', { class: 'small', style: 'color:var(--danger);margin-bottom:10px' }, gh.error));
-  const stars = gh.repos.reduce((n, r) => n + r.stars, 0);
-  const issues = gh.issues.filter((i) => !i.isPR).length;
-  const prs = gh.issues.filter((i) => i.isPR).length;
-  const langs = new Map();
-  gh.repos.forEach((r) => r.language && langs.set(r.language, (langs.get(r.language) || 0) + 1));
-  const top = [...langs].sort((a, b) => b[1] - a[1]).slice(0, 5);
-  card.append(
-    h('div', { class: 'meta-row' },
-      h('span', {}, h('b', {}, gh.repos.length), ' repos'), h('span', {}, h('b', {}, stars), ' ★'),
-      h('span', {}, h('b', {}, issues), ' open issues'), h('span', {}, h('b', {}, prs), ' open PRs')),
-    top.length ? h('div', { class: 'tags', style: 'margin-top:12px' }, top.map(([l, n]) => h('span', { class: 'tag' }, `${l} · ${n}`))) : null,
-    model.unlinkedRepos.length ? h('p', { class: 'small muted', style: 'margin-top:12px' }, `${plural(model.unlinkedRepos.length, 'public repo')} not linked to a project: ${model.unlinkedRepos.map((r) => r.name).join(', ')}.`) : null);
-  return card;
-}
-
-function profileCard() {
-  const p = model.profile;
-  const top = p.interests.slice().sort((a, b) => b.level - a.level).slice(0, 4);
-  const now = (p.directions || []).filter((d) => d.horizon === 'now');
-  return h('section', { class: 'card' },
-    h('div', { class: 'card-head' }, h('h2', {}, 'Profile snapshot'), h('span', { class: 'sub' }, `updated ${fmtDate(p.updated)}`)),
-    now.length ? h('div', { style: 'margin-bottom:12px' }, h('div', { class: 'small muted' }, 'Current focus'),
-      h('ul', { class: 'bullets', style: 'margin-top:4px' }, now.map((d) => h('li', {}, d.title)))) : null,
-    h('div', { class: 'small muted' }, 'Strongest interests'),
-    h('div', { class: 'tags', style: 'margin:6px 0 12px' }, top.map((i) => h('span', { class: 'tag' }, i.name))),
-    h('a', { class: 'small', href: 'profile.html' }, 'Open full profile →'));
-}
-
-function activityList() {
-  const events = [];
-  for (const p of model.projects.filter((x) => x.lane !== 'dead')) {
-    if (p.local?.lastCommit) events.push({ date: p.local.lastCommit, text: `Last commit on ${p.name}`, kind: 'commit' });
-    else if (p.local?.lastFileChange) events.push({ date: p.local.lastFileChange, text: `Files last changed in ${p.name}`, kind: 'file' });
-    for (const r of p.repoObjs || []) if (r.pushedAt) events.push({ date: r.pushedAt, text: `Pushed to ${r.fullName}`, kind: 'push' });
-  }
-  for (const t of model.tasks) if (t.status === 'done' && t.doneAt) events.push({ date: t.doneAt, text: `Completed: ${t.title}`, kind: 'task' });
-  for (const i of model.gh.issues.filter((x) => model.projects.some((p) => p.lane !== 'dead' && p.repoObjs?.some((r) => r.name === x.repo)))) events.push({ date: i.updatedAt, text: `${i.isPR ? 'PR' : 'Issue'} updated: ${i.title}`, kind: 'issue' });
-  events.sort((a, b) => b.date.localeCompare(a.date));
-  if (!events.length) return h('div', { class: 'empty' }, 'No activity recorded yet. Run scripts/scan-local.ps1 or connect GitHub.');
-  return h('ul', { class: 'timeline' }, events.slice(0, 8).map((e) =>
-    h('li', {}, e.text, h('time', { datetime: e.date }, `${fmtDate(e.date)} · ${ago(e.date)}`))));
-}
-
-/* ── Daily brief (written at 9am by the scheduled task into data/reports/) ── */
-async function loadReports() {
-  try {
-    const idx = await fetchData('reports/index.json', { reports: [] });
-    const list = idx.reports || [];
-    const latest = list.length ? await fetchData(`reports/${list[0].date}.json`, null) : null;
-    return { latest, list };
-  } catch { return { latest: null, list: [] }; }
-}
-
-function fmtTime(iso) {
-  const d = new Date(iso);
-  return isNaN(d) ? '' : d.toLocaleString(undefined, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-}
-
-function reportCard() {
+/* ── page ── */
+function render() {
+  const { projects } = model;
+  const current = projects.filter((p) => p.lane === 'current');
+  const live = model.liveTasks;
+  const week = live.filter(isThisWeek);
+  const yourCall = live.filter((t) => t.needsMe);
+  const focus = pickFocus(live);
+  const focusIds = new Set(focus.map((t) => t.id));
+  const dueNow = model.reminders.filter((t) => t.daysUntil <= 0);
   const r = reports.latest;
-  if (!r) {
-    return h('section', { class: 'card' }, h('div', { class: 'card-head' }, h('h2', {}, 'Today’s brief')),
-      h('div', { class: 'callout' }, h('span', { class: 'icon' }, '🗓'), h('div', {}, h('b', {}, 'No report yet.'), h('div', { class: 'small' }, 'The first one is written at 9am and appears here, and in Drive under AI Workspace / 05_Daily_Reports.'))));
-  }
-  const days = daysSince(r.date);
-  const stale = days != null && days > 1;
+  const briefIsFresh = r && daysSince(r.date) <= 1;
+
+  const title = dueNow.length === 1 ? (/follow up/i.test(dueNow[0].title) ? 'One follow-up today.' : 'One thing due today.')
+    : dueNow.length > 1 ? `${dueNow.length} things due today.`
+    : focus.length ? 'Nothing due. Pick up the thread.' : 'A clear day.';
+  const briefTime = r?.updatedAt ? new Date(r.updatedAt) : null;
+  const eyebrow = new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })
+    + (briefIsFresh && briefTime ? ` · Brief ${briefTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}` : '');
+  const head = h('header', { class: 'today-head' },
+    h('div', {},
+      h('span', { class: 'eyebrow' }, eyebrow),
+      h('h1', {}, title),
+      h('p', { class: 'lede' }, briefIsFresh ? r.headline : `${plural(current.length, 'current project')} and ${plural(week.length, 'task')} this week. ${r ? 'The latest brief is from ' + fmtDate(r.date) + '.' : 'The first brief arrives at 9am.'}`)),
+    h('a', { class: 'btn', href: 'projects.html' }, 'All projects →'));
+
+  clear(main).append(head, h('div', { class: 'stack', style: 'gap:16px' },
+    dueStrip(),
+    h('section', { class: 'grid cols-4', 'aria-label': 'Today in numbers' },
+      kpi('Current', current.length, `projects · ${projects.filter((p) => ['might', 'hold'].includes(p.lane)).length} parked`, true),
+      kpi('This week', week.length, `tasks · ${live.length - week.length} in backlog`),
+      kpi('Your call', yourCall.length, 'decisions only you can make'),
+      kpi('Waiting on', model.waitingOn.length, model.waitingOn.map((w) => w.who).join(' · ') || 'nobody')),
+    h('div', { class: 'grid split' }, focusCard(focus, week.length), sideCard(yourCall.filter((t) => !focusIds.has(t.id)))),
+    projectsCard(current),
+    restOfBrief()));
+}
+
+function kpi(label, value, hint, cut = false) {
+  return h('div', { class: 'card kpi' + (cut ? ' cut' : '') }, h('div', { class: 'label' }, label), h('div', { class: 'value' }, value), h('div', { class: 'hint' }, hint));
+}
+
+/* Due today / this week, then the next dates further out. */
+function dueStrip() {
+  const near = model.reminders;
+  const horizon = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+  const later = model.tasks.filter((t) => t.due && t.due > horizon && t.status !== 'done' && t.status !== 'dropped' && t.project && t.project.lane !== 'dead')
+    .sort((a, b) => a.due.localeCompare(b.due)).slice(0, 3);
+  if (!near.length && !later.length) return null;
+  const label = (t) => (t.daysUntil < 0 ? 'Overdue' : t.daysUntil === 0 ? 'Today' : t.daysUntil === 1 ? 'Tomorrow' : fmtDate(t.due, { weekday: 'short', day: 'numeric', month: 'short' }));
+  return h('section', { class: 'duebar', 'aria-label': 'Due and follow-ups' },
+    near.map((t) => h('button', { class: 'dueitem' + (t.daysUntil > 0 ? ' soon' : ''), type: 'button', onclick: () => t.project && openProject(t.project.id) },
+      h('span', { class: 'when' }, label(t)), h('b', {}, t.title), h('span', { class: 'proj' }, t.project?.name || ''))),
+    later.length ? h('div', { class: 'later' }, 'Later: ' + later.map((t) => `${fmtDate(t.due, { day: 'numeric', month: 'short' })} ${t.title.length > 40 ? t.title.slice(0, 38) + '…' : t.title}`).join(' · ')) : null);
+}
+
+function focusCard(focus, weekCount) {
+  return h('section', { class: 'card cut' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Focus'), h('span', { class: 'sub' }, `${focus.length} of ${weekCount} this week`)),
+    focus.length ? focus.map((t) => h('div', { class: 'focus-row' },
+      h('input', { type: 'checkbox', class: 'check', 'aria-label': `Mark “${t.title}” done`, onchange: async () => {
+        // Save to data/todos.json, not just this browser.
+        todoState.setStatus(t.id, 'done');
+        const saved = await persistTodos();
+        await refresh();
+        toast(saved ? `Done: ${t.title}` : 'Saved in this browser only (the local server isn’t running)');
+      } }),
+      h('div', {}, h('div', { class: 't' }, t.title), h('div', { class: 'why' }, whyLine(t))),
+      t.project ? h('button', { class: 'tag link', type: 'button', style: 'background:none;cursor:pointer', onclick: () => openProject(t.project.id) }, t.project.name) : h('span')))
+      : h('p', { class: 'muted' }, 'Nothing pressing. Open a project to pick something up.'));
+}
+
+function sideCard(calls) {
+  return h('section', { class: 'card' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Your call'), h('span', { class: 'sub' }, String(calls.length))),
+    calls.length ? h('div', { class: 'wlist' }, calls.slice(0, 4).map((t) => h('button', { class: 'witem', type: 'button', onclick: () => t.project && openProject(t.project.id) },
+      h('span', {}, t.title), h('span', { class: 'm' }, t.project?.name || '')))) : h('p', { class: 'muted small' }, 'No decisions waiting on you.'),
+    calls.length > 4 ? h('p', { class: 'meta-mono muted', style: 'margin-top:8px' }, `+${calls.length - 4} more inside their projects`) : null,
+    h('div', { class: 'card-head', style: 'margin:24px 0 8px' }, h('h2', {}, 'Waiting on others'), h('span', { class: 'sub' }, String(model.waitingOn.length))),
+    model.waitingOn.length ? h('div', { class: 'wlist' }, model.waitingOn.map((w) => h('button', { class: 'witem', type: 'button', onclick: () => openProject(w.project.id) },
+      h('b', {}, w.who),
+      h('span', { class: 'm' }, `${w.project.name}${w.about ? ' · ' + w.about : ''}`),
+      w.followUp ? h('span', { class: 'm' }, `Follow up ${fmtDate(w.followUp, { weekday: 'short', day: 'numeric', month: 'short' })}`) : h('span', { class: 'm warnline' }, 'No follow-up date set'))))
+      : h('p', { class: 'muted small' }, 'Nobody.'));
+}
+
+function projectsCard(current) {
+  const others = LANES.filter((l) => l.id !== 'current').map((l) => [l.label, model.projects.filter((p) => p.lane === l.id).length]).filter(([, n]) => n);
+  return h('section', { class: 'card' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Current projects'), h('a', { class: 'sub', href: 'projects.html' }, `${current.length} · all projects →`)),
+    current.map((p) => {
+      const blocked = p.tasks.filter((t) => t.status === 'blocked').length;
+      const next = p.waiting.length ? `Waiting on ${p.waiting[0].who}${p.waiting[0].about ? ' · ' + p.waiting[0].about : ''}` : (p.nextAction || '');
+      return h('div', { class: 'cproj', role: 'button', tabindex: '0', onclick: () => openProject(p.id), onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openProject(p.id); } } },
+        h('b', {}, p.name), h('span', { class: 'nx', title: next }, next),
+        h('div', { class: 'progress' }, h('i', { style: `width:${p.progress}%` })),
+        p.waiting.length ? h('span', { class: 'flag' }, 'waiting') : blocked ? h('span', { class: 'flag' }, `${blocked} blocked`) : h('span', { class: 'meta-mono' }, `${p.progress}%`));
+    }),
+    others.length ? h('p', { class: 'meta-mono muted', style: 'margin-top:14px' }, 'Also: ' + others.map(([l, n]) => `${l} ${n}`).join(' · ')) : null);
+}
+
+/* Everything else from the brief, collapsed until wanted. */
+function restOfBrief() {
+  const r = reports.latest;
+  if (!r) return h('p', { class: 'meta-mono muted' }, 'No brief yet. The first one is written at 9am and also logged to Drive under AI Workspace / 05_Daily_Reports.');
   const proj = (id) => model.byId.get(id);
-  return h('section', { class: 'card brief' },
-    h('div', { class: 'card-head' },
-      h('div', {}, h('h2', {}, 'Today’s brief'), h('span', { class: 'sub' }, `${fmtDate(r.date, { weekday: 'long', day: 'numeric', month: 'long' })}${r.updatedAt ? ` · updated ${fmtTime(r.updatedAt)}` : ''}${stale ? ` · ${days} days old — the 9am run may not have happened` : ''}`)),
-      r.driveUrl ? h('a', { class: 'btn sm', href: r.driveUrl, target: '_blank', rel: 'noopener' }, 'Open in Drive ↗') : null),
-    h('p', { class: 'brief-headline' }, r.headline),
-    h('div', { class: 'grid cols-2', style: 'margin-top:14px' },
-      h('div', {}, h('h4', { class: 'brief-h' }, 'Tackle next'),
-        h('ol', { class: 'brief-list' }, (r.focus || []).map((f) => h('li', {},
-          h('b', {}, f.title), f.project && proj(f.project) ? h('a', { class: 'tag link', style: 'margin-left:8px', href: `projects.html#${encodeURIComponent(f.project)}` }, proj(f.project).name) : null,
-          f.why ? h('div', { class: 'small muted' }, f.why) : null)))),
-      h('div', { class: 'stack', style: 'gap:14px' },
-        (r.reminders || []).length ? h('div', {}, h('h4', { class: 'brief-h' }, 'Reminders'), h('ul', { class: 'bullets' }, r.reminders.map((t) => h('li', {}, t)))) : null,
-        (r.waitingOnYou || []).length ? h('div', {}, h('h4', { class: 'brief-h' }, 'Waiting on you'), h('ul', { class: 'bullets' }, r.waitingOnYou.map((t) => h('li', {}, t)))) : null,
-        (r.watch || []).length ? h('div', {}, h('h4', { class: 'brief-h' }, 'Keep an eye on'), h('ul', { class: 'bullets' }, r.watch.map((t) => h('li', {}, t)))) : null)),
-    (r.changes || []).length || r.job ? h('details', { style: 'margin-top:14px' }, h('summary', { class: 'small muted', style: 'cursor:pointer' }, 'What changed and the rest of the picture'),
-      h('div', { class: 'grid cols-2', style: 'margin-top:10px' },
-        h('div', {}, h('h4', { class: 'brief-h' }, 'Changes'), h('ul', { class: 'bullets' }, (r.changes || []).map((t) => h('li', {}, t)))),
-        h('div', {}, h('h4', { class: 'brief-h' }, 'Each project in a line'), h('ul', { class: 'bullets' }, (r.projects || []).map((p) => h('li', {}, h('b', {}, p.name), ' — ', p.line))),
-          r.job ? h('p', { class: 'small', style: 'margin-top:10px' }, h('b', {}, 'Job search: '), r.job) : null))) : null,
-    reports.list.length > 1 ? h('details', { style: 'margin-top:10px' }, h('summary', { class: 'small muted', style: 'cursor:pointer' }, `Past reports (${reports.list.length - 1})`),
-      h('ul', { class: 'list-plain', style: 'margin-top:8px' }, reports.list.slice(1, 15).map((x) => h('li', { class: 'small' }, h('b', {}, fmtDate(x.date)), ' — ', x.headline, x.driveUrl ? [' ', h('a', { href: x.driveUrl, target: '_blank', rel: 'noopener' }, 'Drive ↗')] : null)))) : null);
+  const parts = [
+    ['Recommended', (r.focus || []).map((f) => h('li', {}, h('b', {}, f.title), f.project && proj(f.project) ? ` · ${proj(f.project).name}` : '', f.why ? h('div', { class: 'small muted' }, f.why) : null))],
+    ['Keep an eye on', (r.watch || []).map((t) => h('li', {}, t))],
+    ['What changed', (r.changes || []).map((t) => h('li', {}, t))],
+    ['Each project in a line', (r.projects || []).map((p) => h('li', {}, h('b', {}, p.name), ' · ', p.line))],
+  ].filter(([, items]) => items.length);
+  return h('details', { class: 'restbrief' },
+    h('summary', {}, `Rest of the brief · ${fmtDate(r.date, { weekday: 'short', day: 'numeric', month: 'short' })}${reports.list.length > 1 ? ` · ${reports.list.length - 1} past reports` : ''}`),
+    h('div', { class: 'card', style: 'margin-top:10px' },
+      h('div', { class: 'grid cols-2' }, parts.map(([label, items]) => h('div', {}, h('h4', { class: 'brief-h' }, label), h('ul', { class: 'bullets' }, items)))),
+      r.job ? h('p', { class: 'small', style: 'margin-top:16px' }, h('b', {}, 'Job search: '), r.job) : null,
+      h('div', { class: 'row', style: 'margin-top:18px' },
+        r.driveUrl ? h('a', { class: 'btn sm', href: r.driveUrl, target: '_blank', rel: 'noopener' }, 'Open in Drive ↗') : null,
+        reports.list.length > 1 ? h('span', { class: 'meta-mono muted' }, 'Past: ' + reports.list.slice(1, 8).map((x) => fmtDate(x.date, { day: 'numeric', month: 'short' })).join(' · ')) : null)));
+}
+
+/* ── start (kept last so every helper above is initialised first) ── */
+try {
+  model = await loadModel();
+  reports = await loadReports();
+  mountChrome(model.config);
+  render();
+} catch (err) {
+  mountChrome({});
+  clear(main).append(errorCard('The dashboard couldn’t load its data.', err.message));
 }

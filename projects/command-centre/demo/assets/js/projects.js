@@ -35,12 +35,12 @@ async function reload() {
 /* ── page ── */
 function build() {
   const search = h('input', { type: 'search', placeholder: 'Search projects, tech, themes…', 'aria-label': 'Search projects', oninput: (e) => { view.q = e.target.value.toLowerCase(); paintBody(); } });
-  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'View' }, [['command', 'Command'], ['list', 'All projects'], ['connections', 'Connections']].map(([k, label]) =>
+  const seg = h('div', { class: 'seg', role: 'group', 'aria-label': 'View' }, [['command', 'By lane'], ['list', 'Table'], ['connections', 'Connections']].map(([k, label]) =>
     h('button', { type: 'button', 'aria-pressed': String(view.mode === k), dataset: { k }, onclick: () => { view.mode = k; $$seg().forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === k))); paintBody(); } }, label)));
 
   clear(main).append(
     h('div', { class: 'page-head' },
-      h('div', {}, h('h1', {}, 'Command'),
+      h('div', {}, h('h1', {}, 'Projects'),
         h('p', { class: 'lede' }, 'Every project by where it stands, with its progress. Click one to see its milestones and its own to-do list.')),
       seg),
     h('div', { id: 'reminders' }),
@@ -112,7 +112,7 @@ function card(p) {
       h('span', { class: 'tag' }, `${p.openTasks} open`),
       p.needsMeCount ? h('span', { class: 'chip-me' }, `${p.needsMeCount} need you`) : null,
       p.local?.branch && p.local.uncommitted ? h('span', { class: 'tag' }, `${p.local.uncommitted} uncommitted`) : null),
-    p.attention.length ? h('div', { class: 'attention' }, h('span', {}, '⚠'), h('span', {}, p.attention.slice(0, 2).join(' · '))) : null);
+    p.attention.length ? h('div', { class: 'attention' }, h('span', {}, '!'), h('span', {}, p.attention.slice(0, 2).join(' · '))) : null);
 }
 
 function rowNote(p) {
@@ -175,9 +175,9 @@ function paintFoot() {
   const host = $('#foot');
   clear(host);
   if (!model.config.owner?.github) {
-    host.append(h('div', { class: 'callout warn', style: 'margin-top:30px' }, h('span', { class: 'icon' }, '🔌'), h('div', {}, h('b', {}, 'GitHub isn’t connected. '), 'Set ', h('code', {}, 'owner.github'), ' in ', h('code', {}, 'data/config.json'), ' to see repo activity.')));
+    host.append(h('div', { class: 'callout warn', style: 'margin-top:30px' }, h('span', { class: 'icon' }, 'GITHUB'), h('div', {}, h('b', {}, 'GitHub isn’t connected. '), 'Set ', h('code', {}, 'owner.github'), ' in ', h('code', {}, 'data/config.json'), ' to see repo activity.')));
   } else if (model.unlinkedRepos.length) {
-    host.append(h('div', { class: 'callout', style: 'margin-top:30px' }, h('span', { class: 'icon' }, '🔗'),
+    host.append(h('div', { class: 'callout', style: 'margin-top:30px' }, h('span', { class: 'icon' }, 'REPOS'),
       h('div', {}, h('b', {}, `${plural(model.unlinkedRepos.length, 'public repo')} not linked to a project: `), model.unlinkedRepos.map((r) => r.name).join(', '),
         h('div', { class: 'small muted' }, 'They aren’t shown as projects (that caused duplicates). To track one, add it to a project’s "repos" list in data/projects.json.'))));
   }

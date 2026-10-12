@@ -1,7 +1,7 @@
 // Project panel (side drawer): status, progress, waiting-on, milestones and the project's own to-do list.
 // Shared by Overview and Command. `ctx.onChange()` must reload data and re-open the panel after an edit.
 import { h, statusPill, priorityPill, ago, fmtDate, CONN_LABEL, plural, today, toast } from './app.js';
-import { todoState, sortTasks, isOpenTask, persistTodos } from './model.js';
+import { todoState, sortTasks, isOpenTask, persistTodos, isThisWeek } from './model.js';
 
 const BS = String.fromCharCode(92);
 
@@ -12,7 +12,7 @@ export function projectDrawerContent(p, model, ctx) {
 
   nodes.push(h('div', { class: 'row between' },
     h('div', { class: 'row' }, statusPill(p.status), lane === 'current' && p.priority ? priorityPill(p.priority) : null, p.discovered ? h('span', { class: 'pill plain' }, 'Auto-discovered') : null),
-    h('button', { class: 'btn sm ghost', type: 'button', onclick: close, 'aria-label': 'Close details' }, '✕ Close')));
+    h('button', { class: 'btn sm ghost', type: 'button', onclick: close, 'aria-label': 'Close details' }, 'Close ×')));
 
   nodes.push(h('div', {}, h('h2', {}, p.name), h('p', { class: 'muted', style: 'margin-top:8px' }, p.summary)));
 
@@ -21,13 +21,13 @@ export function projectDrawerContent(p, model, ctx) {
     nodes.push(h('div', { class: 'tombstone' }, h('b', {}, 'Idea Graveyard'), p.buried?.date ? ` · scrapped ${fmtDate(p.buried.date)}` : '',
       h('div', { class: 'muted small' }, p.buried?.reason || 'Scrapped. Nothing here needs your attention.')));
   } else if (lane === 'hold') {
-    nodes.push(h('div', { class: 'callout' }, h('span', { class: 'icon' }, '⏸'), h('div', {}, h('b', {}, 'On hold'), p.heldSince ? ` since ${fmtDate(p.heldSince)}` : '',
+    nodes.push(h('div', { class: 'callout' }, h('span', { class: 'icon' }, 'HOLD'), h('div', {}, h('b', {}, 'On hold'), p.heldSince ? ` since ${fmtDate(p.heldSince)}` : '',
       h('div', { class: 'small muted' }, p.holdReason || 'Paused on purpose. Its tasks are parked and don’t count toward your open work.'))));
   } else if (lane === 'might') {
-    nodes.push(h('div', { class: 'callout' }, h('span', { class: 'icon' }, '🔭'), h('div', {}, h('b', {}, 'Might pursue'),
+    nodes.push(h('div', { class: 'callout' }, h('span', { class: 'icon' }, 'LATER'), h('div', {}, h('b', {}, 'Might pursue'),
       h('div', { class: 'small muted' }, p.mightNote || 'Of interest, but not urgent. Needs none of your attention right now.'))));
   } else if (lane === 'done') {
-    nodes.push(h('div', { class: 'callout ok' }, h('span', { class: 'icon' }, '✓'), h('div', {}, h('b', {}, 'Finished'), p.finishedOn ? ` ${fmtDate(p.finishedOn)}` : '')));
+    nodes.push(h('div', { class: 'callout ok' }, h('span', { class: 'icon' }, 'DONE'), h('div', {}, h('b', {}, 'Finished'), p.finishedOn ? ` ${fmtDate(p.finishedOn)}` : '')));
   }
 
   if (p.waiting?.length) {
@@ -47,7 +47,7 @@ export function projectDrawerContent(p, model, ctx) {
 
   if (p.attention?.length) {
     nodes.push(h('section', {}, h('h4', {}, 'Needs attention'),
-      h('ul', { class: 'list-plain' }, p.attention.map((a) => h('li', { class: 'attention' }, h('span', {}, '⚠'), a)))));
+      h('ul', { class: 'list-plain' }, p.attention.map((a) => h('li', { class: 'attention' }, h('span', {}, '!'), a)))));
   }
 
   if (p.nextAction && lane !== 'dead') nodes.push(h('section', {}, h('h4', {}, 'Next action'), h('p', {}, p.nextAction)));
@@ -117,8 +117,10 @@ function tasksSection(p, model, ctx) {
   const tasks = (p.tasks || []).slice().sort(sortTasks);
   const open = tasks.filter(isOpenTask);
   const done = tasks.filter((t) => t.status === 'done');
+  // Your call (decisions only Nathan makes) / This week (in motion, high, due soon) / Backlog (the long plan, collapsed)
   const needsMe = open.filter((t) => t.needsMe);
-  const rest = open.filter((t) => !t.needsMe);
+  const week = open.filter((t) => !t.needsMe && isThisWeek(t));
+  const backlog = open.filter((t) => !t.needsMe && !isThisWeek(t));
   const change = async (fn, msg) => {
     fn();
     const saved = await persistTodos();
@@ -142,7 +144,7 @@ function tasksSection(p, model, ctx) {
       t.readonly ? h('span') : h('div', { class: 'row', style: 'gap:4px;flex-wrap:nowrap' },
         h('select', { 'aria-label': 'Status', onchange: (e) => change(() => todoState.setStatus(t.id, e.target.value)) },
           [['todo', 'To do'], ['doing', 'Doing'], ['blocked', 'Blocked'], ['done', 'Done']].map(([v, l]) => h('option', { value: v, selected: v === t.status || null }, l))),
-        h('button', { class: 'btn sm ghost danger', type: 'button', title: 'Remove task', 'aria-label': `Remove “${t.title}”`, onclick: () => { if (confirm('Remove this task from the list?')) change(() => todoState.remove(t.id), 'Task removed'); } }, '✕')));
+        h('button', { class: 'btn sm ghost danger', type: 'button', title: 'Remove task', 'aria-label': `Remove “${t.title}”`, onclick: () => { if (confirm('Remove this task from the list?')) change(() => todoState.remove(t.id), 'Task removed'); } }, '×')));
   };
   const group = (label, list) => (list.length ? h('div', { class: 'ptask-group' }, h('h5', {}, label), h('div', { class: 'ptasks' }, list.map(row))) : null);
 
@@ -157,10 +159,12 @@ function tasksSection(p, model, ctx) {
     change(() => todoState.add({ id: 'c-' + Date.now().toString(36), project: p.id, title: t, priority: prio.value, status: 'todo', due: due.value || null, source: 'manual' }), 'Task added');
   } }, title, prio, due, h('button', { class: 'btn primary sm', type: 'submit' }, 'Add'));
 
+  const folded = (label, list) => (list.length ? h('div', { class: 'ptask-group' }, h('details', {}, h('summary', {}, `${label} · ${list.length}`), h('div', { class: 'ptasks' }, list.map(row)))) : null);
+
   return h('section', {},
     h('h4', {}, `To-do · ${open.length} open${parked ? ' (parked)' : ''}`),
-    parked ? h('p', { class: 'small muted', style: 'margin:-2px 0 8px' }, 'These tasks are parked: they don’t appear in your open-work totals while this project isn’t current.') : null,
-    open.length ? [group('Waiting on you', needsMe), group(needsMe.length ? 'Everything else' : 'Open', rest)] : h('p', { class: 'small muted' }, 'Nothing open.'),
-    done.length ? h('details', { style: 'margin-top:10px' }, h('summary', { class: 'small muted', style: 'cursor:pointer' }, `${done.length} done`), h('div', { class: 'ptasks', style: 'margin-top:8px' }, done.map(row))) : null,
-    form);
+    form, // adding comes first, so it never needs scrolling
+    parked ? h('p', { class: 'small muted', style: 'margin:10px 0 0' }, 'These tasks are parked: they don’t appear in your open-work totals while this project isn’t current.') : null,
+    open.length ? [group(`Your call · ${needsMe.length}`, needsMe), group(`This week · ${week.length}`, week), folded('Backlog', backlog)] : h('p', { class: 'small muted', style: 'margin-top:10px' }, 'Nothing open.'),
+    folded('Done', done));
 }

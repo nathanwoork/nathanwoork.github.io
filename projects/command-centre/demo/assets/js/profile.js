@@ -1,5 +1,5 @@
 import { $, h, clear, mountChrome, errorCard, toast, downloadJSON, today, fmtDate, ago, store, plural } from './app.js';
-import { loadModel, PROFILE_KEY, saveData } from './model.js';
+import { loadModel, PROFILE_KEY, saveData, fetchData } from './model.js';
 
 const main = $('#main');
 let model;
@@ -43,7 +43,7 @@ function paint() {
       editUrl ? h('a', { class: 'btn', href: editUrl, target: '_blank', rel: 'noopener' }, 'Edit on GitHub ↗') : null)));
 
   if (model.profileIsLocal && !editing) {
-    main.append(h('div', { class: 'callout warn', style: 'margin-bottom:18px' }, h('span', { class: 'icon' }, '💾'),
+    main.append(h('div', { class: 'callout warn', style: 'margin-bottom:18px' }, h('span', { class: 'icon' }, 'LOCAL'),
       h('div', { style: 'flex:1' }, h('b', {}, 'You’re viewing a version saved only in this browser.'),
         h('div', { class: 'small' }, 'Export it and replace data/profile.json, then commit, to make it permanent (or ask Claude to apply it).'),
         h('div', { class: 'row', style: 'margin-top:8px' },
@@ -51,7 +51,7 @@ function paint() {
   }
 
   if (editing) {
-    main.append(h('div', { class: 'callout editing-banner', style: 'margin-bottom:18px', role: 'status' }, h('span', { class: 'icon' }, '✎'),
+    main.append(h('div', { class: 'callout editing-banner', style: 'margin-bottom:18px', role: 'status' }, h('span', { class: 'icon' }, 'EDIT'),
       h('div', { style: 'flex:1' }, h('b', {}, 'Editing'), h('div', { class: 'small' }, 'Changes aren’t saved until you press “Save changes”. You’ll be asked to note what changed, so the history stays honest.'))));
   }
 
@@ -68,6 +68,7 @@ function paint() {
     h('div', { class: 'grid cols-2' }, LISTS.map(([key, title, hint]) => listCard(p, key, title, hint, editing))),
     editing ? null : signalsCard(p),
     editing ? null : attentionCard(),
+    editing ? null : heatCard(),
     historyCard(p)));
 }
 
@@ -134,7 +135,7 @@ function listCard(p, key, title, hint, editing) {
   }
   list.forEach((t, i) => card.append(h('div', { class: 'edit-row', style: 'margin-bottom:8px' },
     h('input', { type: 'text', value: t, 'aria-label': title, oninput: (e) => { list[i] = e.target.value; } }),
-    h('button', { class: 'btn sm danger', type: 'button', 'aria-label': 'Remove', onclick: () => { list.splice(i, 1); paint(); } }, '✕'))));
+    h('button', { class: 'btn sm danger', type: 'button', 'aria-label': 'Remove', onclick: () => { list.splice(i, 1); paint(); } }, '×'))));
   card.append(h('button', { class: 'btn sm', type: 'button', onclick: () => { list.push(''); paint(); } }, '+ Add'));
   return card;
 }
@@ -155,7 +156,7 @@ function signalsCard(p) {
     rows.length ? rows.map((r) => h('div', { class: 'bar-row' }, h('span', {}, r.tag), h('div', { class: 'bar' }, h('i', { style: `width:${(r.n / max) * 100}%` })),
       h('span', { class: 'small ' + (r.covered ? 'muted' : ''), style: r.covered ? '' : 'color:var(--warn);font-weight:600' }, r.covered ? `${r.n} ✓` : `${r.n} · missing`)))
       : h('div', { class: 'empty' }, 'Add tags to projects to see themes.'),
-    gaps.length ? h('div', { class: 'callout', style: 'margin-top:14px' }, h('span', { class: 'icon' }, '💡'),
+    gaps.length ? h('div', { class: 'callout', style: 'margin-top:14px' }, h('span', { class: 'icon' }, 'NOTE'),
       h('div', {}, h('b', {}, 'Possible blind spots'),
         h('div', { class: 'small' }, 'These themes show up in your work but aren’t reflected in your interests. Real interest, or just incidental?'),
         h('div', { class: 'tags', style: 'margin-top:8px' }, gaps.map((g) => h('button', { class: 'chip', type: 'button', title: 'Add as an interest', onclick: () => addInterest(g.tag) }, `+ ${g.tag}`))))) : null);
@@ -165,6 +166,44 @@ function addInterest(name) {
   const next = clone(profile);
   next.interests.push({ name, level: 2, trend: 'rising', evidence: model.curated.filter((x) => x.lane !== 'dead' && x.tags.includes(name)).map((x) => x.id), note: 'Added from project signals — adjust the strength once you know if it’s real.' });
   commit(next, `Added interest “${name}”`, 'Surfaced by the project-signals check.');
+}
+
+/* ── where your time went: a 15-week activity heatmap from real signals ── */
+let filesIndex = null;
+function heatCard() {
+  const WEEKS = 15;
+  const counts = new Map(); // date -> {c: commits, t: tasks done, f: files changed}
+  const bump = (d, k, n = 1) => { if (!d) return; const e = counts.get(d) || { c: 0, t: 0, f: 0 }; e[k] += n; counts.set(d, e); };
+  const live = new Set(model.projects.filter((p) => p.lane !== 'dead' && p.lane !== 'hold').map((p) => p.id));
+  for (const p of model.projects) if (live.has(p.id)) for (const [d, n] of Object.entries(p.local?.activity || {})) bump(d, 'c', n);
+  for (const t of model.tasks) if (t.status === 'done' && t.doneAt && live.has(t.projectId)) bump(t.doneAt, 't');
+  const walk = (n) => { if (n.type === 'file') bump(n.modified, 'f'); (n.children || []).forEach(walk); };
+  for (const item of filesIndex?.items || []) if (item.project && live.has(item.project)) walk(item);
+
+  // grid: columns are weeks (Mon..Sun), the last column is this week
+  const now = new Date(today() + 'T12:00:00');
+  const monday = new Date(now); monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const start = new Date(monday); start.setDate(monday.getDate() - (WEEKS - 1) * 7);
+  const cells = [];
+  let max = 0; let total = { c: 0, t: 0, f: 0 }; let activeDays = 0;
+  for (let i = 0; i < WEEKS * 7; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    const iso = d.toISOString().slice(0, 10);
+    const e = counts.get(iso) || { c: 0, t: 0, f: 0 };
+    const score = e.c * 3 + e.t * 3 + e.f;
+    if (d <= now) { max = Math.max(max, score); total = { c: total.c + e.c, t: total.t + e.t, f: total.f + e.f }; if (score) activeDays++; }
+    cells.push({ iso, e, score, future: d > now });
+  }
+  const level = (s) => (!s ? '' : s >= max * 0.75 ? 'l4' : s >= max * 0.45 ? 'l3' : s >= max * 0.2 ? 'l2' : 'l1');
+  const grid = h('div', { class: 'heat', role: 'img', 'aria-label': `Activity over ${WEEKS} weeks: ${activeDays} active days` },
+    cells.map((c) => h('i', { class: c.future ? 'future' : level(c.score), title: c.future ? '' : `${fmtDate(c.iso, { weekday: 'short', day: 'numeric', month: 'short' })}: ${plural(c.e.c, 'commit')}, ${plural(c.e.t, 'task')} done, ${plural(c.e.f, 'file')} changed` })));
+  return h('section', { class: 'card' },
+    h('div', { class: 'card-head' }, h('h2', {}, 'Where your time went'), h('span', { class: 'sub' }, `${WEEKS} weeks · current, finished and might-pursue projects`)),
+    h('div', { class: 'heat-wrap' }, h('div', { class: 'heat-days' }, ['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((d) => h('span', {}, d))), grid),
+    h('div', { class: 'row between', style: 'margin-top:14px' },
+      h('span', { class: 'meta-mono muted' }, `${activeDays} active days · ${plural(total.c, 'commit')} · ${plural(total.t, 'task')} done · ${plural(total.f, 'file')} changed`),
+      h('span', { class: 'heat-legend' }, 'Less', ['', 'l1', 'l2', 'l3', 'l4'].map((l) => h('i', { class: l, style: l ? '' : 'background:var(--bg)' })), 'More')),
+    h('p', { class: 'small muted', style: 'margin-top:8px' }, 'Built from git commits in your project folders, tasks you ticked off, and file changes the scanner sees. Scrapped and on-hold projects are left out.'));
 }
 
 function attentionCard() {
@@ -236,6 +275,7 @@ function save() {
 /* ── start (kept last so every helper above is initialised first) ── */
 try {
   model = await loadModel();
+  filesIndex = await fetchData('files-index.json', null);
   mountChrome(model.config);
   profile = model.profile;
   paint();

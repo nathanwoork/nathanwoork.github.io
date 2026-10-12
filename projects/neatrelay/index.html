@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NeatRelay — Nathan Woo</title>
   <meta name="description" content="NeatRelay: a work-in-progress studio for dashboards and operations workflows for small businesses. Open to projects. By Nathan Woo.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../../fonts/FamiljenGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../case.css">
   <style>
     .hire{ background:var(--paper); border:1px solid var(--accent); padding:26px; margin-top:22px; }
     .hire h3{ font-size:1.3rem; margin-bottom:10px; }
     .stage{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:18px; }
     .stage div{ background:var(--paper); padding:16px; display:flex; flex-direction:column; gap:6px; }
-    .stage .k{ font-family:'IBM Plex Mono',monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; }
+    .stage .k{ font-family:var(--font-mono); font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; }
     .stage .done{ color:oklch(0.42 0.09 160); } .stage .now{ color:var(--accent-deep); } .stage .later{ color:var(--ink-faint); }
     .stage p{ font-size:0.88rem !important; line-height:1.5 !important; }
     @media (max-width:720px){ .stage{ grid-template-columns:1fr; } }
@@ -24,21 +22,21 @@
 
 <nav class="bar">
   <div class="wrap">
-    <a class="home" href="../../">Nathan Woo</a>
+    <a class="home" href="../../">nathan woo</a>
     <a href="../../#projects">← All projects</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Work in progress</p>
+    <p class="eyebrow">Projects · Case study 01 · Work in progress</p>
     <h1>NeatRelay</h1>
     <p class="lede">A small studio I'm building to set up dashboards and connect the day-to-day operations of small businesses — so the owner stops being the team's reminder system.</p>
     <dl class="facts">
       <div><dt>My role</dt><dd>Founder — offer, process design, delivery</dd></div>
       <div><dt>Status</dt><dd><span class="pill pill-wip">Work in progress · open to projects</span></dd></div>
       <div><dt>Tools</dt><dd>Google Sheets, Apps Script, Trello, low-code automation</dd></div>
-      <div><dt>Live pages</dt><dd><a href="https://nathanwoork.github.io/NeatRelay-Service/" style="color:var(--accent);">Service site ↗</a> · <a href="https://nathanwoork.github.io/NeatRelay/" style="color:var(--accent);">Workspace ↗</a></dd></div>
+      <div><dt>Live pages</dt><dd><a href="https://nathanwoork.github.io/NeatRelay-Service/">Service site ↗</a> · <a href="https://nathanwoork.github.io/NeatRelay/">Workspace ↗</a><br><a href="https://github.com/nathanwoork/NeatRelay-Service">GitHub: site ↗</a> · <a href="https://github.com/nathanwoork/NeatRelay">GitHub: workspace ↗</a></dd></div>
     </dl>
   </div>
 </header>
@@ -52,8 +50,8 @@
         <p>In many small teams, enquiries arrive on WhatsApp, approvals sit in email, numbers live in five spreadsheets, and nobody's sure who does what next. The owner ends up chasing everyone.</p>
         <p>NeatRelay fixes <strong>one process at a time</strong>: map how work actually flows, then set up the smallest system the team can run themselves — a dashboard that shows the numbers that matter, a board that shows who owns what, and simple reminders so nothing slips.</p>
         <figure class="shot">
-          <img src="service.jpg" alt="NeatRelay service website home page: 'Good work deserves a clear next step', with an illustrated handoff from approved proposal to assigned owner" loading="lazy">
-          <figcaption>The NeatRelay service site (preview).</figcaption>
+          <img src="service.jpg" width="1248" height="712" alt="NeatRelay service site: “Good work deserves a clear next step”, beside a lilac panel where a coral “Proposal approved” step hands off to yellow “Brief ready” and mint “The team knows what comes next”" loading="lazy">
+          <figcaption>The service site, in the new Relay Spectrum design.</figcaption>
         </figure>
       </div>
     </div>
@@ -72,8 +70,28 @@
           <div><span class="k later">Next</span><b>First pilot</b><p>One small, real project with a business willing to try it.</p></div>
         </div>
         <figure class="shot">
-          <img src="workspace.jpg" alt="NeatRelay operations workspace showing the 30-day plan, task counts and progress" loading="lazy">
-          <figcaption>The operations workspace I use to run the build-out: plan, board, services, learning.</figcaption>
+          <img src="workspace.jpg" width="1248" height="712" alt="NeatRelay operations workspace: a teal “Less chasing. Clearer work.” panel, a progress dial showing 17% of tasks complete, and lilac, butter, mint and peach count tiles" loading="lazy">
+          <figcaption>The operations workspace I run the build-out from: plan, board, services, learning and delegation.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The new look</p>
+      <div>
+        <h2>Relay Spectrum: colour with a job</h2>
+        <p>NeatRelay now has its own design language, shared by the service site and the workspace. The idea is <strong>clear work, with a little energy</strong>: a warm, quiet canvas; purposeful blocks of colour; dark rounded type; and connected handoff shapes that show what the business actually does — a decision becoming someone’s next step.</p>
+        <ul class="dash">
+          <li>Every colour has a meaning: teal for the brand and progress, mint for done, butter yellow for in progress and focus, coral for attention, lilac for planning, sky for ready.</li>
+          <li>Space Grotesk headings and Manrope text, stored with the site so it loads without outside requests.</li>
+          <li>The progress dial uses only real saved task counts — no invented activity or revenue charts.</li>
+          <li>Checked at desktop, tablet and phone widths across all 14 pages, with key colour pairs at 4.5:1 contrast or better.</li>
+        </ul>
+        <figure class="shot">
+          <img src="design-guide.jpg" width="1248" height="712" alt="Relay Spectrum design guide: the words “Relay Spectrum.” beside four tilted colour tiles in lilac, coral, butter yellow and deep teal" loading="lazy">
+          <figcaption>The Relay Spectrum design guide, published alongside both sites.</figcaption>
         </figure>
       </div>
     </div>
@@ -95,7 +113,7 @@
           <h3>Tell me what's messy.</h3>
           <p>Send a short note about your team, the tools you use and what keeps slipping. I'll reply with how I'd approach it and what a small first step could look like.</p>
           <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:16px;">
-            <a class="btn" href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project">Email me about a project</a>
+            <a class="btn btn-primary" href="mailto:nathan.woork@gmail.com?subject=Dashboard%20%2F%20operations%20project">Email me about a project</a>
             <a class="btn btn-ghost" href="https://www.linkedin.com/in/nathanwoork/">Message on LinkedIn</a>
           </div>
         </div>
@@ -111,7 +129,7 @@
   <div class="wrap">
     <div>
       <p class="eyebrow">See the kind of dashboards I build</p>
-      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Command Centre — live demo</p>
+      <p style="font-family:var(--font-grotesk); font-size:1.4rem; margin-top:6px;">Command Centre — live demo</p>
     </div>
     <div style="display:flex; gap:12px; flex-wrap:wrap;">
       <a class="btn btn-ghost" href="../../#projects">All projects</a>

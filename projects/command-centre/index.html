@@ -5,30 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Command Centre — Nathan Woo</title>
   <meta name="description" content="Case study: a day-to-day command centre that keeps every project's status, next step and blockers in one view. Built with Claude. By Nathan Woo.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" href="../../fonts/FamiljenGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../case.css">
 </head>
 <body>
 
 <nav class="bar">
   <div class="wrap">
-    <a class="home" href="../../">Nathan Woo</a>
+    <a class="home" href="../../">nathan woo</a>
     <a href="../../#projects">← All projects</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--on-dark-faint);">Sample Portfolio · Dashboards · Built with Claude</p>
+    <p class="eyebrow">Projects · Case study 02 · Built with Claude</p>
     <h1>Command Centre</h1>
-    <p class="lede">A day-to-day dashboard that answers one question every morning: what's going on, what's stuck, and what should I do next? It isn't a filing cabinet — it's the control room.</p>
+    <p class="lede">My day-to-day control room. Every morning it answers three questions across everything I run — what’s due, what’s stuck, and what to do next. It isn’t a filing cabinet; it’s where I decide.</p>
     <dl class="facts">
       <div><dt>My role</dt><dd>Owner and daily user — brief, layout, rules, review</dd></div>
       <div><dt>Status</dt><dd><span class="pill">In daily use</span></dd></div>
       <div><dt>Built with</dt><dd>HTML/JS, Python, PowerShell; AI-assisted (Claude)</dd></div>
-      <div><dt>Try it</dt><dd><a href="demo/" style="color:var(--accent);">Live demo with sample data →</a></dd></div>
+      <div><dt>Try it</dt><dd><a href="demo/">Live demo with sample data →</a></dd></div>
     </dl>
   </div>
 </header>
@@ -49,22 +47,38 @@
     <div class="wrap grid2">
       <p class="eyebrow">How it works</p>
       <div>
-        <h2>Status first, details on demand</h2>
+        <h2>What’s due first, everything else one click away</h2>
         <ul class="dash">
-          <li><strong>Today's brief:</strong> a short written summary at 9am — what to tackle next, reminders, what's waiting on me, what to keep an eye on.</li>
-          <li><strong>Key numbers:</strong> current projects, open tasks, high-priority items and anything that needs attention (idle for 14+ days, blocked, or unsaved).</li>
-          <li><strong>Up next:</strong> the top tasks across every project, sorted by priority, with "Needs you" flags for decisions only I can make.</li>
-          <li><strong>Project board:</strong> every project sorted into Current, Might pursue, On hold, Finished and an "Idea Graveyard", each with a progress bar from its milestones.</li>
-          <li><strong>Waiting on:</strong> who each project is waiting for, and the follow-up date — which becomes a reminder a week ahead.</li>
+          <li><strong>The due strip:</strong> today’s follow-ups and the next dates, at the very top — the one place the yellow accent appears.</li>
+          <li><strong>Four big numbers:</strong> current projects, tasks this week, decisions only I can make, and who I’m waiting on.</li>
+          <li><strong>Focus:</strong> the three tasks to do first, ticked off right there.</li>
+          <li><strong>Your call and Waiting on others:</strong> decisions that need me, and follow-ups owed by someone else, each with a date.</li>
+          <li><strong>Current projects:</strong> one line each with its next step and progress; the full written 9am brief folds away underneath.</li>
         </ul>
         <figure class="shot">
-          <img src="overview.jpg" alt="Command Centre overview: reminders strip, today's brief with next steps, and key-number tiles" loading="lazy">
-          <figcaption>Overview: reminders, the daily brief and key numbers. Fictional sample data.</figcaption>
+          <img src="overview.jpg" width="1280" height="1180" alt="Command Centre Today view: “Nothing due. Pick up the thread.”, a due strip with two dated follow-ups, four big numbers, a focus list, your-call and waiting-on panels and current projects" loading="lazy">
+          <figcaption>Today view. Fictional sample data — <a href="demo/">open the live demo</a>.</figcaption>
         </figure>
         <figure class="shot">
-          <img src="board.jpg" alt="Up-next task list, needs-attention panel and the project board grouped by lifecycle lane" loading="lazy">
-          <figcaption>Up next, needs attention and the project board.</figcaption>
+          <img src="command.jpg" width="1280" height="1100" alt="Projects view: cards grouped into Current, Might pursue, On hold, Finished and Idea Graveyard, each with milestone progress and next step" loading="lazy">
+          <figcaption>Projects: every project by lane, with milestones, next step and open tasks.</figcaption>
         </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap grid2">
+      <p class="eyebrow">The new look</p>
+      <div>
+        <h2>Rebuilt in my own design language</h2>
+        <p>The first version worked but looked like a generic dashboard. I rebuilt it on the <strong>Woo Design Language</strong>, the house style I now start every project from, using its Midnight register: deep navy, hairline Urbanist numerals, Hanken Grotesk for reading and Martian Mono for labels.</p>
+        <ul class="dash">
+          <li>One yellow moment per screen — whatever is due — so the eye always lands in the right place.</li>
+          <li>No emoji and no decorative icons; typographic arrows and mono labels do the work.</li>
+          <li>Every text colour checked to hold 4.5:1 contrast, with a light theme that follows the device setting.</li>
+          <li>A profile page with a 15-week activity heatmap of commits, finished tasks and file changes.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -101,6 +115,7 @@
         <div class="tags">
           <span>Dashboard design</span><span>KPI selection</span><span>Prioritisation logic</span><span>Information architecture</span><span>Data privacy</span><span>Directing AI tools</span>
         </div>
+        <p style="margin-top:20px;">The code (the dashboard itself with fictional sample data, never my real projects) is being prepared for GitHub.</p>
       </div>
     </div>
   </section>
@@ -110,7 +125,7 @@
   <div class="wrap">
     <div>
       <p class="eyebrow">See it working</p>
-      <p style="font-family:'Newsreader',serif; font-size:1.4rem; margin-top:6px;">Open the live demo — click around, tick tasks off.</p>
+      <p style="font-family:var(--font-grotesk); font-size:1.4rem; margin-top:6px;">Open the live demo — click around, tick tasks off.</p>
     </div>
     <div style="display:flex; gap:12px; flex-wrap:wrap;">
       <a class="btn btn-ghost" href="../daybook/">Compare: Daybook</a>

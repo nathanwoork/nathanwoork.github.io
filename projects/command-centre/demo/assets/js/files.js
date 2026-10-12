@@ -8,7 +8,7 @@ const view = { q: '', kind: 'all', where: 'all' };
 let model; let index; let drive;
 
 const KINDS = [['all', 'Everything'], ['doc', 'Documents'], ['data', 'Data & sheets'], ['code', 'Code & web'], ['image', 'Images'], ['archive', 'Archives']];
-const ICON = { dir: '📁', doc: '📄', data: '🗂', code: '🧩', image: '🖼', archive: '🗜', other: '📎' };
+const ICON = { dir: 'DIR', doc: 'DOC', data: 'DATA', code: 'CODE', image: 'IMG', archive: 'ZIP', other: 'FILE' };
 
 const getJSON = (name, fallback) => fetchData(name, fallback);
 
@@ -132,7 +132,7 @@ function folderCard(item, rel) {
   const proj = item.project ? model.byId.get(item.project) : null;
   const d = h('details', { class: 'card folder-card', dataset: { rel }, open: filtering() || null });
   d.append(h('summary', { class: 'folder-head' },
-    h('span', { class: 'ico' }, '📁'),
+    h('span', { class: 'ico' }, 'DIR'),
     h('div', { class: 'grow' },
       h('div', { class: 'row' }, h('h3', {}, item.title),
         h('span', { class: 'pill plain' }, item.root),
@@ -194,7 +194,7 @@ function fileRow(node, rel) {
 function driveSection() {
   if (!drive) return null;
   const q = view.q;
-  const typeIcon = { doc: '📄', data: '🗂', folder: '📁' };
+  const typeIcon = { doc: 'DOC', data: 'DATA', folder: 'DIR' };
   const item = (it) => h('div', { class: 'file-row' + (it.key ? ' key' : '') },
     h('span', { class: 'ico' }, typeIcon[it.type] || ICON.other),
     h('div', { class: 'grow' }, h('div', {}, h('a', { href: it.url, target: '_blank', rel: 'noopener' }, it.title)), it.about ? h('div', { class: 'small muted' }, it.about) : null),

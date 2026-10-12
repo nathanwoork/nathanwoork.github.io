@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Command · Project Dashboard</title>
+<title>Projects · Project Dashboard</title>
 <meta name="description" content="All projects, their GitHub status and how they connect">
+<meta name="theme-color" content="#1a2120">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Martian+Mono:wght@400;500&family=Urbanist:wght@250;300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 <script src="demo-shim.js"></script>
 </head>
@@ -20,13 +21,13 @@
 <footer id="site-footer"></footer>
 <noscript><p class="wrap">This dashboard needs JavaScript to read its data files.</p></noscript>
 <script>
-/* Self-heal: if the page is still on its loading skeleton after 4s (e.g. a stale cached script), refresh the cached assets once and reload. */
+/* Self-heal: if the page is still on its loading skeleton after 9s (e.g. a stale cached script), refresh the cached assets once and reload. */
 setTimeout(function () {
   if (!document.querySelector('.skeleton')) { try { sessionStorage.removeItem('dash.heal'); } catch (e) {} return; }
   try { if (sessionStorage.getItem('dash.heal')) return; sessionStorage.setItem('dash.heal', '1'); } catch (e) {}
   var files = ['assets/css/style.css'].concat(['app', 'model', 'graph', 'project-detail', 'overview', 'projects', 'files', 'profile'].map(function (n) { return 'assets/js/' + n + '.js'; }));
   Promise.all(files.map(function (u) { return fetch(u, { cache: 'reload' }); })).then(function () { location.reload(); });
-}, 4000);
+}, 9000);
 </script>
 <script type="module" src="assets/js/projects.js"></script>
 </body>

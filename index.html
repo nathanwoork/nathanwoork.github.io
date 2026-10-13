@@ -74,7 +74,7 @@ a:hover .arr{transform:translate(2px,-2px)}
 .menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;min-height:var(--tap);padding:0 18px;border:1px solid var(--ink-on-deep-muted);border-radius:999px;font:500 15px/1 var(--font-grotesk)}
 .menu>summary::-webkit-details-marker{display:none}
 .menu .bars{width:16px;height:8px;border-top:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transition:transform .2s}
-.menu[open] .bars{height:0;border-bottom:0;transform:rotate(45deg)}
+.menu[open] .bars{width:16px;height:16px;border:0;background:linear-gradient(45deg,transparent 45%,currentColor 45% 55%,transparent 55%),linear-gradient(-45deg,transparent 45%,currentColor 45% 55%,transparent 55%);transform:none}
 .sheet{position:absolute;left:0;right:0;top:100%;background:var(--navy);border-top:1px solid var(--line-on-deep);padding:8px var(--gutter) 32px;height:calc(100svh - 68px);overflow:auto}
 .sheet ul{list-style:none;margin:0;padding:0}
 .sheet li+li{border-top:1px solid var(--line-on-deep)}
@@ -287,6 +287,38 @@ section{scroll-margin-top:68px}
   @keyframes rise{from{transform:translateY(30%);opacity:0}to{transform:none;opacity:1}}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* phone layout: shorter page, swipeable work and projects */
+.swipe{display:none}
+@media (max-width:859px){
+  .sec{padding:var(--space-16) 0}
+  .sec-head{margin-bottom:var(--space-8)}
+  .about{gap:var(--space-8)}
+  .about-text{font-size:17px;line-height:28px}
+  .motto q{font-size:18px}
+  .ghost-wrap{margin-bottom:var(--space-8)}
+  .ghost-wrap{overflow:hidden}
+  .ghost{font-size:20vw}
+  .work-intro{margin-bottom:var(--space-6)}
+  .swipe{display:flex;justify-content:space-between;align-items:center;font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 var(--space-4)}
+  .deep .swipe{color:var(--ink-on-deep-muted)}
+  .grid,.pj-grid{display:flex;gap:var(--space-4);overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*var(--gutter));padding:0 var(--gutter) var(--space-4);scroll-padding-left:var(--gutter);-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .grid::-webkit-scrollbar,.pj-grid::-webkit-scrollbar{display:none}
+  .grid > *,.pj-grid > *{flex:0 0 86%;scroll-snap-align:start;min-width:0}
+  .card.feature{grid-template-columns:1fr}
+  .also{grid-template-columns:1fr;align-content:start;border-top:0;border-left:1px solid var(--line-on-deep);padding:0 0 0 var(--space-4)}
+  .pj-intro{margin-bottom:var(--space-8)}
+  .pj-intro .h2{font-size:34px}
+  .pj-grid > .pj{margin-top:0 !important}
+  .pj p{font-size:15px;line-height:24px}
+  .pj-feature{padding:var(--space-4)}
+  .pj-feature p + p{display:none}
+  .pj-also{grid-template-columns:1fr;border-top:0;padding-top:0;align-content:start}
+  .pj-also .pj-media{justify-self:start;max-width:100%}
+  .pj-links{gap:4px var(--space-4)}
+  .xp summary{padding:var(--space-4) 0}
+  .edu{margin-top:var(--space-8)}
+}
 </style>
 </head>
 <body>
@@ -425,6 +457,7 @@ section{scroll-margin-top:68px}
         <button type="button" aria-pressed="false" data-f="ops">Operations</button>
       </div>
     </div>
+    <p class="swipe" aria-hidden="true"><span>Swipe for more</span><span>→</span></p>
     <div class="grid" id="grid">
       <article class="card feature" data-k="copy">
         <div class="media pair">
@@ -481,6 +514,7 @@ section{scroll-margin-top:68px}
       <p class="h2">Things I’ve built.</p>
       <p class="muted">Six self-initiated tools, from a dashboard studio for small businesses to the command centre I run my own week on. I set the scope, the rules and the numbers, then direct an AI-assisted build through to something tested and in use. Every one has a case study.</p>
     </div>
+    <p class="swipe" aria-hidden="true"><span>6 projects · swipe</span><span>→</span></p>
     <div class="pj-grid">
 
       <article class="pj pj-feature">
